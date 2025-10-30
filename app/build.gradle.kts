@@ -59,5 +59,6 @@ dependencies {
     androidTestImplementation(platform(libs.androidxComposeBomLibrary))
     androidTestImplementation(libs.androidxComposeUiTestJunit4Library)
     debugImplementation(libs.androidxComposeUiToolingLibrary)
+    debugImplementation(libs.androidxComposeUiToolingPreviewLibrary)
     debugImplementation(libs.androidxComposeUiTestManifestLibrary)
 }
