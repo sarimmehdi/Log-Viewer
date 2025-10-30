@@ -1,0 +1,32 @@
+[versions]
+agpVersion = "8.13.0"
+kotlinVersion = "2.2.21"
+coreKtxVersion = "1.17.0"
+junitVersion = "4.13.2"
+androidJunitVersion = "1.3.0"
+espressoCoreVersion = "3.7.0"
+lifecycleRuntimeKtxVersion = "2.9.4"
+activityComposeVersion = "1.11.0"
+composeBomVersion = "2025.10.01"
+
+[libraries]
+androidxCoreKtxLibrary = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
+junitLibrary = { group = "junit", name = "junit", version.ref = "junitVersion" }
+androidxJunitLibrary = { group = "androidx.test.ext", name = "junit", version.ref = "androidJunitVersion" }
+androidxEspressoCoreLibrary = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+androidxLifecycleRuntimeKtxLibrary = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
+androidxActivityComposeLibrary = { group = "androidx.activity", name = "activity-compose", version.ref = "activityComposeVersion" }
+androidxComposeBomLibrary = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBomVersion" }
+androidxComposeUiLibrary = { group = "androidx.compose.ui", name = "ui" }
+androidxComposeUiGraphicsLibrary = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidxComposeUiToolingLibrary = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidxComposeUiToolingPreviewLibrary = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidxComposeUiTestManifestLibrary = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidxComposeUiTestJunit4Library = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidxComposeMaterial3Library = { group = "androidx.compose.material3", name = "material3" }
+
+[plugins]
+androidApplicationPlugin = { id = "com.android.application", version.ref = "agpVersion" }
+kotlinAndroidPlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
+kotlinComposePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
+
