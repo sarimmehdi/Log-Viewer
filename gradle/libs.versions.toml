@@ -8,8 +8,10 @@ espressoCoreVersion = "3.7.0"
 lifecycleRuntimeKtxVersion = "2.9.4"
 activityComposeVersion = "1.11.0"
 composeBomVersion = "2025.10.01"
+kotlinXImmutableCollectionsVersion = "0.4.0"
 
 [libraries]
+kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
 androidxCoreKtxLibrary = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
 junitLibrary = { group = "junit", name = "junit", version.ref = "junitVersion" }
 androidxJunitLibrary = { group = "androidx.test.ext", name = "junit", version.ref = "androidJunitVersion" }

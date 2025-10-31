@@ -11,11 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun SidebarComponent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    data: SidebarComponentData = SidebarComponentData(),
 ) {
     Column(
         modifier = modifier
@@ -43,13 +49,9 @@ fun SidebarComponent(
         CustomScrollableListComponent(
             contentHeight = 233.dp
         ) {
-            items(10) { index ->
+            items(data.dateObjects.size) { index ->
                 SidebarListItemComponent(
-                    data = SidebarListItemComponentData(
-                        heading = "Date 1",
-                        subHeading = "9 sessions",
-                        selected = index % 2 == 0
-                    )
+                    data = data.dateObjects[index]
                 )
             }
         }
@@ -75,21 +77,49 @@ fun SidebarComponent(
         CustomScrollableListComponent(
             contentHeight = 234.dp
         ) {
-            items(10) { index ->
+            items(data.sessionObjects.size) { index ->
                 SidebarListItemComponent(
-                    data = SidebarListItemComponentData(
-                        heading = "Session 1",
-                        subHeading = "10 messages",
-                        selected = index % 2 == 0
-                    )
+                    data = data.sessionObjects[index]
                 )
             }
         }
     }
 }
 
-@Preview
+data class SidebarComponentData(
+    val dateObjects: ImmutableList<SidebarListItemComponentData> = persistentListOf(),
+    val sessionObjects: ImmutableList<SidebarListItemComponentData> = persistentListOf(),
+)
+
 @Composable
-fun SidebarComponentPreview() {
-    SidebarComponent()
+@Preview
+internal fun SidebarComponentPreview(
+    @PreviewParameter(SidebarComponentDataParameterProvider::class) data: SidebarComponentData,
+) {
+    SidebarComponent(
+        data = data,
+    )
+}
+
+class SidebarComponentDataParameterProvider :
+    PreviewParameterProvider<SidebarComponentData> {
+
+    override val values = sequenceOf(
+        SidebarComponentData(
+            dateObjects = List(10) { index ->
+                SidebarListItemComponentData(
+                    heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    selected = index % 2 == 0
+                )
+            }.toImmutableList(),
+            sessionObjects = List(10) { index ->
+                SidebarListItemComponentData(
+                    heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                    selected = index % 2 == 0
+                )
+            }.toImmutableList()
+        )
+    )
 }
