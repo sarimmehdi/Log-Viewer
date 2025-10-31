@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -22,8 +23,8 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SidebarListItemComponent(
+    modifier: Modifier = Modifier,
     data: SidebarListItemComponentData = SidebarListItemComponentData(),
-    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -56,7 +57,9 @@ fun SidebarListItemComponent(
                     ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 24.sp,
-                color = Color.White
+                color = Color.White,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             Spacer(
                 modifier = Modifier
@@ -74,7 +77,9 @@ fun SidebarListItemComponent(
                     ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 20.sp,
-                color = Color.White.copy(alpha = 0.5f)
+                color = Color.White.copy(alpha = 0.5f),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }
@@ -100,24 +105,14 @@ class SidebarListItemComponentDataParameterProvider :
     PreviewParameterProvider<SidebarListItemComponentData> {
     override val values = sequenceOf(
         SidebarListItemComponentData(
-            heading = "Date 1",
-            subHeading = "9 sessions",
+            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             selected = true
         ),
         SidebarListItemComponentData(
-            heading = "Date 1",
-            subHeading = "9 sessions",
+            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             selected = false
         ),
-        SidebarListItemComponentData(
-            heading = "Session 1",
-            subHeading = "10 messages",
-            selected = true
-        ),
-        SidebarListItemComponentData(
-            heading = "Session 1",
-            subHeading = "10 messages",
-            selected = false
-        )
     )
 }
