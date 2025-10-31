@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,9 +24,9 @@ import androidx.compose.ui.unit.sp
 import com.sarim.logviewer.R
 
 @Composable
-fun SidebarSearchboxComponent(
-    data: SidebarSearchboxComponentData = SidebarSearchboxComponentData(),
-    modifier: Modifier = Modifier
+fun SearchboxComponent(
+    modifier: Modifier = Modifier,
+    data: SearchboxComponentData = SearchboxComponentData(),
 ) {
     Row(
         modifier = modifier
@@ -58,29 +57,29 @@ fun SidebarSearchboxComponent(
     }
 }
 
-data class SidebarSearchboxComponentData(
+data class SearchboxComponentData(
     val placeholderText: String = "",
     val iconDescription: String = "",
 )
 
 @Composable
 @Preview
-internal fun SidebarSearchboxComponentPreview(
-    @PreviewParameter(SidebarSearchboxComponentDataParameterProvider::class) data: SidebarSearchboxComponentData,
+internal fun SearchboxComponentPreview(
+    @PreviewParameter(SearchboxComponentDataParameterProvider::class) data: SearchboxComponentData,
 ) {
-    SidebarSearchboxComponent(
+    SearchboxComponent(
         data = data,
     )
 }
 
-class SidebarSearchboxComponentDataParameterProvider :
-    PreviewParameterProvider<SidebarSearchboxComponentData> {
+class SearchboxComponentDataParameterProvider :
+    PreviewParameterProvider<SearchboxComponentData> {
     override val values = sequenceOf(
-        SidebarSearchboxComponentData(
+        SearchboxComponentData(
             placeholderText = "Search dates",
             iconDescription = "Icon to search dates",
         ),
-        SidebarSearchboxComponentData(
+        SearchboxComponentData(
             placeholderText = "Search sessions",
             iconDescription = "Icon to search sessions",
         )

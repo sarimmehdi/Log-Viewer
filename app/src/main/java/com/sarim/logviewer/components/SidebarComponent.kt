@@ -25,8 +25,8 @@ fun SidebarComponent(
     ) {
         SidebarHeaderComponent()
         SidebarHorizontalDividerComponent()
-        SidebarSearchboxComponent(
-            data = SidebarSearchboxComponentData(
+        SearchboxComponent(
+            data = SearchboxComponentData(
                 placeholderText = "Search dates",
                 iconDescription = "Icon to search dates",
             ),
@@ -40,23 +40,25 @@ fun SidebarComponent(
         Spacer(
             modifier = Modifier.size(9.dp)
         )
-        List(3) { index ->
-            SidebarListItemComponentData(
-                heading = "Date 1",
-                subHeading = "9 sessions",
-                selected = index % 2 == 0
-            )
-        }.forEach { data ->
-            SidebarListItemComponent(
-                data = data
-            )
+        CustomScrollableListComponent(
+            contentHeight = 233.dp
+        ) {
+            items(10) { index ->
+                SidebarListItemComponent(
+                    data = SidebarListItemComponentData(
+                        heading = "Date 1",
+                        subHeading = "9 sessions",
+                        selected = index % 2 == 0
+                    )
+                )
+            }
         }
         SidebarHorizontalDividerComponent(
             modifier = Modifier
                 .padding(top = 18.dp)
         )
-        SidebarSearchboxComponent(
-            data = SidebarSearchboxComponentData(
+        SearchboxComponent(
+            data = SearchboxComponentData(
                 placeholderText = "Search sessions",
                 iconDescription = "Icon to search sessions",
             ),
@@ -70,16 +72,18 @@ fun SidebarComponent(
         Spacer(
             modifier = Modifier.size(22.dp)
         )
-        List(3) { index ->
-            SidebarListItemComponentData(
-                heading = "Session 1",
-                subHeading = "10 messages",
-                selected = index % 2 == 0
-            )
-        }.forEach { data ->
-            SidebarListItemComponent(
-                data = data
-            )
+        CustomScrollableListComponent(
+            contentHeight = 234.dp
+        ) {
+            items(10) { index ->
+                SidebarListItemComponent(
+                    data = SidebarListItemComponentData(
+                        heading = "Session 1",
+                        subHeading = "10 messages",
+                        selected = index % 2 == 0
+                    )
+                )
+            }
         }
     }
 }
