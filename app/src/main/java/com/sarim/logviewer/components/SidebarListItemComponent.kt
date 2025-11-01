@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
@@ -67,7 +66,7 @@ fun SidebarListItemComponent(
                                 },
                             top = 5.dp,
                         ),
-                fontStyle = FontStyle.Normal,
+                fontWeight = FontWeight.Normal,
                 fontSize = 24.sp,
                 fontFamily =
                     FontFamily(
@@ -96,7 +95,7 @@ fun SidebarListItemComponent(
                                     33.dp
                                 },
                         ),
-                fontStyle = FontStyle.Normal,
+                fontWeight = FontWeight.Normal,
                 fontSize = 20.sp,
                 fontFamily =
                     FontFamily(
