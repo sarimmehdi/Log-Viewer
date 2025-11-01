@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sarim.logviewer.R
@@ -35,24 +37,18 @@ fun DropDownButtonComponent(
     Row(
         modifier =
             modifier
-                .height(50.dp)
                 .clip(RoundedCornerShape(10.dp))
                 .border(
                     width = 1.dp,
-                    color = Color(0xFF007AD3),
+                    color = data.borderColor,
                     shape = RoundedCornerShape(10.dp),
                 ),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
-            modifier =
-                Modifier
-                    .padding(
-                        top = 10.dp,
-                        start = 10.dp,
-                    ),
+            modifier = data.textModifier,
             fontStyle = FontStyle.Normal,
-            fontSize = 24.sp,
+            fontSize = data.fontSize,
             fontFamily =
                 FontFamily(
                     Font(R.font.inter_24_regular, FontWeight.Normal),
@@ -60,24 +56,25 @@ fun DropDownButtonComponent(
                     Font(R.font.inter_24_bold, FontWeight.Bold),
                 ),
             text = data.name,
-            color = Color(0xFF007AD3),
+            color = data.textColor,
         )
         Image(
             painter = painterResource(id = R.drawable.dropddown_arrow),
             contentDescription = "Icon to open the drop down for ${data.name}",
-            modifier =
-                Modifier
-                    .padding(top = 21.dp, end = 16.6.dp)
-                    .size(
-                        width = 18.4.dp,
-                        height = 8.dp,
-                    ),
+            colorFilter = ColorFilter.tint(data.arrowColor),
+            modifier = data.imageModifier,
         )
     }
 }
 
 data class DropDownButtonComponentData(
     val name: String = "",
+    val borderColor: Color = Color.White,
+    val arrowColor: Color = Color.White,
+    val textColor: Color = Color.White,
+    val fontSize: TextUnit = 24.sp,
+    val imageModifier: Modifier = Modifier,
+    val textModifier: Modifier = Modifier,
 )
 
 @Preview(device = PIXEL_TABLET)
@@ -100,16 +97,112 @@ class DropDownButtonPreviewParameterProvider : PreviewParameterProvider<DropDown
     override val values =
         sequenceOf(
             DropDownButtonPreviewData(
-                data = DropDownButtonComponentData(name = "Class"),
-                modifier = Modifier.width(138.75.dp),
+                data =
+                    DropDownButtonComponentData(
+                        name = "Class",
+                        borderColor = Color(0xFF007AD3),
+                        arrowColor = Color(0xFF007AD3),
+                        textColor = Color(0xFF007AD3),
+                        fontSize = 24.sp,
+                        imageModifier =
+                            Modifier
+                                .padding(top = 21.dp, end = 16.6.dp)
+                                .size(
+                                    width = 18.4.dp,
+                                    height = 8.dp,
+                                ),
+                        textModifier =
+                            Modifier
+                                .padding(
+                                    top = 10.dp,
+                                    start = 10.dp,
+                                ),
+                    ),
+                modifier =
+                    Modifier
+                        .width(138.75.dp)
+                        .height(50.dp),
             ),
             DropDownButtonPreviewData(
-                data = DropDownButtonComponentData(name = "Function"),
-                modifier = Modifier.width(154.16.dp),
+                data =
+                    DropDownButtonComponentData(
+                        name = "Function",
+                        borderColor = Color(0xFF007AD3),
+                        arrowColor = Color(0xFF007AD3),
+                        textColor = Color(0xFF007AD3),
+                        fontSize = 24.sp,
+                        imageModifier =
+                            Modifier
+                                .padding(top = 21.dp, end = 16.6.dp)
+                                .size(
+                                    width = 18.4.dp,
+                                    height = 8.dp,
+                                ),
+                        textModifier =
+                            Modifier
+                                .padding(
+                                    top = 10.dp,
+                                    start = 10.dp,
+                                ),
+                    ),
+                modifier =
+                    Modifier
+                        .width(154.16.dp)
+                        .height(50.dp),
             ),
             DropDownButtonPreviewData(
-                data = DropDownButtonComponentData(name = "Level"),
-                modifier = Modifier.width(138.75.dp),
+                data =
+                    DropDownButtonComponentData(
+                        name = "Level",
+                        borderColor = Color(0xFF007AD3),
+                        arrowColor = Color(0xFF007AD3),
+                        textColor = Color(0xFF007AD3),
+                        fontSize = 24.sp,
+                        imageModifier =
+                            Modifier
+                                .padding(top = 21.dp, end = 16.6.dp)
+                                .size(
+                                    width = 18.4.dp,
+                                    height = 8.dp,
+                                ),
+                        textModifier =
+                            Modifier
+                                .padding(
+                                    top = 10.dp,
+                                    start = 10.dp,
+                                ),
+                    ),
+                modifier =
+                    Modifier
+                        .width(138.75.dp)
+                        .height(50.dp),
+            ),
+            DropDownButtonPreviewData(
+                data =
+                    DropDownButtonComponentData(
+                        name = "01",
+                        borderColor = Color(0xFFFFFFFF).copy(alpha = 0.2f),
+                        arrowColor = Color(0xFFFFFFFF).copy(alpha = 0.8f),
+                        textColor = Color(0xFFFFFFFF).copy(alpha = 0.8f),
+                        fontSize = 12.sp,
+                        imageModifier =
+                            Modifier
+                                .padding(top = 11.67.dp, end = 10.dp)
+                                .size(
+                                    width = 13.33.dp,
+                                    height = 6.67.dp,
+                                ),
+                        textModifier =
+                            Modifier
+                                .padding(
+                                    top = 8.33.dp,
+                                    start = 10.dp,
+                                ),
+                    ),
+                modifier =
+                    Modifier
+                        .width(56.67.dp)
+                        .height(30.dp),
             ),
         )
 }
