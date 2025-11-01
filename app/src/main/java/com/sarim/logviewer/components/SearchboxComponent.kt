@@ -21,7 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -42,11 +46,16 @@ fun SearchboxComponent(
             modifier
                 .width(337.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(Color(0xFF01070B)),
+                .background(data.backgroundColor),
         placeholder = {
             Text(
                 text = data.placeholderText,
                 fontSize = 24.sp,
+                fontFamily = FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold)
+                ),
                 color = Color.White.copy(alpha = 0.2f),
             )
         },
@@ -82,10 +91,13 @@ fun SearchboxComponent(
 data class SearchboxComponentData(
     val placeholderText: String = "",
     val iconDescription: String = "",
+    val backgroundColor: Color = Color.Transparent
 )
 
 @Composable
-@Preview
+@Preview(
+    device = PIXEL_TABLET
+)
 internal fun SearchboxComponentPreview(
     @PreviewParameter(SearchboxComponentDataParameterProvider::class) data: SearchboxComponentData,
 ) {
@@ -100,10 +112,17 @@ class SearchboxComponentDataParameterProvider : PreviewParameterProvider<Searchb
             SearchboxComponentData(
                 placeholderText = "Search dates",
                 iconDescription = "Icon to search dates",
+                backgroundColor = Color(0xFF01070B)
             ),
             SearchboxComponentData(
                 placeholderText = "Search sessions",
                 iconDescription = "Icon to search sessions",
+                backgroundColor = Color(0xFF01070B)
+            ),
+            SearchboxComponentData(
+                placeholderText = "Search messages",
+                iconDescription = "Icon to search messages",
+                backgroundColor = Color(0xFF03111B)
             ),
         )
 }

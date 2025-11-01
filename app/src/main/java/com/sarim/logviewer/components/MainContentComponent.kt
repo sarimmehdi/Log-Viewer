@@ -2,8 +2,8 @@ package com.sarim.logviewer.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,12 +12,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SidebarHorizontalDividerComponent(modifier: Modifier = Modifier) {
+fun MainContentComponent(
+    modifier: Modifier = Modifier
+) {
     Box(
-        modifier
-            .fillMaxWidth()
-            .height(1.dp)
-            .background(Color.White.copy(alpha = 0.1f)),
+        modifier = modifier
+            .width(855.dp)
+            .height(800.dp)
+            .background(Color(0xFF01070B))
     )
 }
 
@@ -25,6 +27,6 @@ fun SidebarHorizontalDividerComponent(modifier: Modifier = Modifier) {
     device = PIXEL_TABLET
 )
 @Composable
-fun SidebarHorizontalDividerComponentPreview() {
-    SidebarHorizontalDividerComponent()
+fun MainContentComponentPreview() {
+    MainContentComponent()
 }
