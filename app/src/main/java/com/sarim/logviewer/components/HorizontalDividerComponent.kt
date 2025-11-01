@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SidebarHorizontalDividerComponent(modifier: Modifier = Modifier) {
+fun HorizontalDividerComponent(modifier: Modifier = Modifier) {
     Box(
         modifier
             .fillMaxWidth()
@@ -25,6 +25,6 @@ fun SidebarHorizontalDividerComponent(modifier: Modifier = Modifier) {
     device = PIXEL_TABLET,
 )
 @Composable
-fun SidebarHorizontalDividerComponentPreview() {
-    SidebarHorizontalDividerComponent()
+fun HorizontalDividerComponentPreview() {
+    HorizontalDividerComponent()
 }
