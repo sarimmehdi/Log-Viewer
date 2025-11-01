@@ -38,6 +38,7 @@ fun SidebarComponent(
                 SearchboxComponentData(
                     placeholderText = "Search dates",
                     iconDescription = "Icon to search dates",
+                    backgroundColor = Color(0xFF01070B),
                 ),
             modifier =
                 Modifier
@@ -73,6 +74,7 @@ fun SidebarComponent(
                 SearchboxComponentData(
                     placeholderText = "Search sessions",
                     iconDescription = "Icon to search sessions",
+                    backgroundColor = Color(0xFF01070B),
                 ),
             modifier =
                 Modifier

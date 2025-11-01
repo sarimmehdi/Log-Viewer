@@ -27,7 +27,7 @@ fun FooterComponent(
         modifier =
             modifier
                 .width(819.dp)
-                .height(33.dp),
+                .height(50.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
