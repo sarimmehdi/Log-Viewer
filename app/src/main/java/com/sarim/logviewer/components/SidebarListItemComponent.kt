@@ -69,11 +69,12 @@ fun SidebarListItemComponent(
                         ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 24.sp,
-                fontFamily = FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold)
-                ),
+                fontFamily =
+                    FontFamily(
+                        Font(R.font.inter_24_regular, FontWeight.Normal),
+                        Font(R.font.inter_24_medium, FontWeight.Medium),
+                        Font(R.font.inter_24_bold, FontWeight.Bold),
+                    ),
                 color = Color.White,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -97,11 +98,12 @@ fun SidebarListItemComponent(
                         ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 20.sp,
-                fontFamily = FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold)
-                ),
+                fontFamily =
+                    FontFamily(
+                        Font(R.font.inter_24_regular, FontWeight.Normal),
+                        Font(R.font.inter_24_medium, FontWeight.Medium),
+                        Font(R.font.inter_24_bold, FontWeight.Bold),
+                    ),
                 color = Color.White.copy(alpha = 0.5f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -118,7 +120,7 @@ data class SidebarListItemComponentData(
 
 @Composable
 @Preview(
-    device = PIXEL_TABLET
+    device = PIXEL_TABLET,
 )
 internal fun SidebarListItemComponentPreview(
     @PreviewParameter(SidebarListItemComponentDataParameterProvider::class) data: SidebarListItemComponentData,

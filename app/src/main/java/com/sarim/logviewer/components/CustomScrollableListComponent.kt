@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.times
 @Composable
 fun CustomScrollableListComponent(
     modifier: Modifier = Modifier,
-    customScrollableListComponentData: CustomScrollableListComponentData
+    customScrollableListComponentData: CustomScrollableListComponentData,
 ) {
     val listState = rememberLazyListState()
     var scrollProgress by remember { mutableFloatStateOf(0f) }
@@ -87,24 +87,25 @@ data class CustomScrollableListComponentData(
 )
 
 @Preview(
-    device = PIXEL_TABLET
+    device = PIXEL_TABLET,
 )
 @Composable
 fun CustomScrollableListComponentPreview() {
     CustomScrollableListComponent(
-        customScrollableListComponentData = CustomScrollableListComponentData(
-            contentHeight = 500.dp
-        ) {
-            items(30) {
-                Box(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .height(50.dp)
-                            .padding(4.dp)
-                            .background(Color.White),
-                )
-            }
-        },
+        customScrollableListComponentData =
+            CustomScrollableListComponentData(
+                contentHeight = 500.dp,
+            ) {
+                items(30) {
+                    Box(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(50.dp)
+                                .padding(4.dp)
+                                .background(Color.White),
+                    )
+                }
+            },
     )
 }

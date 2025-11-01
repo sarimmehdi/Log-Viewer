@@ -52,15 +52,16 @@ fun SidebarComponent(
             modifier = Modifier.size(9.dp),
         )
         CustomScrollableListComponent(
-            customScrollableListComponentData = CustomScrollableListComponentData(
-                contentHeight = 233.dp,
-            ) {
-                items(data.dateObjects.size) { index ->
-                    SidebarListItemComponent(
-                        data = data.dateObjects[index],
-                    )
-                }
-            },
+            customScrollableListComponentData =
+                CustomScrollableListComponentData(
+                    contentHeight = 233.dp,
+                ) {
+                    items(data.dateObjects.size) { index ->
+                        SidebarListItemComponent(
+                            data = data.dateObjects[index],
+                        )
+                    }
+                },
         )
         SidebarHorizontalDividerComponent(
             modifier =
@@ -86,15 +87,16 @@ fun SidebarComponent(
             modifier = Modifier.size(22.dp),
         )
         CustomScrollableListComponent(
-            customScrollableListComponentData = CustomScrollableListComponentData(
-                contentHeight = 234.dp,
-            ) {
-                items(data.sessionObjects.size) { index ->
-                    SidebarListItemComponent(
-                        data = data.sessionObjects[index],
-                    )
-                }
-            },
+            customScrollableListComponentData =
+                CustomScrollableListComponentData(
+                    contentHeight = 234.dp,
+                ) {
+                    items(data.sessionObjects.size) { index ->
+                        SidebarListItemComponent(
+                            data = data.sessionObjects[index],
+                        )
+                    }
+                },
         )
     }
 }
@@ -106,7 +108,7 @@ data class SidebarComponentData(
 
 @Composable
 @Preview(
-    device = PIXEL_TABLET
+    device = PIXEL_TABLET,
 )
 internal fun SidebarComponentPreview(
     @PreviewParameter(SidebarComponentDataParameterProvider::class) data: SidebarComponentData,

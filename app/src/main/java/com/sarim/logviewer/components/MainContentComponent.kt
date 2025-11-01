@@ -12,19 +12,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MainContentComponent(
-    modifier: Modifier = Modifier
-) {
+fun MainContentComponent(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier
-            .width(855.dp)
-            .height(800.dp)
-            .background(Color(0xFF01070B))
+        modifier =
+            modifier
+                .width(855.dp)
+                .height(800.dp)
+                .background(Color(0xFF01070B)),
     )
 }
 
 @Preview(
-    device = PIXEL_TABLET
+    device = PIXEL_TABLET,
 )
 @Composable
 fun MainContentComponentPreview() {
