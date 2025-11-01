@@ -11,14 +11,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SidebarHorizontalDividerComponent(
-    modifier: Modifier = Modifier
-) {
+fun SidebarHorizontalDividerComponent(modifier: Modifier = Modifier) {
     Box(
         modifier
             .fillMaxWidth()
             .height(1.dp)
-            .background(Color.White.copy(alpha = 0.1f))
+            .background(Color.White.copy(alpha = 0.1f)),
     )
 }
 

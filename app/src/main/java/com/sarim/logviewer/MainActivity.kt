@@ -18,11 +18,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             LogViewerTheme {
                 Scaffold(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
                     SidebarComponent(
-                        modifier = Modifier
-                            .padding(innerPadding)
+                        modifier =
+                            Modifier
+                                .padding(innerPadding),
                     )
                 }
             }
