@@ -22,7 +22,7 @@ fun SidebarHorizontalDividerComponent(modifier: Modifier = Modifier) {
 }
 
 @Preview(
-    device = PIXEL_TABLET
+    device = PIXEL_TABLET,
 )
 @Composable
 fun SidebarHorizontalDividerComponentPreview() {

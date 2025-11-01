@@ -37,11 +37,12 @@ fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
                     .padding(start = 33.dp, top = 20.dp),
             fontStyle = FontStyle.Normal,
             fontSize = 48.sp,
-            fontFamily = FontFamily(
-                Font(R.font.inter_24_regular, FontWeight.Normal),
-                Font(R.font.inter_24_medium, FontWeight.Medium),
-                Font(R.font.inter_24_bold, FontWeight.Bold)
-            ),
+            fontFamily =
+                FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                ),
             color = Color.White,
         )
         Spacer(
@@ -61,7 +62,7 @@ fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
 }
 
 @Preview(
-    device = PIXEL_TABLET
+    device = PIXEL_TABLET,
 )
 @Composable
 fun SidebarHeaderComponentPreview() {

@@ -30,35 +30,37 @@ import com.sarim.logviewer.R
 @Composable
 fun DropDownButtonComponent(
     modifier: Modifier = Modifier,
-    data: DropDownButtonComponentData = DropDownButtonComponentData()
+    data: DropDownButtonComponentData = DropDownButtonComponentData(),
 ) {
     Row(
-        modifier = modifier
-            .height(50.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .border(
-                width = 1.dp,
-                color = Color(0xFF007AD3),
-                shape = RoundedCornerShape(10.dp)
-            ),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier =
+            modifier
+                .height(50.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .border(
+                    width = 1.dp,
+                    color = Color(0xFF007AD3),
+                    shape = RoundedCornerShape(10.dp),
+                ),
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Text(
             modifier =
                 Modifier
                     .padding(
                         top = 10.dp,
-                        start = 10.dp
+                        start = 10.dp,
                     ),
             fontStyle = FontStyle.Normal,
             fontSize = 24.sp,
-            fontFamily = FontFamily(
-                Font(R.font.inter_24_regular, FontWeight.Normal),
-                Font(R.font.inter_24_medium, FontWeight.Medium),
-                Font(R.font.inter_24_bold, FontWeight.Bold)
-            ),
+            fontFamily =
+                FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                ),
             text = data.name,
-            color = Color(0xFF007AD3)
+            color = Color(0xFF007AD3),
         )
         Image(
             painter = painterResource(id = R.drawable.dropddown_arrow),
@@ -68,45 +70,46 @@ fun DropDownButtonComponent(
                     .padding(top = 21.dp, end = 16.6.dp)
                     .size(
                         width = 18.4.dp,
-                        height = 8.dp
+                        height = 8.dp,
                     ),
         )
     }
 }
 
 data class DropDownButtonComponentData(
-    val name: String = ""
+    val name: String = "",
 )
 
 @Preview(device = PIXEL_TABLET)
 @Composable
 fun DropDownButtonComponentPreview(
-    @PreviewParameter(DropDownButtonPreviewParameterProvider::class) previewData: DropDownButtonPreviewData
+    @PreviewParameter(DropDownButtonPreviewParameterProvider::class) previewData: DropDownButtonPreviewData,
 ) {
     DropDownButtonComponent(
         data = previewData.data,
-        modifier = previewData.modifier
+        modifier = previewData.modifier,
     )
 }
 
 data class DropDownButtonPreviewData(
     val data: DropDownButtonComponentData,
-    val modifier: Modifier = Modifier
+    val modifier: Modifier = Modifier,
 )
 
 class DropDownButtonPreviewParameterProvider : PreviewParameterProvider<DropDownButtonPreviewData> {
-    override val values = sequenceOf(
-        DropDownButtonPreviewData(
-            data = DropDownButtonComponentData(name = "Class"),
-            modifier = Modifier.width(138.75.dp)
-        ),
-        DropDownButtonPreviewData(
-            data = DropDownButtonComponentData(name = "Function"),
-            modifier = Modifier.width(154.16.dp)
-        ),
-        DropDownButtonPreviewData(
-            data = DropDownButtonComponentData(name = "Level"),
-            modifier = Modifier.width(138.75.dp)
+    override val values =
+        sequenceOf(
+            DropDownButtonPreviewData(
+                data = DropDownButtonComponentData(name = "Class"),
+                modifier = Modifier.width(138.75.dp),
+            ),
+            DropDownButtonPreviewData(
+                data = DropDownButtonComponentData(name = "Function"),
+                modifier = Modifier.width(154.16.dp),
+            ),
+            DropDownButtonPreviewData(
+                data = DropDownButtonComponentData(name = "Level"),
+                modifier = Modifier.width(138.75.dp),
+            ),
         )
-    )
 }

@@ -51,11 +51,12 @@ fun SearchboxComponent(
             Text(
                 text = data.placeholderText,
                 fontSize = 24.sp,
-                fontFamily = FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold)
-                ),
+                fontFamily =
+                    FontFamily(
+                        Font(R.font.inter_24_regular, FontWeight.Normal),
+                        Font(R.font.inter_24_medium, FontWeight.Medium),
+                        Font(R.font.inter_24_bold, FontWeight.Bold),
+                    ),
                 color = Color.White.copy(alpha = 0.2f),
             )
         },
@@ -91,12 +92,12 @@ fun SearchboxComponent(
 data class SearchboxComponentData(
     val placeholderText: String = "",
     val iconDescription: String = "",
-    val backgroundColor: Color = Color.Transparent
+    val backgroundColor: Color = Color.Transparent,
 )
 
 @Composable
 @Preview(
-    device = PIXEL_TABLET
+    device = PIXEL_TABLET,
 )
 internal fun SearchboxComponentPreview(
     @PreviewParameter(SearchboxComponentDataParameterProvider::class) data: SearchboxComponentData,
@@ -112,17 +113,17 @@ class SearchboxComponentDataParameterProvider : PreviewParameterProvider<Searchb
             SearchboxComponentData(
                 placeholderText = "Search dates",
                 iconDescription = "Icon to search dates",
-                backgroundColor = Color(0xFF01070B)
+                backgroundColor = Color(0xFF01070B),
             ),
             SearchboxComponentData(
                 placeholderText = "Search sessions",
                 iconDescription = "Icon to search sessions",
-                backgroundColor = Color(0xFF01070B)
+                backgroundColor = Color(0xFF01070B),
             ),
             SearchboxComponentData(
                 placeholderText = "Search messages",
                 iconDescription = "Icon to search messages",
-                backgroundColor = Color(0xFF03111B)
+                backgroundColor = Color(0xFF03111B),
             ),
         )
 }
