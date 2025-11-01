@@ -10,14 +10,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.sarim.logviewer.components.FooterComponent
 import com.sarim.logviewer.components.FooterComponentData
 import com.sarim.logviewer.components.HeaderComponent
@@ -28,11 +36,16 @@ import com.sarim.logviewer.components.Line
 import com.sarim.logviewer.components.MainContentComponent
 import com.sarim.logviewer.components.MainContentComponentData
 import com.sarim.logviewer.components.MainContentListItemComponentData
-import com.sarim.logviewer.components.SidebarComponent
-import com.sarim.logviewer.components.SidebarComponentData
-import com.sarim.logviewer.components.SidebarListItemComponentData
 import com.sarim.logviewer.ui.theme.LogViewerTheme
+import com.sarim.sidebar_presentation.SidebarScreenViewModel
+import com.sarim.sidebar_presentation.component.SidebarComponent
+import com.sarim.sidebar_presentation.component.SidebarComponentData
+import com.sarim.sidebar_presentation.component.SidebarListItemComponentData
+import com.sarim.utils.ui.ObserveAsEvents
+import com.sarim.utils.ui.SnackBarController
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.launch
+import org.koin.compose.viewmodel.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +53,60 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LogViewerTheme {
+                val snackbarHostState =
+                    remember {
+                        SnackbarHostState()
+                    }
+                val scope = rememberCoroutineScope()
+                val context = LocalContext.current
+                ObserveAsEvents(
+                    flow = SnackBarController.events,
+                    snackbarHostState,
+                ) { event ->
+                    scope.launch {
+                        snackbarHostState.currentSnackbarData?.dismiss()
+
+                        val result =
+                            snackbarHostState.showSnackbar(
+                                message = event.message.asString(context),
+                                actionLabel = event.action?.name?.asString(context),
+                                duration = SnackbarDuration.Short,
+                            )
+
+                        if (result == SnackbarResult.ActionPerformed) {
+                            event.action?.action?.invoke()
+                        }
+                    }
+                }
+                val sidebarScreenViewModel = koinViewModel<SidebarScreenViewModel>()
+                val sidebarScreenState by sidebarScreenViewModel.state.collectAsStateWithLifecycle()
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
                     AppScreenComponent(
                         modifier = Modifier.padding(innerPadding),
+                        data =
+                            AppScreenComponentData(
+                                sidebarComponentData =
+                                    SidebarComponentData(
+                                        dateObjects =
+                                            sidebarScreenState.dates
+                                                .map {
+                                                    SidebarListItemComponentData(
+                                                        heading = it.dateHeading,
+                                                        subHeading = context.getString(R.string.num_sessions, it.dateSessions),
+                                                    )
+                                                }.toImmutableList(),
+                                        sessionObjects =
+                                            sidebarScreenState.sessions
+                                                .map {
+                                                    SidebarListItemComponentData(
+                                                        heading = it.sessionHeading,
+                                                        subHeading = context.getString(R.string.num_logs, it.sessionLogs),
+                                                    )
+                                                }.toImmutableList(),
+                                    ),
+                            ),
                     )
                 }
             }

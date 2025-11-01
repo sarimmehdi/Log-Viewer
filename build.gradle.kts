@@ -3,4 +3,5 @@ plugins {
     alias(libs.plugins.kotlinAndroidPlugin) apply false
     alias(libs.plugins.kotlinComposePlugin) apply false
     alias(libs.plugins.ktlintPlugin) apply false
+    alias(libs.plugins.androidLibraryPlugin) apply false
 }

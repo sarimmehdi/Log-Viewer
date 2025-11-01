@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unable_to_get_dates">Unable to get dates because of %1$s</string>
+    <string name="unable_to_get_sessions">Unable to get sessions because of %1$s</string>
+</resources>

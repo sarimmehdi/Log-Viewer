@@ -1,4 +1,4 @@
-package com.sarim.logviewer.components
+package com.sarim.sidebar_presentation.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
