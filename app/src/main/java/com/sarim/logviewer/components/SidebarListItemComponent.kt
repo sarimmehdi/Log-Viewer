@@ -27,59 +27,69 @@ fun SidebarListItemComponent(
     data: SidebarListItemComponentData = SidebarListItemComponentData(),
 ) {
     Row(
-        modifier = modifier
-            .width(425.dp)
-            .height(78.dp)
-            .then(
-                if (data.selected) Modifier.background(Color(0xFFD9D9D9).copy(alpha = 0.1f))
-                else Modifier
-            )
+        modifier =
+            modifier
+                .width(425.dp)
+                .height(78.dp)
+                .then(
+                    if (data.selected) {
+                        Modifier.background(Color(0xFFD9D9D9).copy(alpha = 0.1f))
+                    } else {
+                        Modifier
+                    },
+                ),
     ) {
         if (data.selected) {
             Box(
-                modifier = Modifier
-                    .width(20.dp)
-                    .height(78.dp)
-                    .background(Color.White)
+                modifier =
+                    Modifier
+                        .width(20.dp)
+                        .height(78.dp)
+                        .background(Color.White),
             )
         }
         Column {
             Text(
                 text = data.heading,
-                modifier = Modifier
-                    .padding(
-                        start = if (data.selected) {
-                            13.dp
-                        } else {
-                            33.dp
-                        },
-                        top = 5.dp
-                    ),
+                modifier =
+                    Modifier
+                        .padding(
+                            start =
+                                if (data.selected) {
+                                    13.dp
+                                } else {
+                                    33.dp
+                                },
+                            top = 5.dp,
+                        ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 24.sp,
                 color = Color.White,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
             Spacer(
-                modifier = Modifier
-                    .size(5.dp)
+                modifier =
+                    Modifier
+                        .size(5.dp),
             )
             Text(
                 text = data.subHeading,
-                modifier = Modifier
-                    .padding(
-                        start = if (data.selected) {
-                            13.dp
-                        } else {
-                            33.dp
-                        }
-                    ),
+                modifier =
+                    Modifier
+                        .padding(
+                            start =
+                                if (data.selected) {
+                                    13.dp
+                                } else {
+                                    33.dp
+                                },
+                        ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 20.sp,
                 color = Color.White.copy(alpha = 0.5f),
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
@@ -88,7 +98,7 @@ fun SidebarListItemComponent(
 data class SidebarListItemComponentData(
     val heading: String = "",
     val subHeading: String = "",
-    val selected: Boolean = false
+    val selected: Boolean = false,
 )
 
 @Composable
@@ -101,18 +111,18 @@ internal fun SidebarListItemComponentPreview(
     )
 }
 
-class SidebarListItemComponentDataParameterProvider :
-    PreviewParameterProvider<SidebarListItemComponentData> {
-    override val values = sequenceOf(
-        SidebarListItemComponentData(
-            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            selected = true
-        ),
-        SidebarListItemComponentData(
-            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            selected = false
-        ),
-    )
+class SidebarListItemComponentDataParameterProvider : PreviewParameterProvider<SidebarListItemComponentData> {
+    override val values =
+        sequenceOf(
+            SidebarListItemComponentData(
+                heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                selected = true,
+            ),
+            SidebarListItemComponentData(
+                heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                selected = false,
+            ),
+        )
 }

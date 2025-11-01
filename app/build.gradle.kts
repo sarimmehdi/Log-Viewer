@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidApplicationPlugin)
     alias(libs.plugins.kotlinAndroidPlugin)
     alias(libs.plugins.kotlinComposePlugin)
+    alias(libs.plugins.ktlintPlugin)
 }
 
 android {
@@ -25,7 +26,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }

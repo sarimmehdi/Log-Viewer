@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.times
 fun CustomScrollableListComponent(
     modifier: Modifier = Modifier,
     contentHeight: Dp,
-    content: LazyListScope.() -> Unit
+    content: LazyListScope.() -> Unit,
 ) {
     val listState = rememberLazyListState()
     var scrollProgress by remember { mutableFloatStateOf(0f) }
@@ -40,11 +40,14 @@ fun CustomScrollableListComponent(
             val visible = layoutInfo.visibleItemsInfo
             val total = layoutInfo.totalItemsCount
             if (total > 0 && visible.isNotEmpty()) {
-                val progress = visible.first().index.toFloat() /
+                val progress =
+                    visible.first().index.toFloat() /
                         (total - visible.size).coerceAtLeast(1)
                 val visibleFraction = visible.size.toFloat() / total
                 progress to visibleFraction
-            } else 0f to 1f
+            } else {
+                0f to 1f
+            }
         }.collect { (progress, fraction) ->
             scrollProgress = progress
             scrollbarHeight = fraction
@@ -54,22 +57,25 @@ fun CustomScrollableListComponent(
     Box(modifier = modifier) {
         LazyColumn(
             state = listState,
-            modifier = Modifier
-                .height(contentHeight)
-                .fillMaxWidth()
+            modifier =
+                Modifier
+                    .height(contentHeight)
+                    .fillMaxWidth(),
         ) { content() }
 
         Box(
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .height(contentHeight)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterEnd)
+                    .height(contentHeight),
         ) {
             val thumbHeight = contentHeight * scrollbarHeight
             ScrollbarComponent(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .height(thumbHeight)
-                    .offset(y = scrollProgress * (contentHeight - thumbHeight))
+                modifier =
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .height(thumbHeight)
+                        .offset(y = scrollProgress * (contentHeight - thumbHeight)),
             )
         }
     }
@@ -79,15 +85,16 @@ fun CustomScrollableListComponent(
 @Composable
 fun CustomScrollableListComponentPreview() {
     CustomScrollableListComponent(
-        contentHeight = 500.dp
+        contentHeight = 500.dp,
     ) {
         items(30) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-                    .padding(4.dp)
-                    .background(Color.White)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .padding(4.dp)
+                        .background(Color.White),
             )
         }
     }

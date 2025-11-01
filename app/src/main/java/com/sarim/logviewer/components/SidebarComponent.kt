@@ -24,62 +24,70 @@ fun SidebarComponent(
     data: SidebarComponentData = SidebarComponentData(),
 ) {
     Column(
-        modifier = modifier
-            .width(425.dp)
-            .height(800.dp)
-            .background(Color(0xFF03111B))
+        modifier =
+            modifier
+                .width(425.dp)
+                .height(800.dp)
+                .background(Color(0xFF03111B)),
     ) {
         SidebarHeaderComponent()
         SidebarHorizontalDividerComponent()
         SearchboxComponent(
-            data = SearchboxComponentData(
-                placeholderText = "Search dates",
-                iconDescription = "Icon to search dates",
-            ),
-            modifier = Modifier
-                .padding(top = 18.dp, start = 33.dp)
+            data =
+                SearchboxComponentData(
+                    placeholderText = "Search dates",
+                    iconDescription = "Icon to search dates",
+                ),
+            modifier =
+                Modifier
+                    .padding(top = 18.dp, start = 33.dp),
         )
         SidebarHorizontalDividerComponent(
-            modifier = Modifier
-                .padding(top = 20.dp)
+            modifier =
+                Modifier
+                    .padding(top = 20.dp),
         )
         Spacer(
-            modifier = Modifier.size(9.dp)
+            modifier = Modifier.size(9.dp),
         )
         CustomScrollableListComponent(
-            contentHeight = 233.dp
+            contentHeight = 233.dp,
         ) {
             items(data.dateObjects.size) { index ->
                 SidebarListItemComponent(
-                    data = data.dateObjects[index]
+                    data = data.dateObjects[index],
                 )
             }
         }
         SidebarHorizontalDividerComponent(
-            modifier = Modifier
-                .padding(top = 18.dp)
+            modifier =
+                Modifier
+                    .padding(top = 18.dp),
         )
         SearchboxComponent(
-            data = SearchboxComponentData(
-                placeholderText = "Search sessions",
-                iconDescription = "Icon to search sessions",
-            ),
-            modifier = Modifier
-                .padding(top = 18.dp, start = 33.dp)
+            data =
+                SearchboxComponentData(
+                    placeholderText = "Search sessions",
+                    iconDescription = "Icon to search sessions",
+                ),
+            modifier =
+                Modifier
+                    .padding(top = 18.dp, start = 33.dp),
         )
         SidebarHorizontalDividerComponent(
-            modifier = Modifier
-                .padding(top = 18.dp)
+            modifier =
+                Modifier
+                    .padding(top = 18.dp),
         )
         Spacer(
-            modifier = Modifier.size(22.dp)
+            modifier = Modifier.size(22.dp),
         )
         CustomScrollableListComponent(
-            contentHeight = 234.dp
+            contentHeight = 234.dp,
         ) {
             items(data.sessionObjects.size) { index ->
                 SidebarListItemComponent(
-                    data = data.sessionObjects[index]
+                    data = data.sessionObjects[index],
                 )
             }
         }
@@ -101,25 +109,26 @@ internal fun SidebarComponentPreview(
     )
 }
 
-class SidebarComponentDataParameterProvider :
-    PreviewParameterProvider<SidebarComponentData> {
-
-    override val values = sequenceOf(
-        SidebarComponentData(
-            dateObjects = List(10) { index ->
-                SidebarListItemComponentData(
-                    heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    selected = index % 2 == 0
-                )
-            }.toImmutableList(),
-            sessionObjects = List(10) { index ->
-                SidebarListItemComponentData(
-                    heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                    selected = index % 2 == 0
-                )
-            }.toImmutableList()
+class SidebarComponentDataParameterProvider : PreviewParameterProvider<SidebarComponentData> {
+    override val values =
+        sequenceOf(
+            SidebarComponentData(
+                dateObjects =
+                    List(10) { index ->
+                        SidebarListItemComponentData(
+                            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            selected = index % 2 == 0,
+                        )
+                    }.toImmutableList(),
+                sessionObjects =
+                    List(10) { index ->
+                        SidebarListItemComponentData(
+                            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                            selected = index % 2 == 0,
+                        )
+                    }.toImmutableList(),
+            ),
         )
-    )
 }
