@@ -1,77 +1,222 @@
 package com.sarim.logviewer.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toImmutableList
+import com.sarim.logviewer.R
 
 @Composable
-fun MainContentComponent(
+fun MainContentListItemComponent(
     modifier: Modifier = Modifier,
-    data: MainContentComponentData = MainContentComponentData(),
+    data: MainContentListItemComponentData = MainContentListItemComponentData(),
 ) {
-    Column(
+    Row(
         modifier =
             modifier
-                .clip(RoundedCornerShape(10.dp))
-                .width(819.dp)
-                .height(645.dp)
-                .background(Color(0xFF03111B)),
+                .height(61.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        MainContentListItemComponent(
-            data =
-                MainContentListItemComponentData(
-                    message = "Message",
-                    className = "Class",
-                    function = "Function",
-                    line = Line.Text(value = "Line"),
-                    level = Level.Text(value = "Level"),
-                    textSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
+        Text(
+            modifier =
+                Modifier
+                    .padding(
+                        start = 32.dp,
+                    ).width(247.dp),
+            fontWeight = data.fontWeight,
+            fontSize = data.textSize,
+            fontFamily =
+                FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold),
                 ),
+            text = data.message,
+            color = Color.White.copy(alpha = 0.7f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
-        HorizontalDividerComponent()
-        CustomScrollableListComponent(
-            customScrollableListComponentData =
-                CustomScrollableListComponentData(
-                    contentHeight = 584.dp,
-                ) {
-                    items(data.logObjects.size) { index ->
-                        MainContentListItemComponent(
-                            data = data.logObjects[index],
-                        )
-                        HorizontalDividerComponent()
-                    }
-                },
+        VerticalDividerComponent(
+            modifier =
+                Modifier
+                    .height(61.dp),
         )
+        Text(
+            modifier =
+                Modifier
+                    .padding(
+                        start = 21.dp,
+                    ).width(89.dp),
+            fontWeight = data.fontWeight,
+            fontSize = data.textSize,
+            fontFamily =
+                FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                ),
+            text = data.className,
+            color = Color.White.copy(alpha = 0.7f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        VerticalDividerComponent(
+            modifier =
+                Modifier
+                    .height(61.dp),
+        )
+        Text(
+            modifier =
+                Modifier
+                    .padding(
+                        start = 25.dp,
+                    ).width(102.dp),
+            fontWeight = data.fontWeight,
+            fontSize = data.textSize,
+            fontFamily =
+                FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                ),
+            text = data.function,
+            color = Color.White.copy(alpha = 0.7f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        VerticalDividerComponent(
+            modifier =
+                Modifier
+                    .height(61.dp),
+        )
+        Text(
+            modifier =
+                Modifier
+                    .padding(
+                        start = 36.dp,
+                    ).width(68.dp),
+            fontWeight = data.fontWeight,
+            fontSize = data.textSize,
+            fontFamily =
+                FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                ),
+            text = data.line.toString(),
+            color = Color.White.copy(alpha = 0.7f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+        VerticalDividerComponent(
+            modifier =
+                Modifier
+                    .height(61.dp),
+        )
+        when (data.level) {
+            is Level.Text -> {
+                Text(
+                    modifier =
+                        Modifier
+                            .padding(
+                                start = 65.dp,
+                                end = 80.dp,
+                            ),
+                    fontWeight = data.fontWeight,
+                    fontSize = data.textSize,
+                    fontFamily =
+                        FontFamily(
+                            Font(R.font.inter_24_regular, FontWeight.Normal),
+                            Font(R.font.inter_24_medium, FontWeight.Medium),
+                            Font(R.font.inter_24_bold, FontWeight.Bold),
+                        ),
+                    text = "Level",
+                    color = Color.White.copy(alpha = 0.7f),
+                )
+            }
+            is Level.Content -> {
+                data.level.composable()
+            }
+        }
     }
 }
 
-data class MainContentComponentData(
-    val logObjects: ImmutableList<MainContentListItemComponentData> = persistentListOf(),
+sealed class Level {
+    data class Text(
+        val value: String = "",
+    ) : Level()
+
+    data class Content(
+        val composable: @Composable () -> Unit = {},
+    ) : Level()
+}
+
+sealed class Line {
+    class Text(
+        val value: String = "",
+    ) : Line()
+
+    class Integer(
+        val value: Int = 9999,
+    ) : Line()
+
+    override fun toString(): String =
+        when (this) {
+            is Text -> value
+            is Integer -> value.toString()
+        }
+}
+
+data class MainContentListItemComponentData(
+    val message: String = "",
+    val className: String = "",
+    val function: String = "",
+    val line: Line = Line.Integer(),
+    val level: Level = Level.Text(),
+    val textSize: TextUnit = 16.sp,
+    val fontWeight: FontWeight = FontWeight.Normal,
 )
 
+@Composable
 @Preview(
     device = PIXEL_TABLET,
 )
-@Composable
-fun MainContentComponentPreview() {
-    val baseLogItems =
-        listOf(
+internal fun SearchboxComponentPreview(
+    @PreviewParameter(MainContentListItemComponentDataParameterProvider::class) data: MainContentListItemComponentData,
+) {
+    MainContentListItemComponent(
+        data = data,
+    )
+}
+
+class MainContentListItemComponentDataParameterProvider : PreviewParameterProvider<MainContentListItemComponentData> {
+    override val values =
+        sequenceOf(
+            MainContentListItemComponentData(
+                message = "Message",
+                className = "Class",
+                function = "Function",
+                line = Line.Text(value = "Line"),
+                level = Level.Text(value = "Level"),
+                textSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+            ),
             MainContentListItemComponentData(
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -203,10 +348,4 @@ fun MainContentComponentPreview() {
                 fontWeight = FontWeight.Bold,
             ),
         )
-    MainContentComponent(
-        data =
-            MainContentComponentData(
-                logObjects = List(100) { index -> baseLogItems[index % baseLogItems.size] }.toImmutableList(),
-            ),
-    )
 }

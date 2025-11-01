@@ -32,7 +32,7 @@ fun SidebarComponent(
                 .background(Color(0xFF03111B)),
     ) {
         SidebarHeaderComponent()
-        SidebarHorizontalDividerComponent()
+        HorizontalDividerComponent()
         SearchboxComponent(
             data =
                 SearchboxComponentData(
@@ -43,7 +43,7 @@ fun SidebarComponent(
                 Modifier
                     .padding(top = 18.dp, start = 33.dp),
         )
-        SidebarHorizontalDividerComponent(
+        HorizontalDividerComponent(
             modifier =
                 Modifier
                     .padding(top = 20.dp),
@@ -63,7 +63,7 @@ fun SidebarComponent(
                     }
                 },
         )
-        SidebarHorizontalDividerComponent(
+        HorizontalDividerComponent(
             modifier =
                 Modifier
                     .padding(top = 18.dp),
@@ -78,7 +78,7 @@ fun SidebarComponent(
                 Modifier
                     .padding(top = 18.dp, start = 33.dp),
         )
-        SidebarHorizontalDividerComponent(
+        HorizontalDividerComponent(
             modifier =
                 Modifier
                     .padding(top = 18.dp),
