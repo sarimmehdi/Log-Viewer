@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +34,7 @@ fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
             modifier =
                 Modifier
                     .padding(start = 33.dp, top = 20.dp),
-            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Normal,
             fontSize = 48.sp,
             fontFamily =
                 FontFamily(

@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
@@ -14,8 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.sarim.logviewer.R
 
 @Composable
@@ -64,32 +64,11 @@ fun FooterComponent(
                     Modifier
                         .size(8.33.dp),
             )
-            DropDownButtonComponent(
+            CurrentPageNumberComponent(
                 data =
-                    DropDownButtonComponentData(
-                        name = String.format("%02d", data.currentPageNumber),
-                        borderColor = Color(0xFFFFFFFF).copy(alpha = 0.2f),
-                        arrowColor = Color(0xFFFFFFFF).copy(alpha = 0.8f),
-                        textColor = Color(0xFFFFFFFF).copy(alpha = 0.8f),
-                        fontSize = 12.sp,
-                        imageModifier =
-                            Modifier
-                                .padding(top = 11.67.dp, end = 10.dp)
-                                .size(
-                                    width = 13.33.dp,
-                                    height = 6.67.dp,
-                                ),
-                        textModifier =
-                            Modifier
-                                .padding(
-                                    top = 8.33.dp,
-                                    start = 10.dp,
-                                ),
+                    CurrentPageNumberComponentData(
+                        currentPageNumber = data.currentPageNumber,
                     ),
-                modifier =
-                    Modifier
-                        .width(56.67.dp)
-                        .height(30.dp),
             )
             Spacer(
                 modifier =
@@ -130,10 +109,32 @@ data class FooterComponentData(
     val currentPageNumber: Int = 1,
 )
 
+@Composable
 @Preview(
     device = PIXEL_TABLET,
 )
-@Composable
-fun FooterComponentPreview() {
-    FooterComponent()
+internal fun FooterComponentPreview(
+    @PreviewParameter(FooterComponentDataParameterProvider::class) data: FooterComponentData,
+) {
+    FooterComponent(
+        data = data,
+    )
+}
+
+class FooterComponentDataParameterProvider : PreviewParameterProvider<FooterComponentData> {
+    override val values =
+        sequenceOf(
+            FooterComponentData(
+                currentPageNumber = 9,
+            ),
+            FooterComponentData(
+                currentPageNumber = 99,
+            ),
+            FooterComponentData(
+                currentPageNumber = 999,
+            ),
+            FooterComponentData(
+                currentPageNumber = 9999,
+            ),
+        )
 }

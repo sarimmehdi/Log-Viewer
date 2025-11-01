@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,7 +46,7 @@ fun DropDownButtonComponent(
     ) {
         Text(
             modifier = data.textModifier,
-            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Normal,
             fontSize = data.fontSize,
             fontFamily =
                 FontFamily(
@@ -176,33 +175,6 @@ class DropDownButtonPreviewParameterProvider : PreviewParameterProvider<DropDown
                     Modifier
                         .width(138.75.dp)
                         .height(50.dp),
-            ),
-            DropDownButtonPreviewData(
-                data =
-                    DropDownButtonComponentData(
-                        name = "01",
-                        borderColor = Color(0xFFFFFFFF).copy(alpha = 0.2f),
-                        arrowColor = Color(0xFFFFFFFF).copy(alpha = 0.8f),
-                        textColor = Color(0xFFFFFFFF).copy(alpha = 0.8f),
-                        fontSize = 12.sp,
-                        imageModifier =
-                            Modifier
-                                .padding(top = 11.67.dp, end = 10.dp)
-                                .size(
-                                    width = 13.33.dp,
-                                    height = 6.67.dp,
-                                ),
-                        textModifier =
-                            Modifier
-                                .padding(
-                                    top = 8.33.dp,
-                                    start = 10.dp,
-                                ),
-                    ),
-                modifier =
-                    Modifier
-                        .width(56.67.dp)
-                        .height(30.dp),
             ),
         )
 }
