@@ -10,6 +10,11 @@ activityComposeVersion = "1.11.0"
 composeBomVersion = "2025.10.01"
 kotlinXImmutableCollectionsVersion = "0.4.0"
 ktlintVersion = "13.1.0"
+koinBomVersion = "4.1.1"
+preferencesDataStoreVersion = "1.1.7"
+kotlinxSerializationVersion = "1.9.0"
+appcompatVersion = "1.6.1"
+materialVersion = "1.10.0"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -27,10 +32,48 @@ androidxComposeUiToolingPreviewLibrary = { group = "androidx.compose.ui", name =
 androidxComposeUiTestManifestLibrary = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidxComposeUiTestJunit4Library = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidxComposeMaterial3Library = { group = "androidx.compose.material3", name = "material3" }
+koinBomLibrary = { group = "io.insert-koin", name = "koin-bom", version.ref = "koinBomVersion" }
+koinCoreLibrary = { group = "io.insert-koin", name = "koin-core" }
+koinAndroidLibrary = { group = "io.insert-koin", name = "koin-android" }
+koinCoroutinesLibrary = { group = "io.insert-koin", name = "koin-core-coroutines" }
+koinStartupLibrary = { group = "io.insert-koin", name = "koin-androidx-startup" }
+koinComposeLibrary = { group = "io.insert-koin", name = "koin-androidx-compose" }
+koinComposeNavigationLibrary = { group = "io.insert-koin", name = "koin-androidx-compose-navigation" }
+dataStoreLibrary = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "preferencesDataStoreVersion" }
+kotlinXSerializationLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationVersion" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+
+[bundles]
+composeImplementationBundle = [
+    "androidxComposeUiLibrary",
+    "androidxComposeUiGraphicsLibrary",
+    "androidxComposeUiToolingPreviewLibrary",
+    "androidxComposeMaterial3Library",
+]
+composeDebugImplementationBundle = [
+    "androidxComposeUiToolingLibrary",
+    "androidxComposeUiTestManifestLibrary",
+]
+koinBundle = [
+    "koinCoreLibrary",
+    "koinAndroidLibrary",
+    "koinCoroutinesLibrary",
+    "koinStartupLibrary",
+    "koinComposeLibrary",
+    "koinComposeNavigationLibrary",
+]
+dataStorageBundle = [
+    "dataStoreLibrary",
+    "kotlinXSerializationLibrary",
+    "kotlinXImmutableCollectionsLibrary",
+]
 
 [plugins]
 androidApplicationPlugin = { id = "com.android.application", version.ref = "agpVersion" }
 kotlinAndroidPlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
 kotlinComposePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinVersion" }
 ktlintPlugin = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintVersion" }
+androidLibraryPlugin = { id = "com.android.library", version.ref = "agpVersion" }
+kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
 

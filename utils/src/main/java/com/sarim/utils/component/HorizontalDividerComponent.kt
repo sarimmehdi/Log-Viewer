@@ -1,4 +1,4 @@
-package com.sarim.logviewer.components
+package com.sarim.utils.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

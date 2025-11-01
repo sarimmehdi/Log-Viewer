@@ -21,4 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Log Viewer"
 include(":app")
- 
+include(":utils")
+include(":sidebar")
+include(":sidebar:sidebar-domain")
+include(":sidebar:sidebar-presentation")

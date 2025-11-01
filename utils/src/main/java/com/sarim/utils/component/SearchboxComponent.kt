@@ -1,4 +1,4 @@
-package com.sarim.logviewer.components
+package com.sarim.utils.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sarim.logviewer.R
+import com.sarim.utils.R
 
 @Composable
 fun SearchboxComponent(

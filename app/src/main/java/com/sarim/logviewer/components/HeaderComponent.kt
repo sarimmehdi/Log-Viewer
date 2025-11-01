@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.utils.component.SearchboxComponent
+import com.sarim.utils.component.SearchboxComponentData
 
 @Composable
 fun HeaderComponent(modifier: Modifier = Modifier) {
