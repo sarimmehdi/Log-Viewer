@@ -12,7 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +37,11 @@ fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
                     .padding(start = 33.dp, top = 20.dp),
             fontStyle = FontStyle.Normal,
             fontSize = 48.sp,
+            fontFamily = FontFamily(
+                Font(R.font.inter_24_regular, FontWeight.Normal),
+                Font(R.font.inter_24_medium, FontWeight.Medium),
+                Font(R.font.inter_24_bold, FontWeight.Bold)
+            ),
             color = Color.White,
         )
         Spacer(
@@ -51,7 +60,9 @@ fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
+@Preview(
+    device = PIXEL_TABLET
+)
 @Composable
 fun SidebarHeaderComponentPreview() {
     SidebarHeaderComponent()

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -51,14 +52,16 @@ fun SidebarComponent(
             modifier = Modifier.size(9.dp),
         )
         CustomScrollableListComponent(
-            contentHeight = 233.dp,
-        ) {
-            items(data.dateObjects.size) { index ->
-                SidebarListItemComponent(
-                    data = data.dateObjects[index],
-                )
-            }
-        }
+            customScrollableListComponentData = CustomScrollableListComponentData(
+                contentHeight = 233.dp,
+            ) {
+                items(data.dateObjects.size) { index ->
+                    SidebarListItemComponent(
+                        data = data.dateObjects[index],
+                    )
+                }
+            },
+        )
         SidebarHorizontalDividerComponent(
             modifier =
                 Modifier
@@ -83,14 +86,16 @@ fun SidebarComponent(
             modifier = Modifier.size(22.dp),
         )
         CustomScrollableListComponent(
-            contentHeight = 234.dp,
-        ) {
-            items(data.sessionObjects.size) { index ->
-                SidebarListItemComponent(
-                    data = data.sessionObjects[index],
-                )
-            }
-        }
+            customScrollableListComponentData = CustomScrollableListComponentData(
+                contentHeight = 234.dp,
+            ) {
+                items(data.sessionObjects.size) { index ->
+                    SidebarListItemComponent(
+                        data = data.sessionObjects[index],
+                    )
+                }
+            },
+        )
     }
 }
 
@@ -100,7 +105,9 @@ data class SidebarComponentData(
 )
 
 @Composable
-@Preview
+@Preview(
+    device = PIXEL_TABLET
+)
 internal fun SidebarComponentPreview(
     @PreviewParameter(SidebarComponentDataParameterProvider::class) data: SidebarComponentData,
 ) {

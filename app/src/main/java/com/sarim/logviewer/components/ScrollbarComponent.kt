@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -23,7 +24,9 @@ fun ScrollbarComponent(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview
+@Preview(
+    device = PIXEL_TABLET
+)
 @Composable
 fun ScrollbarComponentPreview() {
     ScrollbarComponent(

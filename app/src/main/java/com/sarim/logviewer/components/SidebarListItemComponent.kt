@@ -13,13 +13,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.logviewer.R
 
 @Composable
 fun SidebarListItemComponent(
@@ -64,6 +69,11 @@ fun SidebarListItemComponent(
                         ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 24.sp,
+                fontFamily = FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold)
+                ),
                 color = Color.White,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -87,6 +97,11 @@ fun SidebarListItemComponent(
                         ),
                 fontStyle = FontStyle.Normal,
                 fontSize = 20.sp,
+                fontFamily = FontFamily(
+                    Font(R.font.inter_24_regular, FontWeight.Normal),
+                    Font(R.font.inter_24_medium, FontWeight.Medium),
+                    Font(R.font.inter_24_bold, FontWeight.Bold)
+                ),
                 color = Color.White.copy(alpha = 0.5f),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -102,7 +117,9 @@ data class SidebarListItemComponentData(
 )
 
 @Composable
-@Preview
+@Preview(
+    device = PIXEL_TABLET
+)
 internal fun SidebarListItemComponentPreview(
     @PreviewParameter(SidebarListItemComponentDataParameterProvider::class) data: SidebarListItemComponentData,
 ) {

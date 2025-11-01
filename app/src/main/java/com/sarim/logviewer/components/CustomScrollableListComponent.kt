@@ -19,6 +19,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -27,8 +28,7 @@ import androidx.compose.ui.unit.times
 @Composable
 fun CustomScrollableListComponent(
     modifier: Modifier = Modifier,
-    contentHeight: Dp,
-    content: LazyListScope.() -> Unit,
+    customScrollableListComponentData: CustomScrollableListComponentData
 ) {
     val listState = rememberLazyListState()
     var scrollProgress by remember { mutableFloatStateOf(0f) }
@@ -59,43 +59,52 @@ fun CustomScrollableListComponent(
             state = listState,
             modifier =
                 Modifier
-                    .height(contentHeight)
+                    .height(customScrollableListComponentData.contentHeight)
                     .fillMaxWidth(),
-        ) { content() }
+        ) { customScrollableListComponentData.content(this) }
 
         Box(
             modifier =
                 Modifier
                     .align(Alignment.CenterEnd)
-                    .height(contentHeight),
+                    .height(customScrollableListComponentData.contentHeight),
         ) {
-            val thumbHeight = contentHeight * scrollbarHeight
+            val thumbHeight = customScrollableListComponentData.contentHeight * scrollbarHeight
             ScrollbarComponent(
                 modifier =
                     Modifier
                         .align(Alignment.TopEnd)
                         .height(thumbHeight)
-                        .offset(y = scrollProgress * (contentHeight - thumbHeight)),
+                        .offset(y = scrollProgress * (customScrollableListComponentData.contentHeight - thumbHeight)),
             )
         }
     }
 }
 
-@Preview
+data class CustomScrollableListComponentData(
+    val contentHeight: Dp = 0.dp,
+    val content: LazyListScope.() -> Unit = {},
+)
+
+@Preview(
+    device = PIXEL_TABLET
+)
 @Composable
 fun CustomScrollableListComponentPreview() {
     CustomScrollableListComponent(
-        contentHeight = 500.dp,
-    ) {
-        items(30) {
-            Box(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .padding(4.dp)
-                        .background(Color.White),
-            )
-        }
-    }
+        customScrollableListComponentData = CustomScrollableListComponentData(
+            contentHeight = 500.dp
+        ) {
+            items(30) {
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .height(50.dp)
+                            .padding(4.dp)
+                            .background(Color.White),
+                )
+            }
+        },
+    )
 }
