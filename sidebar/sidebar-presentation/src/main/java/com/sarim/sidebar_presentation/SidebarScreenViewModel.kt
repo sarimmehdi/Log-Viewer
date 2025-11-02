@@ -3,6 +3,7 @@ package com.sarim.sidebar_presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sarim.utils.test.DefaultDispatchers
 import com.sarim.utils.test.DispatcherProvider
 import com.sarim.utils.ui.MessageType
 import com.sarim.utils.ui.Resource
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 import com.sarim.utils.R as utilsR
 
 class SidebarScreenViewModel(
-    dispatchers: DispatcherProvider,
+    private val dispatchers: DispatcherProvider = DefaultDispatchers(),
     private val savedStateHandle: SavedStateHandle,
     private val useCases: SidebarScreenUseCases,
 ) : ViewModel() {
@@ -68,51 +69,6 @@ class SidebarScreenViewModel(
                 }
             }
         }
-        viewModelScope.launch(dispatchers.main) {
-            useCases.getSessionsUseCase().collectLatest {
-                when (it) {
-                    is Resource.Error -> {
-                        val message = it.message
-                        SnackBarController.sendEvent(
-                            event =
-                                SnackbarEvent(
-                                    message =
-                                        when (message) {
-                                            is MessageType.IntMessage ->
-                                                @Suppress("SpreadOperator")
-                                                UiText.StringResource(
-                                                    message.message,
-                                                    *message.args,
-                                                )
-
-                                            is MessageType.StringMessage ->
-                                                UiText.StringResource(
-                                                    R.string.unable_to_get_sessions,
-                                                    message.message,
-                                                )
-                                        },
-                                    action =
-                                        SnackbarAction(
-                                            name = UiText.StringResource(utilsR.string.dismiss),
-                                        ),
-                                ),
-                        )
-                    }
-                    is Resource.Success -> {
-                        val currState = (savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] as SidebarScreenState?)
-                        savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] =
-                            currState?.copy(
-                                sessions =
-                                    useCases.getSessionsUseCase
-                                        .filterSessions(
-                                            session = currState.sessionsFilter,
-                                            sessions = it.data,
-                                        ).toImmutableList(),
-                            )
-                    }
-                }
-            }
-        }
     }
 
     fun onEvent(event: SidebarScreenToViewModelEvents) {
@@ -130,6 +86,53 @@ class SidebarScreenViewModel(
                     currState?.copy(
                         datesFilter = event.sessionName,
                     )
+            }
+            is SidebarScreenToViewModelEvents.GetSessions -> {
+                viewModelScope.launch(dispatchers.main) {
+                    useCases.getSessionsUseCase(event.date).collectLatest {
+                        when (it) {
+                            is Resource.Error -> {
+                                val message = it.message
+                                SnackBarController.sendEvent(
+                                    event =
+                                        SnackbarEvent(
+                                            message =
+                                                when (message) {
+                                                    is MessageType.IntMessage ->
+                                                        @Suppress("SpreadOperator")
+                                                        UiText.StringResource(
+                                                            message.message,
+                                                            *message.args,
+                                                        )
+
+                                                    is MessageType.StringMessage ->
+                                                        UiText.StringResource(
+                                                            R.string.unable_to_get_sessions,
+                                                            message.message,
+                                                        )
+                                                },
+                                            action =
+                                                SnackbarAction(
+                                                    name = UiText.StringResource(utilsR.string.dismiss),
+                                                ),
+                                        ),
+                                )
+                            }
+                            is Resource.Success -> {
+                                val currState = (savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] as SidebarScreenState?)
+                                savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] =
+                                    currState?.copy(
+                                        sessions =
+                                            useCases.getSessionsUseCase
+                                                .filterSessions(
+                                                    session = currState.sessionsFilter,
+                                                    sessions = it.data,
+                                                ).toImmutableList(),
+                                    )
+                            }
+                        }
+                    }
+                }
             }
         }
     }

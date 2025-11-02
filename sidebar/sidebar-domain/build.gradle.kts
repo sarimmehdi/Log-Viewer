@@ -43,5 +43,7 @@ android {
 
 dependencies {
     implementation(libs.androidxCoreKtxLibrary)
+    implementation(platform(libs.koinBomLibrary))
+    implementation(libs.bundles.koinBundle)
     implementation(project(":utils"))
 }

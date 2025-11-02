@@ -34,7 +34,7 @@ import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun Navigator() {
+fun Navigator(sidebarScreenViewModel: SidebarScreenViewModel = koinViewModel()) {
     val snackbarHostState =
         remember {
             SnackbarHostState()
@@ -61,7 +61,7 @@ fun Navigator() {
         }
     }
 
-    val backStack = rememberNavBackStack(AppRoutes.AppScreen)
+    val backStack = rememberNavBackStack(AppScreen)
     NavDisplay(
         entryDecorators =
             listOf(
@@ -72,11 +72,10 @@ fun Navigator() {
         onBack = { backStack.removeLastOrNull() },
         entryProvider =
             entryProvider {
-                entry<AppRoutes.AppScreen> {
+                entry<AppScreen> {
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                     ) { innerPadding ->
-                        val sidebarScreenViewModel = koinViewModel<SidebarScreenViewModel>()
                         val sidebarScreenState by sidebarScreenViewModel.state.collectAsStateWithLifecycle()
                         AppScreenComponent(
                             modifier = Modifier.padding(innerPadding),
@@ -333,7 +332,5 @@ data class AppScreenComponentData(
 //    )
 // }
 
-sealed interface AppRoutes : NavKey {
-    @Serializable
-    data object AppScreen : AppRoutes
-}
+@Serializable
+data object AppScreen : NavKey

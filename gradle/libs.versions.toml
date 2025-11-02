@@ -2,9 +2,6 @@
 agpVersion = "8.13.0"
 kotlinVersion = "2.2.21"
 coreKtxVersion = "1.17.0"
-junitVersion = "4.13.2"
-androidJunitVersion = "1.3.0"
-espressoCoreVersion = "3.7.0"
 lifecycleRuntimeKtxVersion = "2.9.4"
 activityComposeVersion = "1.11.0"
 composeBomVersion = "2025.10.01"
@@ -20,9 +17,6 @@ material3AdaptiveNav3Version = "1.3.0-alpha02"
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
 androidxCoreKtxLibrary = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtxVersion" }
-junitLibrary = { group = "junit", name = "junit", version.ref = "junitVersion" }
-androidxJunitLibrary = { group = "androidx.test.ext", name = "junit", version.ref = "androidJunitVersion" }
-androidxEspressoCoreLibrary = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
 androidxLifecycleRuntimeKtxLibrary = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
 androidxActivityComposeLibrary = { group = "androidx.activity", name = "activity-compose", version.ref = "activityComposeVersion" }
 androidxComposeBomLibrary = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBomVersion" }
@@ -31,7 +25,6 @@ androidxComposeUiGraphicsLibrary = { group = "androidx.compose.ui", name = "ui-g
 androidxComposeUiToolingLibrary = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidxComposeUiToolingPreviewLibrary = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidxComposeUiTestManifestLibrary = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidxComposeUiTestJunit4Library = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidxComposeMaterial3Library = { group = "androidx.compose.material3", name = "material3" }
 koinBomLibrary = { group = "io.insert-koin", name = "koin-bom", version.ref = "koinBomVersion" }
 koinCoreLibrary = { group = "io.insert-koin", name = "koin-core" }

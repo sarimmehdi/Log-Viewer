@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.bundles.dataStorageBundle)
     implementation(platform(libs.androidxComposeBomLibrary))
     implementation(libs.bundles.composeImplementationBundle)
+    implementation(platform(libs.koinBomLibrary))
+    implementation(libs.bundles.koinBundle)
     implementation(project(":sidebar:sidebar-domain"))
     implementation(project(":utils"))
 }
