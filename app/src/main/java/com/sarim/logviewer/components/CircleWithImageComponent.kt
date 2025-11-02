@@ -25,7 +25,7 @@ import com.sarim.logviewer.R
 @Composable
 fun CircleWithImageComponent(
     modifier: Modifier = Modifier,
-    data: CircleWithImageComponentData = CircleWithImageComponentData(),
+    data: CircleWithImageComponentData,
 ) {
     Box(
         modifier =
@@ -50,10 +50,10 @@ fun CircleWithImageComponent(
 }
 
 data class CircleWithImageComponentData(
-    @param:DrawableRes val imageResource: Int = R.drawable.double_arrows,
-    val imageResourceDescription: String = "",
-    val imageRotation: Float = 0.0f,
-    val alpha: Float = 1.0f,
+    @param:DrawableRes val imageResource: Int,
+    val imageResourceDescription: String,
+    val imageRotation: Float,
+    val alpha: Float,
 )
 
 @Composable

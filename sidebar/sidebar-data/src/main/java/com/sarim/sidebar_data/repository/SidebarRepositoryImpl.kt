@@ -9,14 +9,16 @@ import com.sarim.sidebar_domain.repository.SidebarRepository
 import com.sarim.utils.ui.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.util.UUID
 
 class SidebarRepositoryImpl : SidebarRepository {
     override val dates: Flow<Resource<List<Date>>> =
         flow {
             val mockDates =
-                List(10) {
+                List(10) { index ->
                     DateDto(
-                        dateHeading = "MMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+                        id = UUID.randomUUID().toString(),
+                        dateHeading = "${index + 1} MMMMMMMMMMMMMM",
                         dateSessions = 10,
                     )
                 }
@@ -26,10 +28,11 @@ class SidebarRepositoryImpl : SidebarRepository {
     override fun getSessions(date: Date) =
         flow {
             val mockSessions =
-                List(10) {
+                List(10) { index ->
                     SessionDto(
-                        sessionHeading = "MMMMMMMMMMMMMMMMMMMMMMMMMMMM",
-                        sessionLogs = 100,
+                        id = UUID.randomUUID().toString(),
+                        sessionHeading = "${date.dateHeading} Session MMMMMMMMMMMMMMMMMMMMMMMMMMMM ${index + 1}",
+                        sessionLogs = 9999,
                     )
                 }
             emit(Resource.Success(mockSessions.map { it.toSession() }))

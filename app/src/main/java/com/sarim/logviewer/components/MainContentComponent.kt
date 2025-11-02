@@ -19,13 +19,12 @@ import com.sarim.utils.component.CustomScrollableListComponent
 import com.sarim.utils.component.CustomScrollableListComponentData
 import com.sarim.utils.component.HorizontalDividerComponent
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun MainContentComponent(
+    data: MainContentComponentData,
     modifier: Modifier = Modifier,
-    data: MainContentComponentData = MainContentComponentData(),
 ) {
     Column(
         modifier =
@@ -65,7 +64,7 @@ fun MainContentComponent(
 }
 
 data class MainContentComponentData(
-    val logObjects: ImmutableList<MainContentListItemComponentData> = persistentListOf(),
+    val logObjects: ImmutableList<MainContentListItemComponentData>,
 )
 
 @Preview(

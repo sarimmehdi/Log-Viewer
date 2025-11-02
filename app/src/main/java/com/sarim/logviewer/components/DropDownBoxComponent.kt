@@ -9,13 +9,12 @@ import androidx.compose.ui.unit.dp
 import com.sarim.utils.component.CustomScrollableListComponent
 import com.sarim.utils.component.CustomScrollableListComponentData
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun DropDownBoxComponent(
+    data: DropDownBoxComponentData,
     modifier: Modifier = Modifier,
-    data: DropDownBoxComponentData = DropDownBoxComponentData(),
 ) {
     CustomScrollableListComponent(
         customScrollableListComponentData =
@@ -35,7 +34,7 @@ fun DropDownBoxComponent(
 }
 
 data class DropDownBoxComponentData(
-    val dropDownBoxListItems: ImmutableList<DropDownBoxListItemComponentData> = persistentListOf(),
+    val dropDownBoxListItems: ImmutableList<DropDownBoxListItemComponentData>,
 )
 
 @Preview(

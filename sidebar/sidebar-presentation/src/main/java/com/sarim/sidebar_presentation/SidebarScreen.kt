@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.sarim.sidebar_domain.model.Date
+import com.sarim.sidebar_domain.model.Session
 import com.sarim.sidebar_presentation.component.SidebarHeaderComponent
 import com.sarim.sidebar_presentation.component.SidebarListItemComponent
 import com.sarim.sidebar_presentation.component.SidebarListItemComponentData
@@ -24,14 +26,14 @@ import com.sarim.utils.component.HorizontalDividerComponent
 import com.sarim.utils.component.SearchboxComponent
 import com.sarim.utils.component.SearchboxComponentData
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.serialization.Serializable
+import java.util.UUID
 
 @Composable
 fun SidebarScreen(
+    data: SidebarScreenData,
+    onEvent: (SidebarScreenToViewModelEvents) -> Unit,
     modifier: Modifier = Modifier,
-    data: SidebarScreenData = SidebarScreenData(),
 ) {
     Column(
         modifier =
@@ -69,6 +71,7 @@ fun SidebarScreen(
                     items(data.dateObjects.size) { index ->
                         SidebarListItemComponent(
                             data = data.dateObjects[index],
+                            onEvent = onEvent,
                         )
                     }
                 },
@@ -105,6 +108,7 @@ fun SidebarScreen(
                     items(data.sessionObjects.size) { index ->
                         SidebarListItemComponent(
                             data = data.sessionObjects[index],
+                            onEvent = onEvent,
                         )
                     }
                 },
@@ -113,12 +117,9 @@ fun SidebarScreen(
 }
 
 data class SidebarScreenData(
-    val dateObjects: ImmutableList<SidebarListItemComponentData> = persistentListOf(),
-    val sessionObjects: ImmutableList<SidebarListItemComponentData> = persistentListOf(),
+    val dateObjects: ImmutableList<SidebarListItemComponentData>,
+    val sessionObjects: ImmutableList<SidebarListItemComponentData>,
 )
-
-@Serializable
-data object SidebarFeature
 
 @Composable
 @Preview(
@@ -129,6 +130,7 @@ internal fun SidebarComponentPreview(
 ) {
     SidebarScreen(
         data = data,
+        onEvent = {},
     )
 }
 
@@ -138,18 +140,28 @@ class SidebarComponentDataParameterProvider : PreviewParameterProvider<SidebarSc
             SidebarScreenData(
                 dateObjects =
                     List(10) { index ->
-                        SidebarListItemComponentData(
-                            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                            selected = index % 2 == 0,
+                        val date =
+                            Date(
+                                id = UUID.randomUUID().toString(),
+                                dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                dateSessions = index,
+                                selected = index % 2 == 0,
+                            )
+                        SidebarListItemComponentData.DateItem(
+                            date = date,
                         )
                     }.toImmutableList(),
                 sessionObjects =
                     List(10) { index ->
-                        SidebarListItemComponentData(
-                            heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                            subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                            selected = index % 2 == 0,
+                        val session =
+                            Session(
+                                id = UUID.randomUUID().toString(),
+                                sessionHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                                sessionLogs = index,
+                                selected = index % 2 == 0,
+                            )
+                        SidebarListItemComponentData.SessionItem(
+                            session = session,
                         )
                     }.toImmutableList(),
             ),

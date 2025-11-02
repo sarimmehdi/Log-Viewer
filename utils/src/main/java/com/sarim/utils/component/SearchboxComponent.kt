@@ -35,8 +35,8 @@ import com.sarim.utils.R
 
 @Composable
 fun SearchboxComponent(
+    data: SearchboxComponentData,
     modifier: Modifier = Modifier,
-    data: SearchboxComponentData = SearchboxComponentData(),
 ) {
     var text by remember { mutableStateOf("") }
     TextField(

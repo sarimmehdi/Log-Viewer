@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.androidLibraryPlugin)
     alias(libs.plugins.kotlinAndroidPlugin)
     alias(libs.plugins.kotlinSerializationPlugin)
-    alias(libs.plugins.ktlintPlugin)
     id("kotlin-parcelize")
 }
 
@@ -45,5 +44,6 @@ dependencies {
     implementation(libs.androidxCoreKtxLibrary)
     implementation(platform(libs.koinBomLibrary))
     implementation(libs.bundles.koinBundle)
+    implementation(libs.bundles.dataStorageBundle)
     implementation(project(":utils"))
 }

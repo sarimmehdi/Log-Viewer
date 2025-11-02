@@ -30,8 +30,8 @@ import com.sarim.logviewer.R
 
 @Composable
 fun DropDownButtonComponent(
+    data: DropDownButtonComponentData,
     modifier: Modifier = Modifier,
-    data: DropDownButtonComponentData = DropDownButtonComponentData(),
 ) {
     Row(
         modifier =
@@ -67,13 +67,13 @@ fun DropDownButtonComponent(
 }
 
 data class DropDownButtonComponentData(
-    val name: String = "",
-    val borderColor: Color = Color.White,
-    val arrowColor: Color = Color.White,
-    val textColor: Color = Color.White,
-    val fontSize: TextUnit = 24.sp,
-    val imageModifier: Modifier = Modifier,
-    val textModifier: Modifier = Modifier,
+    val name: String,
+    val borderColor: Color,
+    val arrowColor: Color,
+    val textColor: Color,
+    val fontSize: TextUnit,
+    val imageModifier: Modifier,
+    val textModifier: Modifier,
 )
 
 @Preview(device = PIXEL_TABLET)

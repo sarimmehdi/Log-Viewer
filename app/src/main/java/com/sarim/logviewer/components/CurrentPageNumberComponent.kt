@@ -35,8 +35,8 @@ import java.util.Locale
 
 @Composable
 fun CurrentPageNumberComponent(
+    data: CurrentPageNumberComponentData,
     modifier: Modifier = Modifier,
-    data: CurrentPageNumberComponentData = CurrentPageNumberComponentData(),
 ) {
     var text by remember {
         mutableStateOf(
@@ -87,7 +87,7 @@ fun CurrentPageNumberComponent(
 }
 
 data class CurrentPageNumberComponentData(
-    val currentPageNumber: Int = 1,
+    val currentPageNumber: Int,
 )
 
 @Composable

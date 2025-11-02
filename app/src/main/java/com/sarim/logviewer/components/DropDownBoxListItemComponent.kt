@@ -22,8 +22,8 @@ import com.sarim.logviewer.R
 
 @Composable
 fun DropDownBoxListItemComponent(
+    data: DropDownBoxListItemComponentData,
     modifier: Modifier = Modifier,
-    data: DropDownBoxListItemComponentData = DropDownBoxListItemComponentData(),
 ) {
     Row(
         modifier =
@@ -63,8 +63,8 @@ fun DropDownBoxListItemComponent(
 }
 
 data class DropDownBoxListItemComponentData(
-    val itemName: String = "",
-    val itemFilterOn: Boolean = true,
+    val itemName: String,
+    val itemFilterOn: Boolean,
 )
 
 @Composable

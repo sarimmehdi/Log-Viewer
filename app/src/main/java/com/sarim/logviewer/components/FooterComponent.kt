@@ -20,8 +20,8 @@ import com.sarim.logviewer.R
 
 @Composable
 fun FooterComponent(
+    data: FooterComponentData,
     modifier: Modifier = Modifier,
-    data: FooterComponentData = FooterComponentData(),
 ) {
     Row(
         modifier =
@@ -103,10 +103,10 @@ fun FooterComponent(
 }
 
 data class FooterComponentData(
-    val numberFirstLogOnPage: Int = 1,
-    val numberLastLogOnPage: Int = 10,
-    val totalLogs: Int = 100,
-    val currentPageNumber: Int = 1,
+    val numberFirstLogOnPage: Int,
+    val numberLastLogOnPage: Int,
+    val totalLogs: Int,
+    val currentPageNumber: Int,
 )
 
 @Composable
@@ -126,15 +126,27 @@ class FooterComponentDataParameterProvider : PreviewParameterProvider<FooterComp
         sequenceOf(
             FooterComponentData(
                 currentPageNumber = 9,
+                numberFirstLogOnPage = 1,
+                totalLogs = 100,
+                numberLastLogOnPage = 10,
             ),
             FooterComponentData(
                 currentPageNumber = 99,
+                numberFirstLogOnPage = 1,
+                totalLogs = 100,
+                numberLastLogOnPage = 10,
             ),
             FooterComponentData(
                 currentPageNumber = 999,
+                numberFirstLogOnPage = 1,
+                totalLogs = 100,
+                numberLastLogOnPage = 10,
             ),
             FooterComponentData(
                 currentPageNumber = 9999,
+                numberFirstLogOnPage = 1,
+                totalLogs = 100,
+                numberLastLogOnPage = 10,
             ),
         )
 }
