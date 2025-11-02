@@ -1,4 +1,4 @@
-package com.sarim.sidebar_presentation.component
+package com.sarim.sidebar_presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,6 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.sarim.sidebar_presentation.component.SidebarHeaderComponent
+import com.sarim.sidebar_presentation.component.SidebarListItemComponent
+import com.sarim.sidebar_presentation.component.SidebarListItemComponentData
 import com.sarim.utils.component.CustomScrollableListComponent
 import com.sarim.utils.component.CustomScrollableListComponentData
 import com.sarim.utils.component.HorizontalDividerComponent
@@ -23,11 +26,12 @@ import com.sarim.utils.component.SearchboxComponentData
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.serialization.Serializable
 
 @Composable
-fun SidebarComponent(
+fun SidebarScreen(
     modifier: Modifier = Modifier,
-    data: SidebarComponentData = SidebarComponentData(),
+    data: SidebarScreenData = SidebarScreenData(),
 ) {
     Column(
         modifier =
@@ -108,27 +112,30 @@ fun SidebarComponent(
     }
 }
 
-data class SidebarComponentData(
+data class SidebarScreenData(
     val dateObjects: ImmutableList<SidebarListItemComponentData> = persistentListOf(),
     val sessionObjects: ImmutableList<SidebarListItemComponentData> = persistentListOf(),
 )
+
+@Serializable
+data object SidebarFeature
 
 @Composable
 @Preview(
     device = PIXEL_TABLET,
 )
 internal fun SidebarComponentPreview(
-    @PreviewParameter(SidebarComponentDataParameterProvider::class) data: SidebarComponentData,
+    @PreviewParameter(SidebarComponentDataParameterProvider::class) data: SidebarScreenData,
 ) {
-    SidebarComponent(
+    SidebarScreen(
         data = data,
     )
 }
 
-class SidebarComponentDataParameterProvider : PreviewParameterProvider<SidebarComponentData> {
+class SidebarComponentDataParameterProvider : PreviewParameterProvider<SidebarScreenData> {
     override val values =
         sequenceOf(
-            SidebarComponentData(
+            SidebarScreenData(
                 dateObjects =
                     List(10) { index ->
                         SidebarListItemComponentData(

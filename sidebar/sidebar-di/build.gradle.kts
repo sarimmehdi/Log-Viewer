@@ -1,14 +1,16 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.androidLibraryPlugin)
     alias(libs.plugins.kotlinAndroidPlugin)
-    alias(libs.plugins.kotlinComposePlugin)
     alias(libs.plugins.ktlintPlugin)
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.sarim.utils"
-    compileSdk = 36
+    namespace = "com.sarim.sidebar_di"
+    compileSdk {
+        version = release(36)
+    }
 
     defaultConfig {
         minSdk = 26
@@ -32,22 +34,17 @@ android {
     }
     kotlin {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
-    }
-    buildFeatures {
-        compose = true
     }
 }
 
 dependencies {
-
-    implementation(libs.androidxCoreKtxLibrary)
-    implementation(libs.androidxLifecycleRuntimeKtxLibrary)
-    implementation(libs.androidxActivityComposeLibrary)
-    implementation(platform(libs.androidxComposeBomLibrary))
-    implementation(libs.bundles.composeImplementationBundle)
     implementation(platform(libs.koinBomLibrary))
     implementation(libs.bundles.koinBundle)
-    implementation(libs.bundles.dataStorageBundle)
+    implementation(project(":utils"))
+    implementation(project(":sidebar:sidebar-di"))
+    implementation(project(":sidebar:sidebar-data"))
+    implementation(project(":sidebar:sidebar-domain"))
+    implementation(project(":sidebar:sidebar-presentation"))
 }

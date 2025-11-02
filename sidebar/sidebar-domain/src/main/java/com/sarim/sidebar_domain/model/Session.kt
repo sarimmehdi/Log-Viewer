@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Session(
     val sessionHeading: String,
-    val sessionLogs: Int
+    val sessionLogs: Int,
 ) : Parcelable

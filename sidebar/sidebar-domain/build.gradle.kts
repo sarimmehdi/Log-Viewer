@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidLibraryPlugin)
     alias(libs.plugins.kotlinAndroidPlugin)
     alias(libs.plugins.kotlinSerializationPlugin)
+    alias(libs.plugins.ktlintPlugin)
     id("kotlin-parcelize")
 }
 
@@ -25,7 +26,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
