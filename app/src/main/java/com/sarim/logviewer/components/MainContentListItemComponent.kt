@@ -24,8 +24,8 @@ import com.sarim.logviewer.R
 
 @Composable
 fun MainContentListItemComponent(
+    data: MainContentListItemComponentData,
     modifier: Modifier = Modifier,
-    data: MainContentListItemComponentData = MainContentListItemComponentData(),
 ) {
     Row(
         modifier =
@@ -184,13 +184,13 @@ sealed class Line {
 }
 
 data class MainContentListItemComponentData(
-    val message: String = "",
-    val className: String = "",
-    val function: String = "",
-    val line: Line = Line.Integer(),
-    val level: Level = Level.Text(),
-    val textSize: TextUnit = 16.sp,
-    val fontWeight: FontWeight = FontWeight.Normal,
+    val message: String,
+    val className: String,
+    val function: String,
+    val line: Line,
+    val level: Level,
+    val textSize: TextUnit,
+    val fontWeight: FontWeight,
 )
 
 @Composable

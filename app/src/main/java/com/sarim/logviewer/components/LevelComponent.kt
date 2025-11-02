@@ -24,8 +24,8 @@ import com.sarim.logviewer.R
 
 @Composable
 fun LevelComponent(
+    data: LevelComponentData,
     modifier: Modifier = Modifier,
-    data: LevelComponentData = LevelComponentData(),
 ) {
     Box(
         modifier =
@@ -54,8 +54,8 @@ fun LevelComponent(
 }
 
 data class LevelComponentData(
-    val name: String = "",
-    val color: Color = Color.White,
+    val name: String,
+    val color: Color,
 )
 
 @Composable

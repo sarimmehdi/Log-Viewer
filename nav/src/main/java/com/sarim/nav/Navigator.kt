@@ -24,6 +24,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.sarim.sidebar_presentation.SidebarScreen
 import com.sarim.sidebar_presentation.SidebarScreenData
+import com.sarim.sidebar_presentation.SidebarScreenToViewModelEvents
 import com.sarim.sidebar_presentation.SidebarScreenViewModel
 import com.sarim.sidebar_presentation.component.SidebarListItemComponentData
 import com.sarim.utils.ui.ObserveAsEvents
@@ -34,7 +35,7 @@ import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun Navigator(sidebarScreenViewModel: SidebarScreenViewModel = koinViewModel()) {
+fun Navigator(viewModel: SidebarScreenViewModel = koinViewModel()) {
     val snackbarHostState =
         remember {
             SnackbarHostState()
@@ -76,7 +77,7 @@ fun Navigator(sidebarScreenViewModel: SidebarScreenViewModel = koinViewModel()) 
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
                     ) { innerPadding ->
-                        val sidebarScreenState by sidebarScreenViewModel.state.collectAsStateWithLifecycle()
+                        val state by viewModel.state.collectAsStateWithLifecycle()
                         AppScreenComponent(
                             modifier = Modifier.padding(innerPadding),
                             data =
@@ -84,23 +85,22 @@ fun Navigator(sidebarScreenViewModel: SidebarScreenViewModel = koinViewModel()) 
                                     sidebarComponentData =
                                         SidebarScreenData(
                                             dateObjects =
-                                                sidebarScreenState.dates
+                                                state.dates
                                                     .map {
-                                                        SidebarListItemComponentData(
-                                                            heading = it.dateHeading,
-                                                            subHeading = context.getString(R.string.num_sessions, it.dateSessions),
+                                                        SidebarListItemComponentData.DateItem(
+                                                            date = it,
                                                         )
                                                     }.toImmutableList(),
                                             sessionObjects =
-                                                sidebarScreenState.sessions
+                                                state.sessions
                                                     .map {
-                                                        SidebarListItemComponentData(
-                                                            heading = it.sessionHeading,
-                                                            subHeading = context.getString(R.string.num_logs, it.sessionLogs),
+                                                        SidebarListItemComponentData.SessionItem(
+                                                            session = it,
                                                         )
                                                     }.toImmutableList(),
                                         ),
                                 ),
+                            onEvent = viewModel::onEvent,
                         )
                     }
                 }
@@ -110,8 +110,9 @@ fun Navigator(sidebarScreenViewModel: SidebarScreenViewModel = koinViewModel()) 
 
 @Composable
 fun AppScreenComponent(
+    data: AppScreenComponentData,
+    onEvent: (SidebarScreenToViewModelEvents) -> Unit,
     modifier: Modifier = Modifier,
-    data: AppScreenComponentData = AppScreenComponentData(),
 ) {
     Row(
         modifier =
@@ -120,6 +121,7 @@ fun AppScreenComponent(
     ) {
         SidebarScreen(
             data = data.sidebarComponentData,
+            onEvent = onEvent,
         )
 //        Column {
 //            HeaderComponent(
@@ -155,9 +157,9 @@ fun AppScreenComponent(
 }
 
 data class AppScreenComponentData(
-    val sidebarComponentData: SidebarScreenData = SidebarScreenData(),
-//    val mainContentComponentData: MainContentComponentData = MainContentComponentData(),
-//    val footerComponentData: FooterComponentData = FooterComponentData(),
+    val sidebarComponentData: SidebarScreenData,
+//    val mainContentComponentData: MainContentComponentData,
+//    val footerComponentData: FooterComponentData,
 )
 
 // @Preview(

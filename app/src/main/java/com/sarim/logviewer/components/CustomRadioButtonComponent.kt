@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomRadioButtonComponent(
+    data: CustomRadioButtonComponentData,
     modifier: Modifier = Modifier,
-    data: CustomRadioButtonComponentData = CustomRadioButtonComponentData(),
 ) {
     Box(
         modifier =
@@ -77,7 +77,7 @@ fun CustomRadioButtonComponent(
 }
 
 data class CustomRadioButtonComponentData(
-    val on: Boolean = true,
+    val on: Boolean,
 )
 
 @Composable

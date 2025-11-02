@@ -1,6 +1,9 @@
 package com.sarim.sidebar_presentation.component
 
+import java.util.UUID
+
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,12 +26,19 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sarim.utils.R
+
+import com.sarim.sidebar_domain.model.Date
+import com.sarim.sidebar_domain.model.Session
+import com.sarim.sidebar_presentation.R
+import com.sarim.sidebar_presentation.SidebarScreenToViewModelEvents
+import com.sarim.utils.ui.UiText
+import com.sarim.utils.R as utilsR
 
 @Composable
 fun SidebarListItemComponent(
+    data: SidebarListItemComponentData,
+    onEvent: (SidebarScreenToViewModelEvents) -> Unit,
     modifier: Modifier = Modifier,
-    data: SidebarListItemComponentData = SidebarListItemComponentData(),
 ) {
     Row(
         modifier =
@@ -41,7 +51,9 @@ fun SidebarListItemComponent(
                     } else {
                         Modifier
                     },
-                ),
+                ).clickable {
+                    onEvent(data.toEvent())
+                },
     ) {
         if (data.selected) {
             Box(
@@ -70,9 +82,9 @@ fun SidebarListItemComponent(
                 fontSize = 24.sp,
                 fontFamily =
                     FontFamily(
-                        Font(R.font.inter_24_regular, FontWeight.Normal),
-                        Font(R.font.inter_24_medium, FontWeight.Medium),
-                        Font(R.font.inter_24_bold, FontWeight.Bold),
+                        Font(utilsR.font.inter_24_regular, FontWeight.Normal),
+                        Font(utilsR.font.inter_24_medium, FontWeight.Medium),
+                        Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                     ),
                 color = Color.White,
                 maxLines = 1,
@@ -84,7 +96,7 @@ fun SidebarListItemComponent(
                         .size(5.dp),
             )
             Text(
-                text = data.subHeading,
+                text = data.subHeading.asString(),
                 modifier =
                     Modifier
                         .padding(
@@ -99,9 +111,9 @@ fun SidebarListItemComponent(
                 fontSize = 20.sp,
                 fontFamily =
                     FontFamily(
-                        Font(R.font.inter_24_regular, FontWeight.Normal),
-                        Font(R.font.inter_24_medium, FontWeight.Medium),
-                        Font(R.font.inter_24_bold, FontWeight.Bold),
+                        Font(utilsR.font.inter_24_regular, FontWeight.Normal),
+                        Font(utilsR.font.inter_24_medium, FontWeight.Medium),
+                        Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                     ),
                 color = Color.White.copy(alpha = 0.5f),
                 maxLines = 1,
@@ -111,11 +123,33 @@ fun SidebarListItemComponent(
     }
 }
 
-data class SidebarListItemComponentData(
-    val heading: String = "",
-    val subHeading: String = "",
-    val selected: Boolean = false,
-)
+sealed class SidebarListItemComponentData {
+    abstract val heading: String
+    abstract val subHeading: UiText
+    abstract val selected: Boolean
+
+    abstract fun toEvent(): SidebarScreenToViewModelEvents
+
+    data class DateItem(
+        val date: Date,
+    ) : SidebarListItemComponentData() {
+        override val heading = date.dateHeading
+        override val subHeading = UiText.StringResource(R.string.sessions, date.dateSessions)
+        override val selected = date.selected
+
+        override fun toEvent() = SidebarScreenToViewModelEvents.SelectDate(date)
+    }
+
+    data class SessionItem(
+        val session: Session,
+    ) : SidebarListItemComponentData() {
+        override val heading = session.sessionHeading
+        override val subHeading = UiText.StringResource(R.string.logs, session.sessionLogs)
+        override val selected = session.selected
+
+        override fun toEvent() = SidebarScreenToViewModelEvents.SelectSession(session)
+    }
+}
 
 @Composable
 @Preview(
@@ -126,21 +160,30 @@ internal fun SidebarListItemComponentPreview(
 ) {
     SidebarListItemComponent(
         data = data,
+        onEvent = {},
     )
 }
 
 class SidebarListItemComponentDataParameterProvider : PreviewParameterProvider<SidebarListItemComponentData> {
     override val values =
         sequenceOf(
-            SidebarListItemComponentData(
-                heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                selected = true,
+            SidebarListItemComponentData.DateItem(
+                date =
+                    Date(
+                        id = UUID.randomUUID().toString(),
+                        dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        dateSessions = 9999,
+                        selected = true,
+                    ),
             ),
-            SidebarListItemComponentData(
-                heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                selected = false,
+            SidebarListItemComponentData.SessionItem(
+                session =
+                    Session(
+                        id = UUID.randomUUID().toString(),
+                        sessionHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        sessionLogs = 9999,
+                        selected = true,
+                    ),
             ),
         )
 }

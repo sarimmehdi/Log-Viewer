@@ -3,6 +3,7 @@ package com.sarim.sidebar_presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sarim.sidebar_domain.model.select
 import com.sarim.utils.test.DefaultDispatchers
 import com.sarim.utils.test.DispatcherProvider
 import com.sarim.utils.ui.MessageType
@@ -87,7 +88,12 @@ class SidebarScreenViewModel(
                         datesFilter = event.sessionName,
                     )
             }
-            is SidebarScreenToViewModelEvents.GetSessions -> {
+            is SidebarScreenToViewModelEvents.SelectDate -> {
+                val currState = (savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] as SidebarScreenState?)
+                savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] =
+                    currState?.copy(
+                        dates = currState.dates.select(event.date),
+                    )
                 viewModelScope.launch(dispatchers.main) {
                     useCases.getSessionsUseCase(event.date).collectLatest {
                         when (it) {
@@ -133,6 +139,13 @@ class SidebarScreenViewModel(
                         }
                     }
                 }
+            }
+            is SidebarScreenToViewModelEvents.SelectSession -> {
+                val currState = (savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] as SidebarScreenState?)
+                savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] =
+                    currState?.copy(
+                        sessions = currState.sessions.select(event.session),
+                    )
             }
         }
     }

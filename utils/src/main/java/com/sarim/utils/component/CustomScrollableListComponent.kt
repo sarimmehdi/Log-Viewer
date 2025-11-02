@@ -82,8 +82,8 @@ fun CustomScrollableListComponent(
 }
 
 data class CustomScrollableListComponentData(
-    val contentHeight: Dp = 0.dp,
-    val content: LazyListScope.() -> Unit = {},
+    val contentHeight: Dp,
+    val content: LazyListScope.() -> Unit,
 )
 
 @Preview(
