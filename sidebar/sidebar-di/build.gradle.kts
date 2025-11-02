@@ -43,7 +43,6 @@ dependencies {
     implementation(platform(libs.koinBomLibrary))
     implementation(libs.bundles.koinBundle)
     implementation(project(":utils"))
-    implementation(project(":sidebar:sidebar-di"))
     implementation(project(":sidebar:sidebar-data"))
     implementation(project(":sidebar:sidebar-domain"))
     implementation(project(":sidebar:sidebar-presentation"))

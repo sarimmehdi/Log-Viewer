@@ -5,7 +5,6 @@ import com.sarim.sidebar_data.model.SessionDto
 import com.sarim.sidebar_data.model.toDate
 import com.sarim.sidebar_data.model.toSession
 import com.sarim.sidebar_domain.model.Date
-import com.sarim.sidebar_domain.model.Session
 import com.sarim.sidebar_domain.repository.SidebarRepository
 import com.sarim.utils.ui.Resource
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +23,7 @@ class SidebarRepositoryImpl : SidebarRepository {
             emit(Resource.Success(mockDates.map { it.toDate() }))
         }
 
-    override val sessions: Flow<Resource<List<Session>>> =
+    override fun getSessions(date: Date) =
         flow {
             val mockSessions =
                 List(10) {

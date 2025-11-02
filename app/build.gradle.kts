@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.bundles.composeImplementationBundle)
     implementation(platform(libs.koinBomLibrary))
     implementation(libs.bundles.koinBundle)
+    implementation(libs.bundles.dataStorageBundle)
     implementation(project(":utils"))
     implementation(project(":nav"))
     implementation(project(":sidebar:sidebar-di"))
