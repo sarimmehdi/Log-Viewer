@@ -2,10 +2,10 @@ package com.sarim.sidebar_presentation
 
 sealed interface SidebarScreenToViewModelEvents {
     data class FilterDates(
-        val dateName: String
+        val dateName: String,
     ) : SidebarScreenToViewModelEvents
 
     data class FilterSessions(
-        val sessionName: String
+        val sessionName: String,
     ) : SidebarScreenToViewModelEvents
 }

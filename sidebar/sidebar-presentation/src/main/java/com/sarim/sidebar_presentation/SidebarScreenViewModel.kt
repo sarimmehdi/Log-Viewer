@@ -20,7 +20,6 @@ class SidebarScreenViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val useCases: SidebarScreenUseCases,
 ) : ViewModel() {
-
     val state = savedStateHandle.getStateFlow(SIDEBAR_SCREEN_STATE_KEY, SidebarScreenState())
 
     init {
@@ -58,10 +57,12 @@ class SidebarScreenViewModel(
                         val currState = (savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] as SidebarScreenState?)
                         savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] =
                             currState?.copy(
-                                dates = useCases.getDatesUseCase.filterDates(
-                                    date = currState.datesFilter,
-                                    dates = it.data
-                                ).toImmutableList(),
+                                dates =
+                                    useCases.getDatesUseCase
+                                        .filterDates(
+                                            date = currState.datesFilter,
+                                            dates = it.data,
+                                        ).toImmutableList(),
                             )
                     }
                 }
@@ -101,10 +102,12 @@ class SidebarScreenViewModel(
                         val currState = (savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] as SidebarScreenState?)
                         savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] =
                             currState?.copy(
-                                sessions = useCases.getSessionsUseCase.filterSessions(
-                                    session = currState.sessionsFilter,
-                                    sessions = it.data
-                                ).toImmutableList(),
+                                sessions =
+                                    useCases.getSessionsUseCase
+                                        .filterSessions(
+                                            session = currState.sessionsFilter,
+                                            sessions = it.data,
+                                        ).toImmutableList(),
                             )
                     }
                 }

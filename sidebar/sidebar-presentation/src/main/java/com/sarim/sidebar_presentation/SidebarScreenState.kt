@@ -12,5 +12,5 @@ data class SidebarScreenState(
     val dates: ImmutableList<Date> = persistentListOf(),
     val sessions: ImmutableList<Session> = persistentListOf(),
     val datesFilter: String = "",
-    val sessionsFilter: String = ""
+    val sessionsFilter: String = "",
 ) : Parcelable

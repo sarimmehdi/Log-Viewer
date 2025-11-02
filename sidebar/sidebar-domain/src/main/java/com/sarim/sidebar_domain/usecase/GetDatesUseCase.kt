@@ -8,7 +8,12 @@ class GetDatesUseCase(
 ) {
     operator fun invoke() = repository.dates
 
-    fun filterDates(date: String, dates: List<Date>) = if (date.isBlank()) {
+    fun filterDates(
+        date: String,
+        dates: List<Date>,
+    ) = if (date.isBlank()) {
         dates
-    } else dates.filter { it.dateHeading == date }
+    } else {
+        dates.filter { it.dateHeading == date }
+    }
 }

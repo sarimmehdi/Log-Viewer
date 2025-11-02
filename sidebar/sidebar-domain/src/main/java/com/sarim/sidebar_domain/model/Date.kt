@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Date(
     val dateHeading: String,
-    val dateSessions: Int
+    val dateSessions: Int,
 ) : Parcelable
