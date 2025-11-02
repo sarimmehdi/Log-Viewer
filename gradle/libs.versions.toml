@@ -13,6 +13,20 @@ nav3CoreVersion = "1.0.0-beta01"
 lifecycleViewmodelNav3Version = "2.10.0-beta01"
 kotlinxSerializationCoreVersion = "1.9.0"
 material3AdaptiveNav3Version = "1.3.0-alpha02"
+conventionPluginAndroidApplicationName = "androidApplicationPlugin"
+conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
+conventionPluginDiLibraryName = "diLibraryPlugin"
+conventionPluginDiLibraryClass = "com.sarim.convention.AndroidDiLibraryConventionPlugin"
+conventionPluginDataLibraryName = "dataLibraryPlugin"
+conventionPluginDataLibraryClass = "com.sarim.convention.AndroidDataLibraryConventionPlugin"
+conventionPluginDomainLibraryName = "domainLibraryPlugin"
+conventionPluginDomainLibraryClass = "com.sarim.convention.AndroidDomainLibraryConventionPlugin"
+conventionPluginPresentationLibraryName = "presentationLibraryPlugin"
+conventionPluginPresentationLibraryClass = "com.sarim.convention.AndroidPresentationLibraryConventionPlugin"
+conventionPluginNavLibraryName = "navLibraryPlugin"
+conventionPluginNavLibraryClass = "com.sarim.convention.AndroidNavLibraryConventionPlugin"
+conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
+conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -39,6 +53,9 @@ androidxNavigation3UiLibrary = { module = "androidx.navigation3:navigation3-ui",
 androidxLifecycleViewmodelNavigation3Library = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3Version" }
 kotlinxSerializationCoreLibrary = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCoreVersion" }
 androidxMaterial3AdaptiveNavigation3Library = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation3", version.ref = "material3AdaptiveNav3Version" }
+androidGradlePluginLibrary = { group = "com.android.tools.build", name = "gradle", version.ref = "agpVersion" }
+kotlinGradlePluginLibrary = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
+kotlinSerializationPluginLibrary = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
 
 [bundles]
 navBundle = [
@@ -78,4 +95,10 @@ kotlinComposePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref 
 ktlintPlugin = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintVersion" }
 androidLibraryPlugin = { id = "com.android.library", version.ref = "agpVersion" }
 kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
-
+conventionPluginAndroidApplicationId = { id = "com.sarim.convention.android.application.plugin" }
+conventionPluginDiLibraryId = { id = "com.sarim.convention.android.di.library.plugin" }
+conventionPluginDataLibraryId = { id = "com.sarim.convention.android.data.library.plugin" }
+conventionPluginDomainLibraryId = { id = "com.sarim.convention.domain.library.plugin" }
+conventionPluginPresentationLibraryId = { id = "com.sarim.convention.presentation.library.plugin" }
+conventionPluginNavLibraryId = { id = "com.sarim.convention.nav.library.plugin" }
+conventionPluginUtilsLibraryId = { id = "com.sarim.convention.utils.library.plugin" }
