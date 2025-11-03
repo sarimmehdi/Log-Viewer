@@ -25,10 +25,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sarim.utils.R
@@ -41,7 +37,10 @@ fun SearchboxComponent(
     var text by remember { mutableStateOf("") }
     TextField(
         value = text,
-        onValueChange = { text = it },
+        onValueChange = {
+            text = it
+            data.onValueChange(it)
+        },
         modifier =
             modifier
                 .width(337.dp)
@@ -65,7 +64,12 @@ fun SearchboxComponent(
         trailingIcon = {
             val icon = if (text.isEmpty()) R.drawable.magnifying_glass else R.drawable.side_bar_close_icon
             IconButton(
-                onClick = { if (text.isNotEmpty()) text = "" },
+                onClick = {
+                    if (text.isNotEmpty()) {
+                        text = ""
+                        data.onValueChange("")
+                    }
+                },
                 modifier =
                     Modifier.then(
                         if (text.isNotEmpty()) Modifier.size(19.71.dp, 19.56.dp) else Modifier,
@@ -90,40 +94,8 @@ fun SearchboxComponent(
 }
 
 data class SearchboxComponentData(
-    val placeholderText: String = "",
-    val iconDescription: String = "",
-    val backgroundColor: Color = Color.Transparent,
+    val placeholderText: String,
+    val iconDescription: String,
+    val backgroundColor: Color,
+    val onValueChange: (String) -> Unit,
 )
-
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun SearchboxComponentPreview(
-    @PreviewParameter(SearchboxComponentDataParameterProvider::class) data: SearchboxComponentData,
-) {
-    SearchboxComponent(
-        data = data,
-    )
-}
-
-class SearchboxComponentDataParameterProvider : PreviewParameterProvider<SearchboxComponentData> {
-    override val values =
-        sequenceOf(
-            SearchboxComponentData(
-                placeholderText = "Search dates",
-                iconDescription = "Icon to search dates",
-                backgroundColor = Color(0xFF01070B),
-            ),
-            SearchboxComponentData(
-                placeholderText = "Search sessions",
-                iconDescription = "Icon to search sessions",
-                backgroundColor = Color(0xFF01070B),
-            ),
-            SearchboxComponentData(
-                placeholderText = "Search messages",
-                iconDescription = "Icon to search messages",
-                backgroundColor = Color(0xFF03111B),
-            ),
-        )
-}

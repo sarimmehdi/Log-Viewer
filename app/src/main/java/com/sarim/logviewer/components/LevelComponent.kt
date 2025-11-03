@@ -14,10 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sarim.logviewer.R
@@ -58,40 +54,40 @@ data class LevelComponentData(
     val color: Color,
 )
 
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun LevelComponentPreview(
-    @PreviewParameter(LevelComponentDataParameterProvider::class) data: LevelComponentData,
-) {
-    LevelComponent(
-        data = data,
-    )
-}
-
-class LevelComponentDataParameterProvider : PreviewParameterProvider<LevelComponentData> {
-    override val values =
-        sequenceOf(
-            LevelComponentData(
-                name = "ERROR",
-                color = Color(0xFFD30000),
-            ),
-            LevelComponentData(
-                name = "DEBUG",
-                color = Color(0xFF004AD3),
-            ),
-            LevelComponentData(
-                name = "INFO",
-                color = Color(0xFF3FD300),
-            ),
-            LevelComponentData(
-                name = "WARN",
-                color = Color(0xFFD36600),
-            ),
-            LevelComponentData(
-                name = "CRITICAL",
-                color = Color(0xFFFF0004),
-            ),
-        )
-}
+// @Composable
+// @Preview(
+//    device = PIXEL_TABLET,
+// )
+// internal fun LevelComponentPreview(
+//    @PreviewParameter(LevelComponentDataParameterProvider::class) data: LevelComponentData,
+// ) {
+//    LevelComponent(
+//        data = data,
+//    )
+// }
+//
+// class LevelComponentDataParameterProvider : PreviewParameterProvider<LevelComponentData> {
+//    override val values =
+//        sequenceOf(
+//            LevelComponentData(
+//                name = "ERROR",
+//                color = Color(0xFFD30000),
+//            ),
+//            LevelComponentData(
+//                name = "DEBUG",
+//                color = Color(0xFF004AD3),
+//            ),
+//            LevelComponentData(
+//                name = "INFO",
+//                color = Color(0xFF3FD300),
+//            ),
+//            LevelComponentData(
+//                name = "WARN",
+//                color = Color(0xFFD36600),
+//            ),
+//            LevelComponentData(
+//                name = "CRITICAL",
+//                color = Color(0xFFFF0004),
+//            ),
+//        )
+// }

@@ -6,7 +6,6 @@ import com.sarim.sidebar_domain.usecase.GetDatesUseCase
 import com.sarim.sidebar_domain.usecase.GetSessionsUseCase
 import com.sarim.sidebar_presentation.SidebarScreenUseCases
 import com.sarim.sidebar_presentation.SidebarScreenViewModel
-import com.sarim.utils.test.DefaultDispatchers
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.lazyModule
 
@@ -17,7 +16,6 @@ fun module() =
         }
         viewModel {
             SidebarScreenViewModel(
-                dispatchers = DefaultDispatchers(),
                 savedStateHandle = get(),
                 useCases =
                     SidebarScreenUseCases(

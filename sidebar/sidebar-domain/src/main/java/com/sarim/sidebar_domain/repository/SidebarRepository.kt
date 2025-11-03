@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface SidebarRepository {
     val dates: Flow<Resource<List<Date>>>
 
-    fun getSessions(date: Date): Flow<Resource<List<Session>>>
+    fun getSessions(date: Date?): Flow<Resource<List<Session>>>
 }

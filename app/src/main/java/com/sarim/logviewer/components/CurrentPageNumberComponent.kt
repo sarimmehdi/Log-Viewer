@@ -24,10 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sarim.logviewer.R
@@ -90,32 +86,32 @@ data class CurrentPageNumberComponentData(
     val currentPageNumber: Int,
 )
 
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun CurrentPageNumberComponentPreview(
-    @PreviewParameter(CurrentPageNumberComponentDataParameterProvider::class) data: CurrentPageNumberComponentData,
-) {
-    CurrentPageNumberComponent(
-        data = data,
-    )
-}
-
-class CurrentPageNumberComponentDataParameterProvider : PreviewParameterProvider<CurrentPageNumberComponentData> {
-    override val values =
-        sequenceOf(
-            CurrentPageNumberComponentData(
-                currentPageNumber = 9,
-            ),
-            CurrentPageNumberComponentData(
-                currentPageNumber = 99,
-            ),
-            CurrentPageNumberComponentData(
-                currentPageNumber = 999,
-            ),
-            CurrentPageNumberComponentData(
-                currentPageNumber = 9999,
-            ),
-        )
-}
+// @Composable
+// @Preview(
+//    device = PIXEL_TABLET,
+// )
+// internal fun CurrentPageNumberComponentPreview(
+//    @PreviewParameter(CurrentPageNumberComponentDataParameterProvider::class) data: CurrentPageNumberComponentData,
+// ) {
+//    CurrentPageNumberComponent(
+//        data = data,
+//    )
+// }
+//
+// class CurrentPageNumberComponentDataParameterProvider : PreviewParameterProvider<CurrentPageNumberComponentData> {
+//    override val values =
+//        sequenceOf(
+//            CurrentPageNumberComponentData(
+//                currentPageNumber = 9,
+//            ),
+//            CurrentPageNumberComponentData(
+//                currentPageNumber = 99,
+//            ),
+//            CurrentPageNumberComponentData(
+//                currentPageNumber = 999,
+//            ),
+//            CurrentPageNumberComponentData(
+//                currentPageNumber = 9999,
+//            ),
+//        )
+// }

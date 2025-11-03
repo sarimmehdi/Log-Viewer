@@ -13,10 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -80,26 +76,26 @@ data class CustomRadioButtonComponentData(
     val on: Boolean,
 )
 
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun CustomRadioButtonComponentPreview(
-    @PreviewParameter(CustomRadioButtonComponentDataParameterProvider::class) data: CustomRadioButtonComponentData,
-) {
-    CustomRadioButtonComponent(
-        data = data,
-    )
-}
-
-class CustomRadioButtonComponentDataParameterProvider : PreviewParameterProvider<CustomRadioButtonComponentData> {
-    override val values =
-        sequenceOf(
-            CustomRadioButtonComponentData(
-                on = true,
-            ),
-            CustomRadioButtonComponentData(
-                on = false,
-            ),
-        )
-}
+// @Composable
+// @Preview(
+//    device = PIXEL_TABLET,
+// )
+// internal fun CustomRadioButtonComponentPreview(
+//    @PreviewParameter(CustomRadioButtonComponentDataParameterProvider::class) data: CustomRadioButtonComponentData,
+// ) {
+//    CustomRadioButtonComponent(
+//        data = data,
+//    )
+// }
+//
+// class CustomRadioButtonComponentDataParameterProvider : PreviewParameterProvider<CustomRadioButtonComponentData> {
+//    override val values =
+//        sequenceOf(
+//            CustomRadioButtonComponentData(
+//                on = true,
+//            ),
+//            CustomRadioButtonComponentData(
+//                on = false,
+//            ),
+//        )
+// }

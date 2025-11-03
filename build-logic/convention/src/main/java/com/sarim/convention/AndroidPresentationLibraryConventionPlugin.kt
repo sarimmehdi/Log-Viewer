@@ -30,6 +30,8 @@ class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
             "implementation"(libs.bundles.composeImplementationBundle)
             "implementation"(platform(libs.koinBomLibrary))
             "implementation"(libs.bundles.koinBundle)
+            "debugImplementation"(platform(libs.androidxComposeBomLibrary))
+            "debugImplementation"(libs.bundles.composeDebugImplementationBundle)
         }
         val extension = target.extensions.create(
             "extraModules",

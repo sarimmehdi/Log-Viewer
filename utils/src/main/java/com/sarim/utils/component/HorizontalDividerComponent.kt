@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -19,12 +17,4 @@ fun HorizontalDividerComponent(modifier: Modifier = Modifier) {
             .height(1.dp)
             .background(Color.White.copy(alpha = 0.1f)),
     )
-}
-
-@Preview(
-    device = PIXEL_TABLET,
-)
-@Composable
-fun HorizontalDividerComponentPreview() {
-    HorizontalDividerComponent()
 }

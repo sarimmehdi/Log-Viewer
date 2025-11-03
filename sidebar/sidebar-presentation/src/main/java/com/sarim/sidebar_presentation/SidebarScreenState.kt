@@ -10,7 +10,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SidebarScreenState(
     val dates: ImmutableList<Date> = persistentListOf(),
+    val selectedDate: Date? = null,
     val sessions: ImmutableList<Session> = persistentListOf(),
+    val selectedSession: Session? = null,
     val datesFilter: String = "",
     val sessionsFilter: String = "",
 ) : Parcelable

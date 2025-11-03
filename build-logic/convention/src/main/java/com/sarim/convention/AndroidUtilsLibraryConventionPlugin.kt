@@ -27,6 +27,8 @@ class AndroidUtilsLibraryConventionPlugin : Plugin<Project> {
             "implementation"(platform(libs.koinBomLibrary))
             "implementation"(libs.bundles.koinBundle)
             "implementation"(libs.bundles.dataStorageBundle)
+            "debugImplementation"(platform(libs.androidxComposeBomLibrary))
+            "debugImplementation"(libs.bundles.composeDebugImplementationBundle)
         }
     }
 }

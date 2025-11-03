@@ -10,13 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.sarim.sidebar_domain.model.Date
-import com.sarim.sidebar_domain.model.Session
 import com.sarim.sidebar_presentation.component.SidebarHeaderComponent
 import com.sarim.sidebar_presentation.component.SidebarListItemComponent
 import com.sarim.sidebar_presentation.component.SidebarListItemComponentData
@@ -26,8 +20,6 @@ import com.sarim.utils.component.HorizontalDividerComponent
 import com.sarim.utils.component.SearchboxComponent
 import com.sarim.utils.component.SearchboxComponentData
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
-import java.util.UUID
 
 @Composable
 fun SidebarScreen(
@@ -50,6 +42,13 @@ fun SidebarScreen(
                     placeholderText = "Search dates",
                     iconDescription = "Icon to search dates",
                     backgroundColor = Color(0xFF01070B),
+                    onValueChange = {
+                        onEvent(
+                            SidebarScreenToViewModelEvents.FilterDates(
+                                dateName = it,
+                            ),
+                        )
+                    },
                 ),
             modifier =
                 Modifier
@@ -87,6 +86,13 @@ fun SidebarScreen(
                     placeholderText = "Search sessions",
                     iconDescription = "Icon to search sessions",
                     backgroundColor = Color(0xFF01070B),
+                    onValueChange = {
+                        onEvent(
+                            SidebarScreenToViewModelEvents.FilterSessions(
+                                sessionName = it,
+                            ),
+                        )
+                    },
                 ),
             modifier =
                 Modifier
@@ -120,50 +126,3 @@ data class SidebarScreenData(
     val dateObjects: ImmutableList<SidebarListItemComponentData>,
     val sessionObjects: ImmutableList<SidebarListItemComponentData>,
 )
-
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun SidebarComponentPreview(
-    @PreviewParameter(SidebarComponentDataParameterProvider::class) data: SidebarScreenData,
-) {
-    SidebarScreen(
-        data = data,
-        onEvent = {},
-    )
-}
-
-class SidebarComponentDataParameterProvider : PreviewParameterProvider<SidebarScreenData> {
-    override val values =
-        sequenceOf(
-            SidebarScreenData(
-                dateObjects =
-                    List(10) { index ->
-                        val date =
-                            Date(
-                                id = UUID.randomUUID().toString(),
-                                dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                dateSessions = index,
-                                selected = index % 2 == 0,
-                            )
-                        SidebarListItemComponentData.DateItem(
-                            date = date,
-                        )
-                    }.toImmutableList(),
-                sessionObjects =
-                    List(10) { index ->
-                        val session =
-                            Session(
-                                id = UUID.randomUUID().toString(),
-                                sessionHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                                sessionLogs = index,
-                                selected = index % 2 == 0,
-                            )
-                        SidebarListItemComponentData.SessionItem(
-                            session = session,
-                        )
-                    }.toImmutableList(),
-            ),
-        )
-}

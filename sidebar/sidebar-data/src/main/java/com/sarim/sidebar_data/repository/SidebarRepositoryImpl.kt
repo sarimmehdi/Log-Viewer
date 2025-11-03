@@ -18,20 +18,22 @@ class SidebarRepositoryImpl : SidebarRepository {
                 List(10) { index ->
                     DateDto(
                         id = UUID.randomUUID().toString(),
-                        dateHeading = "${index + 1} MMMMMMMMMMMMMM",
+                        dateHeading = "Date ${index + 1}",
                         dateSessions = 10,
                     )
                 }
             emit(Resource.Success(mockDates.map { it.toDate() }))
         }
 
-    override fun getSessions(date: Date) =
+    override fun getSessions(date: Date?) =
         flow {
+            if (date == null) return@flow
+
             val mockSessions =
                 List(10) { index ->
                     SessionDto(
                         id = UUID.randomUUID().toString(),
-                        sessionHeading = "${date.dateHeading} Session MMMMMMMMMMMMMMMMMMMMMMMMMMMM ${index + 1}",
+                        sessionHeading = "${date.dateHeading} Session ${index + 1}",
                         sessionLogs = 9999,
                     )
                 }

@@ -13,7 +13,13 @@ data class Date(
     val selected: Boolean,
 ) : Parcelable
 
-fun ImmutableList<Date>.select(target: Date): ImmutableList<Date> =
+fun ImmutableList<Date>.select(target: Date?): ImmutableList<Date> =
     map { item ->
-        if (item.id == target.id) item.copy(selected = true) else item.copy(selected = false)
+        if (target != null && item.id == target.id) {
+            item.copy(selected = true)
+        } else {
+            item.copy(selected = false)
+        }
     }.toImmutableList()
+
+fun ImmutableList<Date>.getSelected(): Date? = firstOrNull { it.selected }

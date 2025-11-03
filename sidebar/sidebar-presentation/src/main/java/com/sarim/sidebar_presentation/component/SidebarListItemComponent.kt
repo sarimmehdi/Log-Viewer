@@ -1,7 +1,5 @@
 package com.sarim.sidebar_presentation.component
 
-import java.util.UUID
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,13 +18,8 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
 import com.sarim.sidebar_domain.model.Date
 import com.sarim.sidebar_domain.model.Session
 import com.sarim.sidebar_presentation.R
@@ -149,41 +142,4 @@ sealed class SidebarListItemComponentData {
 
         override fun toEvent() = SidebarScreenToViewModelEvents.SelectSession(session)
     }
-}
-
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun SidebarListItemComponentPreview(
-    @PreviewParameter(SidebarListItemComponentDataParameterProvider::class) data: SidebarListItemComponentData,
-) {
-    SidebarListItemComponent(
-        data = data,
-        onEvent = {},
-    )
-}
-
-class SidebarListItemComponentDataParameterProvider : PreviewParameterProvider<SidebarListItemComponentData> {
-    override val values =
-        sequenceOf(
-            SidebarListItemComponentData.DateItem(
-                date =
-                    Date(
-                        id = UUID.randomUUID().toString(),
-                        dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        dateSessions = 9999,
-                        selected = true,
-                    ),
-            ),
-            SidebarListItemComponentData.SessionItem(
-                session =
-                    Session(
-                        id = UUID.randomUUID().toString(),
-                        sessionHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        sessionLogs = 9999,
-                        selected = true,
-                    ),
-            ),
-        )
 }

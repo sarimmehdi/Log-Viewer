@@ -9,11 +9,12 @@ class GetDatesUseCase(
     operator fun invoke() = repository.dates
 
     fun filterDates(
-        date: String,
-        dates: List<Date>,
-    ) = if (date.isBlank()) {
-        dates
+        session: String,
+        sessions: List<Date>,
+    ) = if (session.isBlank()) {
+        sessions
     } else {
-        dates.filter { it.dateHeading == date }
+        val query = session.lowercase()
+        sessions.filter { it.dateHeading.lowercase().contains(query) }
     }
 }
