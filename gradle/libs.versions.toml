@@ -13,6 +13,7 @@ nav3CoreVersion = "1.0.0-beta01"
 lifecycleViewmodelNav3Version = "2.10.0-beta01"
 kotlinxSerializationCoreVersion = "1.9.0"
 material3AdaptiveNav3Version = "1.3.0-alpha02"
+detektVersion = "1.23.8"
 conventionPluginAndroidApplicationName = "androidApplicationPlugin"
 conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
 conventionPluginDiLibraryName = "diLibraryPlugin"
@@ -27,11 +28,6 @@ conventionPluginNavLibraryName = "navLibraryPlugin"
 conventionPluginNavLibraryClass = "com.sarim.convention.AndroidNavLibraryConventionPlugin"
 conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
-junitVersion = "4.13.2"
-junit = "1.3.0"
-espressoCoreVersion = "3.7.0"
-appcompatVersion = "1.7.1"
-materialVersion = "1.13.0"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -61,11 +57,6 @@ androidxMaterial3AdaptiveNavigation3Library = { group = "androidx.compose.materi
 androidGradlePluginLibrary = { group = "com.android.tools.build", name = "gradle", version.ref = "agpVersion" }
 kotlinGradlePluginLibrary = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
 kotlinSerializationPluginLibrary = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
-junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
-extJunit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [bundles]
 navBundle = [
@@ -104,6 +95,7 @@ kotlinComposePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref 
 ktlintPlugin = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintVersion" }
 androidLibraryPlugin = { id = "com.android.library", version.ref = "agpVersion" }
 kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+detektPlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
 conventionPluginAndroidApplicationId = { id = "com.sarim.convention.android.application.plugin" }
 conventionPluginDiLibraryId = { id = "com.sarim.convention.android.di.library.plugin" }
 conventionPluginDataLibraryId = { id = "com.sarim.convention.android.data.library.plugin" }

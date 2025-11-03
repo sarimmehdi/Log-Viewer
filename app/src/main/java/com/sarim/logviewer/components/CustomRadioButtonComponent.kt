@@ -15,6 +15,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+const val RADIO_BUTTON_ON_COLOR = 0xFF03111B
+const val RADIO_BUTTON_ON_BORDER_COLOR = 0xFF004AD3
+const val RADIO_BUTTON_OFF_COLOR = 0xFF007AD3
+
 @Composable
 fun CustomRadioButtonComponent(
     data: CustomRadioButtonComponentData,
@@ -29,13 +33,13 @@ fun CustomRadioButtonComponent(
                 .border(
                     1.dp,
                     if (data.on) {
-                        Color(0xFF03111B)
+                        Color(RADIO_BUTTON_ON_COLOR)
                     } else {
-                        Color(0xFF007AD3)
+                        Color(RADIO_BUTTON_OFF_COLOR)
                     },
                     RoundedCornerShape(13.5.dp),
                 ).then(
-                    if (data.on) Modifier.background(Color(0xFF004AD3)) else Modifier,
+                    if (data.on) Modifier.background(Color(RADIO_BUTTON_ON_BORDER_COLOR)) else Modifier,
                 ),
         contentAlignment =
             if (data.on) {
@@ -52,7 +56,7 @@ fun CustomRadioButtonComponent(
                             end = 4.dp,
                         ).size(width = 12.91.dp, height = 13.85.dp)
                         .background(
-                            color = Color(0xFF03111B),
+                            color = Color(RADIO_BUTTON_ON_COLOR),
                             shape = RoundedCornerShape(percent = 50),
                         ),
             )
@@ -64,7 +68,7 @@ fun CustomRadioButtonComponent(
                             start = 4.dp,
                         ).size(width = 12.91.dp, height = 13.85.dp)
                         .background(
-                            color = Color(0xFF007AD3),
+                            color = Color(RADIO_BUTTON_OFF_COLOR),
                             shape = RoundedCornerShape(percent = 50),
                         ),
             )

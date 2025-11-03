@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.sp
 import com.sarim.utils.component.SearchboxComponent
 import com.sarim.utils.component.SearchboxComponentData
 
+const val SEARCH_BOX_BACKGROUND_COLOR = 0xFF03111B
+const val DROP_DOWN_BUTTON_COLOR = 0xFF007AD3
+
 @Composable
 fun HeaderComponent(modifier: Modifier = Modifier) {
     Row(
@@ -28,7 +31,7 @@ fun HeaderComponent(modifier: Modifier = Modifier) {
                 SearchboxComponentData(
                     placeholderText = "Search messages",
                     iconDescription = "Icon to search messages",
-                    backgroundColor = Color(0xFF03111B),
+                    backgroundColor = Color(SEARCH_BOX_BACKGROUND_COLOR),
                     onValueChange = {},
                 ),
         )
@@ -41,9 +44,9 @@ fun HeaderComponent(modifier: Modifier = Modifier) {
             data =
                 DropDownButtonComponentData(
                     name = "Class",
-                    borderColor = Color(0xFF007AD3),
-                    arrowColor = Color(0xFF007AD3),
-                    textColor = Color(0xFF007AD3),
+                    borderColor = Color(DROP_DOWN_BUTTON_COLOR),
+                    arrowColor = Color(DROP_DOWN_BUTTON_COLOR),
+                    textColor = Color(DROP_DOWN_BUTTON_COLOR),
                     fontSize = 24.sp,
                     imageModifier =
                         Modifier
@@ -73,9 +76,9 @@ fun HeaderComponent(modifier: Modifier = Modifier) {
             data =
                 DropDownButtonComponentData(
                     name = "Function",
-                    borderColor = Color(0xFF007AD3),
-                    arrowColor = Color(0xFF007AD3),
-                    textColor = Color(0xFF007AD3),
+                    borderColor = Color(DROP_DOWN_BUTTON_COLOR),
+                    arrowColor = Color(DROP_DOWN_BUTTON_COLOR),
+                    textColor = Color(DROP_DOWN_BUTTON_COLOR),
                     fontSize = 24.sp,
                     imageModifier =
                         Modifier
@@ -105,9 +108,9 @@ fun HeaderComponent(modifier: Modifier = Modifier) {
             data =
                 DropDownButtonComponentData(
                     name = "Level",
-                    borderColor = Color(0xFF007AD3),
-                    arrowColor = Color(0xFF007AD3),
-                    textColor = Color(0xFF007AD3),
+                    borderColor = Color(DROP_DOWN_BUTTON_COLOR),
+                    arrowColor = Color(DROP_DOWN_BUTTON_COLOR),
+                    textColor = Color(DROP_DOWN_BUTTON_COLOR),
                     fontSize = 24.sp,
                     imageModifier =
                         Modifier

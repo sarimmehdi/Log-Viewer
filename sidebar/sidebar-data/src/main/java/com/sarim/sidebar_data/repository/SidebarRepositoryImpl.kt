@@ -11,11 +11,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.UUID
 
+const val TOTAL_MOCK_ITEMS = 10
+
 class SidebarRepositoryImpl : SidebarRepository {
     override val dates: Flow<Resource<List<Date>>> =
         flow {
             val mockDates =
-                List(10) { index ->
+                List(TOTAL_MOCK_ITEMS) { index ->
                     DateDto(
                         id = UUID.randomUUID().toString(),
                         dateHeading = "Date ${index + 1}",
@@ -30,7 +32,7 @@ class SidebarRepositoryImpl : SidebarRepository {
             if (date == null) return@flow
 
             val mockSessions =
-                List(10) { index ->
+                List(TOTAL_MOCK_ITEMS) { index ->
                     SessionDto(
                         id = UUID.randomUUID().toString(),
                         sessionHeading = "${date.dateHeading} Session ${index + 1}",

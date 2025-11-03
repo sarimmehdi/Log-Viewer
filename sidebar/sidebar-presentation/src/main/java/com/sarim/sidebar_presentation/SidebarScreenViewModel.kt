@@ -99,6 +99,7 @@ class SidebarScreenViewModel(
 
     val state = _state
 
+    @Suppress("SpreadOperator")
     private suspend fun snackbarEvent(
         message: MessageType,
         @StringRes failureMessageStringId: Int,

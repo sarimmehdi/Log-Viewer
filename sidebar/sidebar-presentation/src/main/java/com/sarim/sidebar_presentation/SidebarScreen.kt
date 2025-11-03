@@ -21,6 +21,9 @@ import com.sarim.utils.component.SearchboxComponent
 import com.sarim.utils.component.SearchboxComponentData
 import kotlinx.collections.immutable.ImmutableList
 
+const val SIDEBAR_SCREEN_BACKGROUND_COLOR = 0xFF03111B
+const val SIDEBAR_SCREEN_SEARCH_BOX_BACKGROUND_COLOR = 0xFF01070B
+
 @Composable
 fun SidebarScreen(
     data: SidebarScreenData,
@@ -32,7 +35,7 @@ fun SidebarScreen(
             modifier
                 .width(425.dp)
                 .height(800.dp)
-                .background(Color(0xFF03111B)),
+                .background(Color(SIDEBAR_SCREEN_BACKGROUND_COLOR)),
     ) {
         SidebarHeaderComponent()
         HorizontalDividerComponent()
@@ -41,7 +44,7 @@ fun SidebarScreen(
                 SearchboxComponentData(
                     placeholderText = "Search dates",
                     iconDescription = "Icon to search dates",
-                    backgroundColor = Color(0xFF01070B),
+                    backgroundColor = Color(SIDEBAR_SCREEN_SEARCH_BOX_BACKGROUND_COLOR),
                     onValueChange = {
                         onEvent(
                             SidebarScreenToViewModelEvents.FilterDates(
@@ -85,7 +88,7 @@ fun SidebarScreen(
                 SearchboxComponentData(
                     placeholderText = "Search sessions",
                     iconDescription = "Icon to search sessions",
-                    backgroundColor = Color(0xFF01070B),
+                    backgroundColor = Color(SIDEBAR_SCREEN_SEARCH_BOX_BACKGROUND_COLOR),
                     onValueChange = {
                         onEvent(
                             SidebarScreenToViewModelEvents.FilterSessions(

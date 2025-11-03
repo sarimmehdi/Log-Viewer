@@ -193,14 +193,16 @@ data class MainContentListItemComponentData(
 //    device = PIXEL_TABLET,
 // )
 // internal fun SearchboxComponentPreview(
-//    @PreviewParameter(MainContentListItemComponentDataParameterProvider::class) data: MainContentListItemComponentData,
+//    @PreviewParameter(MainContentListItemComponentDataParameterProvider::class) data:
+//    MainContentListItemComponentData,
 // ) {
 //    MainContentListItemComponent(
 //        data = data,
 //    )
 // }
 //
-// class MainContentListItemComponentDataParameterProvider : PreviewParameterProvider<MainContentListItemComponentData> {
+// class MainContentListItemComponentDataParameterProvider :
+// PreviewParameterProvider<MainContentListItemComponentData> {
 //    override val values =
 //        sequenceOf(
 //            MainContentListItemComponentData(
