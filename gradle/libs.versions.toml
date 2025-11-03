@@ -27,6 +27,11 @@ conventionPluginNavLibraryName = "navLibraryPlugin"
 conventionPluginNavLibraryClass = "com.sarim.convention.AndroidNavLibraryConventionPlugin"
 conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
+junitVersion = "4.13.2"
+junit = "1.3.0"
+espressoCoreVersion = "3.7.0"
+appcompatVersion = "1.7.1"
+materialVersion = "1.13.0"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -56,6 +61,11 @@ androidxMaterial3AdaptiveNavigation3Library = { group = "androidx.compose.materi
 androidGradlePluginLibrary = { group = "com.android.tools.build", name = "gradle", version.ref = "agpVersion" }
 kotlinGradlePluginLibrary = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
 kotlinSerializationPluginLibrary = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
+junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
+extJunit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [bundles]
 navBundle = [
@@ -67,7 +77,6 @@ navBundle = [
 composeImplementationBundle = [
     "androidxComposeUiLibrary",
     "androidxComposeUiGraphicsLibrary",
-    "androidxComposeUiToolingPreviewLibrary",
     "androidxComposeMaterial3Library",
 ]
 composeDebugImplementationBundle = [

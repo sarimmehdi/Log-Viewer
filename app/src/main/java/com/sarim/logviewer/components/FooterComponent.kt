@@ -11,10 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.sarim.logviewer.R
 
@@ -109,44 +105,44 @@ data class FooterComponentData(
     val currentPageNumber: Int,
 )
 
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun FooterComponentPreview(
-    @PreviewParameter(FooterComponentDataParameterProvider::class) data: FooterComponentData,
-) {
-    FooterComponent(
-        data = data,
-    )
-}
-
-class FooterComponentDataParameterProvider : PreviewParameterProvider<FooterComponentData> {
-    override val values =
-        sequenceOf(
-            FooterComponentData(
-                currentPageNumber = 9,
-                numberFirstLogOnPage = 1,
-                totalLogs = 100,
-                numberLastLogOnPage = 10,
-            ),
-            FooterComponentData(
-                currentPageNumber = 99,
-                numberFirstLogOnPage = 1,
-                totalLogs = 100,
-                numberLastLogOnPage = 10,
-            ),
-            FooterComponentData(
-                currentPageNumber = 999,
-                numberFirstLogOnPage = 1,
-                totalLogs = 100,
-                numberLastLogOnPage = 10,
-            ),
-            FooterComponentData(
-                currentPageNumber = 9999,
-                numberFirstLogOnPage = 1,
-                totalLogs = 100,
-                numberLastLogOnPage = 10,
-            ),
-        )
-}
+// @Composable
+// @Preview(
+//    device = PIXEL_TABLET,
+// )
+// internal fun FooterComponentPreview(
+//    @PreviewParameter(FooterComponentDataParameterProvider::class) data: FooterComponentData,
+// ) {
+//    FooterComponent(
+//        data = data,
+//    )
+// }
+//
+// class FooterComponentDataParameterProvider : PreviewParameterProvider<FooterComponentData> {
+//    override val values =
+//        sequenceOf(
+//            FooterComponentData(
+//                currentPageNumber = 9,
+//                numberFirstLogOnPage = 1,
+//                totalLogs = 100,
+//                numberLastLogOnPage = 10,
+//            ),
+//            FooterComponentData(
+//                currentPageNumber = 99,
+//                numberFirstLogOnPage = 1,
+//                totalLogs = 100,
+//                numberLastLogOnPage = 10,
+//            ),
+//            FooterComponentData(
+//                currentPageNumber = 999,
+//                numberFirstLogOnPage = 1,
+//                totalLogs = 100,
+//                numberLastLogOnPage = 10,
+//            ),
+//            FooterComponentData(
+//                currentPageNumber = 9999,
+//                numberFirstLogOnPage = 1,
+//                totalLogs = 100,
+//                numberLastLogOnPage = 10,
+//            ),
+//        )
+// }

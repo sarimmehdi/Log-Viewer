@@ -12,10 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sarim.logviewer.R
@@ -67,28 +63,28 @@ data class DropDownBoxListItemComponentData(
     val itemFilterOn: Boolean,
 )
 
-@Composable
-@Preview(
-    device = PIXEL_TABLET,
-)
-internal fun DropDownBoxListItemComponentPreview(
-    @PreviewParameter(DropDownBoxListItemComponentDataParameterProvider::class) data: DropDownBoxListItemComponentData,
-) {
-    DropDownBoxListItemComponent(
-        data = data,
-    )
-}
-
-class DropDownBoxListItemComponentDataParameterProvider : PreviewParameterProvider<DropDownBoxListItemComponentData> {
-    override val values =
-        sequenceOf(
-            DropDownBoxListItemComponentData(
-                itemName = "Class 1",
-                itemFilterOn = true,
-            ),
-            DropDownBoxListItemComponentData(
-                itemName = "Class 1",
-                itemFilterOn = false,
-            ),
-        )
-}
+// @Composable
+// @Preview(
+//    device = PIXEL_TABLET,
+// )
+// internal fun DropDownBoxListItemComponentPreview(
+//    @PreviewParameter(DropDownBoxListItemComponentDataParameterProvider::class) data: DropDownBoxListItemComponentData,
+// ) {
+//    DropDownBoxListItemComponent(
+//        data = data,
+//    )
+// }
+//
+// class DropDownBoxListItemComponentDataParameterProvider : PreviewParameterProvider<DropDownBoxListItemComponentData> {
+//    override val values =
+//        sequenceOf(
+//            DropDownBoxListItemComponentData(
+//                itemName = "Class 1",
+//                itemFilterOn = true,
+//            ),
+//            DropDownBoxListItemComponentData(
+//                itemName = "Class 1",
+//                itemFilterOn = false,
+//            ),
+//        )
+// }

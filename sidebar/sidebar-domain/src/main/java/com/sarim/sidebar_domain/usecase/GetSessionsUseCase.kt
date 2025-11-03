@@ -7,7 +7,7 @@ import com.sarim.sidebar_domain.repository.SidebarRepository
 class GetSessionsUseCase(
     val repository: SidebarRepository,
 ) {
-    operator fun invoke(date: Date) = repository.getSessions(date)
+    operator fun invoke(date: Date?) = repository.getSessions(date)
 
     fun filterSessions(
         session: String,
@@ -15,6 +15,7 @@ class GetSessionsUseCase(
     ) = if (session.isBlank()) {
         sessions
     } else {
-        sessions.filter { it.sessionHeading == session }
+        val query = session.lowercase()
+        sessions.filter { it.sessionHeading.lowercase().contains(query) }
     }
 }

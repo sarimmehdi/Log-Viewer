@@ -13,7 +13,11 @@ data class Session(
     val selected: Boolean,
 ) : Parcelable
 
-fun ImmutableList<Session>.select(target: Session): ImmutableList<Session> =
+fun ImmutableList<Session>.select(target: Session?): ImmutableList<Session> =
     map { item ->
-        if (item.id == target.id) item.copy(selected = true) else item.copy(selected = false)
+        if (target != null && item.id == target.id) {
+            item.copy(selected = true)
+        } else {
+            item.copy(selected = false)
+        }
     }.toImmutableList()
