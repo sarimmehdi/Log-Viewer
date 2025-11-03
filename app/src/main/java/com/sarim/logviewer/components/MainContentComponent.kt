@@ -17,6 +17,8 @@ import com.sarim.utils.component.CustomScrollableListComponentData
 import com.sarim.utils.component.HorizontalDividerComponent
 import kotlinx.collections.immutable.ImmutableList
 
+const val MAIN_CONTENT_BACKGROUND_COLOR = 0xFF03111B
+
 @Composable
 fun MainContentComponent(
     data: MainContentComponentData,
@@ -28,7 +30,7 @@ fun MainContentComponent(
                 .clip(RoundedCornerShape(10.dp))
                 .width(819.dp)
                 .height(645.dp)
-                .background(Color(0xFF03111B)),
+                .background(Color(MAIN_CONTENT_BACKGROUND_COLOR)),
     ) {
         MainContentListItemComponent(
             data =

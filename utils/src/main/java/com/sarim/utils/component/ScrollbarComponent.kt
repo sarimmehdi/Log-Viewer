@@ -10,6 +10,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+const val SCROLL_BAR_BACKGROUND_COLOR = 0xFF004AD3
+
 @Composable
 fun ScrollbarComponent(modifier: Modifier = Modifier) {
     Box(
@@ -17,6 +19,6 @@ fun ScrollbarComponent(modifier: Modifier = Modifier) {
             modifier
                 .width(17.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(Color(0xFF004AD3)),
+                .background(Color(SCROLL_BAR_BACKGROUND_COLOR)),
     )
 }

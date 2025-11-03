@@ -108,6 +108,8 @@ fun Navigator(viewModel: SidebarScreenViewModel = koinViewModel()) {
     )
 }
 
+const val APP_SCREEN_BACKGROUND_COLOR = 0xFF01070B
+
 @Composable
 fun AppScreenComponent(
     data: AppScreenComponentData,
@@ -117,7 +119,7 @@ fun AppScreenComponent(
     Row(
         modifier =
             modifier
-                .background(Color(0xFF01070B)),
+                .background(Color(APP_SCREEN_BACKGROUND_COLOR)),
     ) {
         SidebarScreen(
             data = data.sidebarComponentData,

@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.times
 
+const val CUSTOM_SCROLL_BAR_HEIGHT = 20f
+
 @Composable
 fun CustomScrollableListComponent(
     modifier: Modifier = Modifier,
@@ -26,7 +28,7 @@ fun CustomScrollableListComponent(
 ) {
     val listState = rememberLazyListState()
     var scrollProgress by remember { mutableFloatStateOf(0f) }
-    var scrollbarHeight by remember { mutableFloatStateOf(20f) }
+    var scrollbarHeight by remember { mutableFloatStateOf(CUSTOM_SCROLL_BAR_HEIGHT) }
 
     LaunchedEffect(listState) {
         snapshotFlow {

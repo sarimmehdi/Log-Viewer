@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sarim.logviewer.R
 
+const val DROP_DOWN_TEXT_COLOR = 0xFF007AD3
+
 @Composable
 fun DropDownBoxListItemComponent(
     data: DropDownBoxListItemComponentData,
@@ -44,7 +46,7 @@ fun DropDownBoxListItemComponent(
                     Font(R.font.inter_24_bold, FontWeight.Bold),
                 ),
             text = data.itemName,
-            color = Color(0xFF007AD3),
+            color = Color(DROP_DOWN_TEXT_COLOR),
         )
         CustomRadioButtonComponent(
             modifier =
@@ -68,14 +70,16 @@ data class DropDownBoxListItemComponentData(
 //    device = PIXEL_TABLET,
 // )
 // internal fun DropDownBoxListItemComponentPreview(
-//    @PreviewParameter(DropDownBoxListItemComponentDataParameterProvider::class) data: DropDownBoxListItemComponentData,
+//    @PreviewParameter(DropDownBoxListItemComponentDataParameterProvider::class) data:
+//    DropDownBoxListItemComponentData,
 // ) {
 //    DropDownBoxListItemComponent(
 //        data = data,
 //    )
 // }
 //
-// class DropDownBoxListItemComponentDataParameterProvider : PreviewParameterProvider<DropDownBoxListItemComponentData> {
+// class DropDownBoxListItemComponentDataParameterProvider :
+// PreviewParameterProvider<DropDownBoxListItemComponentData> {
 //    override val values =
 //        sequenceOf(
 //            DropDownBoxListItemComponentData(

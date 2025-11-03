@@ -17,6 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
+const val CIRCLE_WITH_IMAGE_COMPONENT_COLOR = 0xFF03111B
+
 @Composable
 fun CircleWithImageComponent(
     modifier: Modifier = Modifier,
@@ -27,7 +29,7 @@ fun CircleWithImageComponent(
             modifier
                 .alpha(data.alpha)
                 .size(30.dp)
-                .background(Color(0xFF03111B), shape = CircleShape),
+                .background(Color(CIRCLE_WITH_IMAGE_COMPONENT_COLOR), shape = CircleShape),
         contentAlignment = Alignment.Center,
     ) {
         Icon(

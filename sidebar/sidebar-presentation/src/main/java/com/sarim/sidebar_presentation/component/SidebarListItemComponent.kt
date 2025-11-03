@@ -27,6 +27,8 @@ import com.sarim.sidebar_presentation.SidebarScreenToViewModelEvents
 import com.sarim.utils.ui.UiText
 import com.sarim.utils.R as utilsR
 
+const val SELECTED_BACKGROUND_COLOR = 0xFFD9D9D9
+
 @Composable
 fun SidebarListItemComponent(
     data: SidebarListItemComponentData,
@@ -40,7 +42,7 @@ fun SidebarListItemComponent(
                 .height(78.dp)
                 .then(
                     if (data.selected) {
-                        Modifier.background(Color(0xFFD9D9D9).copy(alpha = 0.1f))
+                        Modifier.background(Color(SELECTED_BACKGROUND_COLOR).copy(alpha = 0.1f))
                     } else {
                         Modifier
                     },
