@@ -1,17 +1,12 @@
 package com.sarim.sidebar_presentation
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sarim.sidebar_domain.model.getSelected
 import com.sarim.sidebar_domain.model.select
-import com.sarim.utils.ui.MessageType
 import com.sarim.utils.ui.Resource
-import com.sarim.utils.ui.SnackBarController
-import com.sarim.utils.ui.SnackbarAction
-import com.sarim.utils.ui.SnackbarEvent
-import com.sarim.utils.ui.UiText
+import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
@@ -21,7 +16,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import com.sarim.utils.R as utilsR
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SidebarScreenViewModel(
@@ -98,29 +92,6 @@ class SidebarScreenViewModel(
     }
 
     val state = _state
-
-    @Suppress("SpreadOperator")
-    private suspend fun snackbarEvent(
-        message: MessageType,
-        @StringRes failureMessageStringId: Int,
-    ) {
-        SnackBarController.sendEvent(
-            event =
-                SnackbarEvent(
-                    message =
-                        when (message) {
-                            is MessageType.IntMessage -> {
-                                UiText.StringResource(message.message, *message.args)
-                            }
-
-                            is MessageType.StringMessage -> {
-                                UiText.StringResource(failureMessageStringId, message.message)
-                            }
-                        },
-                    action = SnackbarAction(UiText.StringResource(utilsR.string.dismiss)),
-                ),
-        )
-    }
 
     fun onEvent(event: SidebarScreenToViewModelEvents) {
         val currState = savedStateHandle[SIDEBAR_SCREEN_STATE_KEY] as SidebarScreenState? ?: return

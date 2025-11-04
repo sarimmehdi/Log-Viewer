@@ -8,27 +8,42 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 class AndroidDomainLibraryConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) = with(target) {
-        pluginManager.apply(libs.plugins.androidLibraryPlugin.get().pluginId)
-        pluginManager.apply(libs.plugins.kotlinAndroidPlugin.get().pluginId)
-        pluginManager.apply(libs.plugins.kotlinSerializationPlugin.get().pluginId)
-        pluginManager.apply("kotlin-parcelize")
-
-        configureAndroidLibrary(
-            namespace = "com.sarim.sidebar_domain",
-            useCompose = false,
-        )
-
-        dependencies {
-            "implementation"(libs.androidxCoreKtxLibrary)
-            "implementation"(platform(libs.koinBomLibrary))
-            "implementation"(libs.bundles.koinBundle)
-            "implementation"(libs.bundles.dataStorageBundle)
-        }
-        configureModuleDependencies(
-            modules = listOf(
-                ":utils",
+    override fun apply(target: Project) =
+        with(target) {
+            pluginManager.apply(
+                libs.plugins.androidLibraryPlugin
+                    .get()
+                    .pluginId,
             )
-        )
-    }
+            pluginManager.apply(
+                libs.plugins.kotlinAndroidPlugin
+                    .get()
+                    .pluginId,
+            )
+            pluginManager.apply(
+                libs.plugins.kotlinSerializationPlugin
+                    .get()
+                    .pluginId,
+            )
+            pluginManager.apply("kotlin-parcelize")
+
+            val inferredNamespace = project.name.replace("-", "_")
+            configureAndroidLibrary(
+                namespace = inferredNamespace,
+                useCompose = false,
+            )
+
+            afterEvaluate {
+                configureModuleDependencies(
+                    modules = listOf(":utils"),
+                )
+            }
+
+            dependencies {
+                "implementation"(libs.androidxCoreKtxLibrary)
+                "implementation"(platform(libs.koinBomLibrary))
+                "implementation"(libs.bundles.koinBundle)
+                "implementation"(libs.bundles.dataStorageBundle)
+            }
+        }
 }

@@ -1,5 +1,7 @@
 package com.sarim.utils.ui
 
+import androidx.annotation.StringRes
+import com.sarim.utils.R
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
@@ -31,4 +33,27 @@ data class SnackbarAction(
     }
 
     override fun hashCode(): Int = name.hashCode()
+}
+
+@Suppress("SpreadOperator")
+suspend fun snackbarEvent(
+    message: MessageType,
+    @StringRes failureMessageStringId: Int,
+) {
+    SnackBarController.sendEvent(
+        event =
+            SnackbarEvent(
+                message =
+                    when (message) {
+                        is MessageType.IntMessage -> {
+                            UiText.StringResource(message.message, *message.args)
+                        }
+
+                        is MessageType.StringMessage -> {
+                            UiText.StringResource(failureMessageStringId, message.message)
+                        }
+                    },
+                action = SnackbarAction(UiText.StringResource(R.string.dismiss)),
+            ),
+    )
 }

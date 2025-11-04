@@ -23,8 +23,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/arch-test" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
+            <option value="$PROJECT_DIR$/maincontent" />
+            <option value="$PROJECT_DIR$/maincontent/maincontent-data" />
+            <option value="$PROJECT_DIR$/maincontent/maincontent-di" />
+            <option value="$PROJECT_DIR$/maincontent/maincontent-domain" />
+            <option value="$PROJECT_DIR$/maincontent/maincontent-presentation" />
             <option value="$PROJECT_DIR$/nav" />
             <option value="$PROJECT_DIR$/sidebar" />
             <option value="$PROJECT_DIR$/sidebar/sidebar-data" />

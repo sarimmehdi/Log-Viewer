@@ -8,32 +8,52 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 class AndroidNavLibraryConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) = with(target) {
-        pluginManager.apply(libs.plugins.androidLibraryPlugin.get().pluginId)
-        pluginManager.apply(libs.plugins.kotlinAndroidPlugin.get().pluginId)
-        pluginManager.apply(libs.plugins.kotlinComposePlugin.get().pluginId)
-        pluginManager.apply(libs.plugins.kotlinSerializationPlugin.get().pluginId)
-        configureAndroidLibrary(
-            namespace = "com.sarim.nav",
-            useCompose = true,
-        )
-
-        dependencies {
-            "implementation"(platform(libs.androidxComposeBomLibrary))
-            "implementation"(libs.bundles.composeImplementationBundle)
-            "implementation"(libs.bundles.dataStorageBundle)
-            "implementation"(libs.androidxCoreKtxLibrary)
-            "implementation"(libs.bundles.navBundle)
-            "implementation"(libs.kotlinxSerializationCoreLibrary)
-            "implementation"(platform(libs.koinBomLibrary))
-            "implementation"(libs.bundles.koinBundle)
-        }
-        configureModuleDependencies(
-            modules = listOf(
-                ":utils",
-                ":sidebar:sidebar-domain",
-                ":sidebar:sidebar-presentation",
+    override fun apply(target: Project) =
+        with(target) {
+            pluginManager.apply(
+                libs.plugins.androidLibraryPlugin
+                    .get()
+                    .pluginId,
             )
-        )
-    }
+            pluginManager.apply(
+                libs.plugins.kotlinAndroidPlugin
+                    .get()
+                    .pluginId,
+            )
+            pluginManager.apply(
+                libs.plugins.kotlinComposePlugin
+                    .get()
+                    .pluginId,
+            )
+            pluginManager.apply(
+                libs.plugins.kotlinSerializationPlugin
+                    .get()
+                    .pluginId,
+            )
+            configureAndroidLibrary(
+                namespace = "nav",
+                useCompose = true,
+            )
+
+            dependencies {
+                "implementation"(platform(libs.androidxComposeBomLibrary))
+                "implementation"(libs.bundles.composeImplementationBundle)
+                "implementation"(libs.bundles.dataStorageBundle)
+                "implementation"(libs.androidxCoreKtxLibrary)
+                "implementation"(libs.bundles.navBundle)
+                "implementation"(libs.kotlinxSerializationCoreLibrary)
+                "implementation"(platform(libs.koinBomLibrary))
+                "implementation"(libs.bundles.koinBundle)
+            }
+            configureModuleDependencies(
+                modules =
+                    listOf(
+                        ":utils",
+                        ":sidebar:sidebar-domain",
+                        ":sidebar:sidebar-presentation",
+                        ":maincontent:maincontent-domain",
+                        ":maincontent:maincontent-presentation",
+                    ),
+            )
+        }
 }

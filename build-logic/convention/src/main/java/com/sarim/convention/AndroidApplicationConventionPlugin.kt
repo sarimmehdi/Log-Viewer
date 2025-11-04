@@ -1,14 +1,13 @@
 package com.sarim.convention
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.sarim.convention.utils.Config
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
-import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
@@ -30,38 +29,40 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     .pluginId,
             )
 
+            val config = Config()
             extensions.configure<BaseAppModuleExtension> {
-                namespace = "com.sarim.logviewer"
-                compileSdk = 36
+                namespace = config.baseNamespace + ".logviewer"
+                compileSdk = config.compileSdk
 
                 defaultConfig {
-                    applicationId = "com.sarim.logviewer"
-                    minSdk = 26
-                    targetSdk = 36
-                    versionCode = 1
-                    versionName = "1.0"
-                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                    applicationId = config.applicationId
+                    minSdk = config.minSdk
+                    targetSdk = config.targetSdk
+                    versionCode = config.versionCode
+                    versionName = config.versionName
+                    testInstrumentationRunner = config.testInstrumentationRunner
                 }
 
                 buildTypes {
-                    getByName("release") {
+                    getByName(config.releaseBuildTypeName) {
                         isMinifyEnabled = true
                         proguardFiles(
-                            getDefaultProguardFile("proguard-android-optimize.txt"),
-                            "proguard-rules.pro",
+                            getDefaultProguardFile(config.defaultProguardFileName),
+                            config.proGuardFileName,
                         )
                     }
                 }
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
+                    sourceCompatibility = config.sourceCompatibility
+                    targetCompatibility = config.targetCompatibility
                 }
                 buildFeatures {
                     compose = true
+                    buildConfig = true
                 }
             }
             tasks.withType(KotlinCompile::class.java).configureEach {
-                compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
+                compilerOptions.jvmTarget.set(config.jvmTarget)
             }
 
             dependencies {
