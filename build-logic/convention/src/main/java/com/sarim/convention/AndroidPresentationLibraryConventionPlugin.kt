@@ -9,6 +9,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
+    @Suppress("LongMethod")
     override fun apply(target: Project) =
         with(target) {
             pluginManager.apply(
@@ -33,10 +34,23 @@ class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
             )
             pluginManager.apply("kotlin-parcelize")
 
+            val inferredNamespace = project.name.replace("-", "_")
             configureAndroidLibrary(
-                namespace = "com.sarim.sidebar_presentation",
-                useCompose = true,
+                namespace = inferredNamespace,
+                useCompose = false,
             )
+
+            val extension =
+                extensions.create(
+                    "extraModules",
+                    AndroidExtraModulesConventionExtension::class.java,
+                )
+
+            afterEvaluate {
+                configureModuleDependencies(
+                    modules = listOf(":utils") + extension.modules,
+                )
+            }
 
             dependencies {
                 "implementation"(libs.androidxCoreKtxLibrary)
@@ -49,19 +63,6 @@ class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
                 "implementation"(libs.bundles.koinBundle)
                 "debugImplementation"(platform(libs.androidxComposeBomLibrary))
                 "debugImplementation"(libs.bundles.composeDebugImplementationBundle)
-            }
-            val extension =
-                target.extensions.create(
-                    "extraModules",
-                    AndroidExtraModulesConventionExtension::class.java,
-                )
-            afterEvaluate {
-                configureModuleDependencies(
-                    modules =
-                        listOf(
-                            ":utils",
-                        ) + extension.modules,
-                )
             }
         }
 }

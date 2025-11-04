@@ -1,0 +1,7 @@
+<resources>
+    <string name="message">Message</string>
+    <string name="class_name">Class</string>
+    <string name="function_name">Function</string>
+    <string name="line">Line</string>
+    <string name="level">Level</string>
+</resources>

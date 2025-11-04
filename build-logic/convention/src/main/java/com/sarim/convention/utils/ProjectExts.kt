@@ -14,6 +14,7 @@ val Project.libs: LibrariesForLibs
 fun PluginManager.alias(notation: Provider<PluginDependency>) {
     apply(notation.get().pluginId)
 }
+
 fun PluginManager.alias(notation: ProviderConvertible<PluginDependency>) {
     apply(notation.asProvider().get().pluginId)
 }

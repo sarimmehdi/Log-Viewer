@@ -9,32 +9,43 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 class AndroidDataLibraryConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) = with(target) {
-        pluginManager.apply(libs.plugins.androidLibraryPlugin.get().pluginId)
-        pluginManager.apply(libs.plugins.kotlinAndroidPlugin.get().pluginId)
-
-        configureAndroidLibrary(
-            namespace = "com.sarim.sidebar_data",
-            useCompose = false,
-        )
-
-        dependencies {
-            "implementation"(libs.androidxCoreKtxLibrary)
-            "implementation"(platform(libs.koinBomLibrary))
-            "implementation"(libs.bundles.koinBundle)
-            "implementation"(project(":utils"))
-            "implementation"(project(":sidebar:sidebar-domain"))
-        }
-        val extension = target.extensions.create(
-            "extraModules",
-            AndroidExtraModulesConventionExtension::class.java
-        )
-        afterEvaluate {
-            configureModuleDependencies(
-                modules = listOf(
-                    ":utils",
-                ) + extension.modules
+    override fun apply(target: Project) =
+        with(target) {
+            pluginManager.apply(
+                libs.plugins.androidLibraryPlugin
+                    .get()
+                    .pluginId,
             )
+            pluginManager.apply(
+                libs.plugins.kotlinAndroidPlugin
+                    .get()
+                    .pluginId,
+            )
+
+            val inferredNamespace = project.name.replace("-", "_")
+            configureAndroidLibrary(
+                namespace = inferredNamespace,
+                useCompose = false,
+            )
+
+            val extension =
+                extensions.create(
+                    "extraModules",
+                    AndroidExtraModulesConventionExtension::class.java,
+                )
+
+            afterEvaluate {
+                configureModuleDependencies(
+                    modules = listOf(":utils") + extension.modules,
+                )
+            }
+
+            dependencies {
+                "implementation"(libs.androidxCoreKtxLibrary)
+                "implementation"(platform(libs.koinBomLibrary))
+                "implementation"(libs.bundles.koinBundle)
+                "implementation"(project(":utils"))
+                "implementation"(project(":sidebar:sidebar-domain"))
+            }
         }
-    }
 }
