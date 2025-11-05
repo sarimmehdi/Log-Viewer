@@ -7,36 +7,34 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.api.JavaVersion
 
-const val COMPILE_SDK = 36
-const val MIN_SDK = 36
-
 fun Project.configureAndroidLibrary(
     namespace: String,
     useCompose: Boolean,
 ) {
+    val config = Config()
     extensions.configure<LibraryExtension> {
-        this.namespace = "com.sarim.$namespace"
-        compileSdk = COMPILE_SDK
+        this.namespace = config.baseNamespace + ".$namespace"
+        compileSdk = config.compileSdk
 
         defaultConfig {
-            minSdk = MIN_SDK
-            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-            consumerProguardFiles("consumer-rules.pro")
+            minSdk = config.minSdk
+            testInstrumentationRunner = config.testInstrumentationRunner
+            consumerProguardFiles(config.consumerProGuardFileName)
         }
 
         buildTypes {
-            getByName("release") {
+            getByName(config.releaseBuildTypeName) {
                 isMinifyEnabled = true
                 proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro",
+                    getDefaultProguardFile(config.defaultProguardFileName),
+                    config.proGuardFileName,
                 )
             }
         }
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
+            sourceCompatibility = config.sourceCompatibility
+            targetCompatibility = config.targetCompatibility
         }
 
         if (useCompose) {
