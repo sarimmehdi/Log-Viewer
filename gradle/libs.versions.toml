@@ -35,6 +35,10 @@ conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
 conventionPluginArchTestLibraryName = "archTestLibraryPlugin"
 conventionPluginArchTestLibraryClass = "com.sarim.convention.AndroidArchTestLibraryConventionPlugin"
+junit = "1.3.0"
+espressoCoreVersion = "3.7.0"
+appcompatVersion = "1.7.1"
+materialVersion = "1.13.0"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -69,6 +73,10 @@ archUnitJUnit4Library = { group = "com.tngtech.archunit", name = "archunit-junit
 truthLibrary = { group = "com.google.truth", name = "truth", version.ref = "truthVersion" }
 turbineLibrary = { group = "app.cash.turbine", name = "turbine", version.ref = "turbineVersion" }
 roboelectricLibrary = { group = "org.robolectric", name = "robolectric", version.ref = "roboelectricVersion" }
+junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [bundles]
 navBundle = [

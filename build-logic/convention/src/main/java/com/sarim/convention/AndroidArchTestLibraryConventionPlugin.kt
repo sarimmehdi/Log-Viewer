@@ -32,10 +32,14 @@ class AndroidArchTestLibraryConventionPlugin : Plugin<Project> {
             configureModuleDependencies(
                 modules =
                     listOf(
-                        ":sidebar:sidebar-di",
-                        ":sidebar:sidebar-data",
-                        ":sidebar:sidebar-domain",
-                        ":sidebar:sidebar-presentation",
+                        ":sidebar:sidebar-dates-di",
+                        ":sidebar:sidebar-dates-data",
+                        ":sidebar:sidebar-dates-domain",
+                        ":sidebar:sidebar-dates-presentation",
+                        ":sidebar:sidebar-sessions-di",
+                        ":sidebar:sidebar-sessions-data",
+                        ":sidebar:sidebar-sessions-domain",
+                        ":sidebar:sidebar-sessions-presentation",
                         ":maincontent:maincontent-di",
                         ":maincontent:maincontent-data",
                         ":maincontent:maincontent-domain",

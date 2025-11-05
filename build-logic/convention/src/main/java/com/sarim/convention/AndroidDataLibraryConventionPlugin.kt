@@ -45,7 +45,6 @@ class AndroidDataLibraryConventionPlugin : Plugin<Project> {
                 "implementation"(platform(libs.koinBomLibrary))
                 "implementation"(libs.bundles.koinBundle)
                 "implementation"(project(":utils"))
-                "implementation"(project(":sidebar:sidebar-domain"))
             }
         }
 }

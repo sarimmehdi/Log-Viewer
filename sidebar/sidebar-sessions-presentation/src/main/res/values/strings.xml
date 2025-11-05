@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unable_to_get_sessions">Unable to get sessions because of %1$s</string>
+    <string name="logs">%1$d logs</string>
+    <string name="search_sessions">Search sessions</string>
+    <string name="search_sessions_icon_desc">Icon to search sessions</string>
+</resources>

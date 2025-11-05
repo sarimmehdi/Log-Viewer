@@ -49,8 +49,10 @@ class AndroidNavLibraryConventionPlugin : Plugin<Project> {
                 modules =
                     listOf(
                         ":utils",
-                        ":sidebar:sidebar-domain",
-                        ":sidebar:sidebar-presentation",
+                        ":sidebar:sidebar-dates-domain",
+                        ":sidebar:sidebar-dates-presentation",
+                        ":sidebar:sidebar-sessions-domain",
+                        ":sidebar:sidebar-sessions-presentation",
                         ":maincontent:maincontent-domain",
                         ":maincontent:maincontent-presentation",
                     ),
