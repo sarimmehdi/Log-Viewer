@@ -35,8 +35,8 @@ fun MainContentComponentPreview() {
             MainContentListItemComponentData(
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                line = Line.Integer(value = 9999),
+                functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                lineNumber = Line.Integer(value = 9999),
                 level =
                     Level.Content(
                         composable = {
@@ -61,8 +61,8 @@ fun MainContentComponentPreview() {
             MainContentListItemComponentData(
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                line = Line.Integer(value = 9999),
+                functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                lineNumber = Line.Integer(value = 9999),
                 level =
                     Level.Content(
                         composable = {
@@ -87,8 +87,8 @@ fun MainContentComponentPreview() {
             MainContentListItemComponentData(
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                line = Line.Integer(value = 9999),
+                functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                lineNumber = Line.Integer(value = 9999),
                 level =
                     Level.Content(
                         composable = {
@@ -113,8 +113,8 @@ fun MainContentComponentPreview() {
             MainContentListItemComponentData(
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                line = Line.Integer(value = 9999),
+                functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                lineNumber = Line.Integer(value = 9999),
                 level =
                     Level.Content(
                         composable = {
@@ -139,8 +139,8 @@ fun MainContentComponentPreview() {
             MainContentListItemComponentData(
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                line = Line.Integer(value = 9999),
+                functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                lineNumber = Line.Integer(value = 9999),
                 level =
                     Level.Content(
                         composable = {
@@ -168,5 +168,6 @@ fun MainContentComponentPreview() {
             MainContentScreenData(
                 logObjects = List(LOG_OBJECTS) { index -> baseLogItems[index % baseLogItems.size] }.toImmutableList(),
             ),
+        onEvent = {},
     )
 }

@@ -33,14 +33,16 @@
             <option value="$PROJECT_DIR$/maincontent/maincontent-presentation" />
             <option value="$PROJECT_DIR$/nav" />
             <option value="$PROJECT_DIR$/sidebar" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-data" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-di" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-domain" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-presentation" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-data" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-di" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-domain" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-presentation" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates/sidebar-dates-data" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates/sidebar-dates-di" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates/sidebar-dates-domain" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates/sidebar-dates-presentation" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions/sidebar-sessions-data" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions/sidebar-sessions-di" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions/sidebar-sessions-domain" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions/sidebar-sessions-presentation" />
             <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>
