@@ -33,10 +33,14 @@
             <option value="$PROJECT_DIR$/maincontent/maincontent-presentation" />
             <option value="$PROJECT_DIR$/nav" />
             <option value="$PROJECT_DIR$/sidebar" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-data" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-di" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-domain" />
-            <option value="$PROJECT_DIR$/sidebar/sidebar-presentation" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-data" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-di" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-domain" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-dates-presentation" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-data" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-di" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-domain" />
+            <option value="$PROJECT_DIR$/sidebar/sidebar-sessions-presentation" />
             <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>
