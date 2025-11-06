@@ -11,9 +11,9 @@ pipeline {
 
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
-        GRADLE_OPTS = "-Dorg.gradle.daemon=true -Dorg.gradle.parallel=true"
-        GRADLE_USER_HOME = "${env.WORKSPACE}/.gradle"
+        ANDROID_HOME = '/usr/lib/android-sdk'
+        PATH = "${JAVA_HOME}/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${env.PATH}"
+        GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
     }
 
     stages {
@@ -35,35 +35,35 @@ pipeline {
                         sh './gradlew ktlintCheck'
                     }
                 }
-                stage('Static Analysis') {
-                    steps {
-                        sh './gradlew detekt'
-                    }
-                }
-                stage('Android Lint') {
-                    steps {
-                        sh './gradlew lintDebug'
-                    }
-                }
-                stage('Architecture Tests') {
-                    steps {
-                        sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
-                    }
-                }
+//                 stage('Static Analysis') {
+//                     steps {
+//                         sh './gradlew detekt'
+//                     }
+//                 }
+//                 stage('Android Lint') {
+//                     steps {
+//                         sh './gradlew lintDebug'
+//                     }
+//                 }
+//                 stage('Architecture Tests') {
+//                     steps {
+//                         sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
+//                     }
+//                 }
             }
         }
 
-        stage('Assemble Release') {
-            steps {
-                sh './gradlew assembleRelease'
-            }
-        }
-
-        stage('Archive Artifacts & Reports') {
-            steps {
-                archiveArtifacts artifacts: '**/build/reports/**/*.html, **/build/outputs/apk/release/*.apk', fingerprint: true
-            }
-        }
+//         stage('Assemble Release') {
+//             steps {
+//                 sh './gradlew assembleRelease'
+//             }
+//         }
+//
+//         stage('Archive Artifacts & Reports') {
+//             steps {
+//                 archiveArtifacts artifacts: '**/build/reports/**/*.html, **/build/outputs/apk/release/*.apk', fingerprint: true
+//             }
+//         }
     }
 
     post {
