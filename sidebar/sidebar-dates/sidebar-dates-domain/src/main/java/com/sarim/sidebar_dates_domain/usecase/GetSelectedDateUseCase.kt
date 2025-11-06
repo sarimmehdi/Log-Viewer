@@ -2,8 +2,8 @@ package com.sarim.sidebar_dates_domain.usecase
 
 import com.sarim.sidebar_dates_domain.repository.SidebarDatesRepository
 
-class GetDatesUseCase(
+class GetSelectedDateUseCase(
     val repository: SidebarDatesRepository,
 ) {
-    operator fun invoke() = repository.dates
+    operator fun invoke() = repository.getSelectedDate()
 }

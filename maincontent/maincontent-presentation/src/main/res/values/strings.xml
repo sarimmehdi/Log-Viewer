@@ -4,4 +4,10 @@
     <string name="function_name">Function</string>
     <string name="line">Line</string>
     <string name="level">Level</string>
+    <string name="error">ERROR</string>
+    <string name="debug">DEBUG</string>
+    <string name="info">INFO</string>
+    <string name="warn">WARN</string>
+    <string name="critical">CRITICAL</string>
+    <string name="unknown">UNKNOWN</string>
 </resources>

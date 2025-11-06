@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -16,9 +17,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.sarim.maincontent_domain.model.LogType
-import com.sarim.maincontent_presentation.debug.component.ERROR_COLOR
-import com.sarim.utils.R
+import com.sarim.utils.R as utilsR
+import com.sarim.maincontent_presentation.R
 import com.sarim.utils.component.VerticalDividerComponent
+
+const val ERROR_COLOR = 0xFFD30000
+const val DEBUG_COLOR = 0xFF004AD3
+const val INFO_COLOR = 0xFF3FD300
+const val WARN_COLOR = 0xFFD36600
+const val CRITICAL_COLOR = 0xFFFF0004
+const val UNKNOWN_COLOR = 0xFF4D4141
 
 @Composable
 fun MainContentListItemComponent(
@@ -41,9 +49,9 @@ fun MainContentListItemComponent(
             fontSize = data.textSize,
             fontFamily =
                 FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
+                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
+                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                 ),
             text = data.message,
             color = Color.White.copy(alpha = 0.7f),
@@ -65,9 +73,9 @@ fun MainContentListItemComponent(
             fontSize = data.textSize,
             fontFamily =
                 FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
+                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
+                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                 ),
             text = data.className,
             color = Color.White.copy(alpha = 0.7f),
@@ -89,9 +97,9 @@ fun MainContentListItemComponent(
             fontSize = data.textSize,
             fontFamily =
                 FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
+                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
+                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                 ),
             text = data.functionName,
             color = Color.White.copy(alpha = 0.7f),
@@ -113,9 +121,9 @@ fun MainContentListItemComponent(
             fontSize = data.textSize,
             fontFamily =
                 FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold),
+                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
+                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
+                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                 ),
             text = data.lineNumber.toString(),
             color = Color.White.copy(alpha = 0.7f),
@@ -140,9 +148,9 @@ fun MainContentListItemComponent(
                     fontSize = data.textSize,
                     fontFamily =
                         FontFamily(
-                            Font(R.font.inter_24_regular, FontWeight.Normal),
-                            Font(R.font.inter_24_medium, FontWeight.Medium),
-                            Font(R.font.inter_24_bold, FontWeight.Bold),
+                            Font(utilsR.font.inter_24_regular, FontWeight.Normal),
+                            Font(utilsR.font.inter_24_medium, FontWeight.Medium),
+                            Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                         ),
                     text = "Level",
                     color = Color.White.copy(alpha = 0.7f),
@@ -173,7 +181,7 @@ sealed class Level {
                                 LevelComponent(
                                     data =
                                         LevelComponentData(
-                                            name = "ERROR",
+                                            name = stringResource(R.string.error),
                                             color = Color(ERROR_COLOR),
                                         ),
                                     modifier =
@@ -191,8 +199,8 @@ sealed class Level {
                                 LevelComponent(
                                     data =
                                         LevelComponentData(
-                                            name = "ERROR",
-                                            color = Color(ERROR_COLOR),
+                                            name = stringResource(R.string.debug),
+                                            color = Color(DEBUG_COLOR),
                                         ),
                                     modifier =
                                         Modifier
@@ -209,8 +217,8 @@ sealed class Level {
                                 LevelComponent(
                                     data =
                                         LevelComponentData(
-                                            name = "ERROR",
-                                            color = Color(ERROR_COLOR),
+                                            name = stringResource(R.string.info),
+                                            color = Color(INFO_COLOR),
                                         ),
                                     modifier =
                                         Modifier
@@ -227,8 +235,8 @@ sealed class Level {
                                 LevelComponent(
                                     data =
                                         LevelComponentData(
-                                            name = "ERROR",
-                                            color = Color(ERROR_COLOR),
+                                            name = stringResource(R.string.warn),
+                                            color = Color(WARN_COLOR),
                                         ),
                                     modifier =
                                         Modifier
@@ -245,8 +253,8 @@ sealed class Level {
                                 LevelComponent(
                                     data =
                                         LevelComponentData(
-                                            name = "ERROR",
-                                            color = Color(ERROR_COLOR),
+                                            name = stringResource(R.string.critical),
+                                            color = Color(CRITICAL_COLOR),
                                         ),
                                     modifier =
                                         Modifier
@@ -263,8 +271,8 @@ sealed class Level {
                                 LevelComponent(
                                     data =
                                         LevelComponentData(
-                                            name = "ERROR",
-                                            color = Color(ERROR_COLOR),
+                                            name = stringResource(R.string.unknown),
+                                            color = Color(UNKNOWN_COLOR),
                                         ),
                                     modifier =
                                         Modifier

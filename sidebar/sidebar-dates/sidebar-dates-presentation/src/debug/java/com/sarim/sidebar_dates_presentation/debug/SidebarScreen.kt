@@ -9,7 +9,6 @@ import com.sarim.sidebar_dates_domain.model.Date
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreen
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenData
 import kotlinx.collections.immutable.toImmutableList
-import java.util.UUID
 
 @Composable
 @Preview(
@@ -31,12 +30,17 @@ class SidebarDatesScreenDataParameterProvider : PreviewParameterProvider<Sidebar
                 dates =
                     List(10) { index ->
                         Date(
-                            id = UUID.randomUUID().toString(),
+                            id = index.toLong(),
                             dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                             dateSessions = index,
-                            selected = index % 2 == 0,
                         )
                     }.toImmutableList(),
+                selectedDate =
+                    Date(
+                        id = 0,
+                        dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        dateSessions = 0,
+                    ),
             ),
         )
 }

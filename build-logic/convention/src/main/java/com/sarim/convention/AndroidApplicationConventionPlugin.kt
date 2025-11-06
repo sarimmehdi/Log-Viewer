@@ -2,6 +2,7 @@ package com.sarim.convention
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.sarim.convention.utils.Config
+import com.sarim.convention.utils.DependencyType
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
 import org.gradle.api.Plugin
@@ -76,21 +77,46 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 "implementation"(libs.bundles.dataStorageBundle)
                 "debugImplementation"(platform(libs.androidxComposeBomLibrary))
                 "debugImplementation"(libs.bundles.composeImplementationBundle)
+                "testImplementation"(libs.bundles.testBundle)
             }
             afterEvaluate {
                 configureModuleDependencies(
                     modules =
                         listOf(
-                            ":utils",
-                            ":nav",
-                            ":sidebar:sidebar-dates:sidebar-dates-di",
-                            ":sidebar:sidebar-dates:sidebar-dates-data",
-                            ":sidebar:sidebar-dates:sidebar-dates-domain",
-                            ":sidebar:sidebar-dates:sidebar-dates-presentation",
-                            ":sidebar:sidebar-sessions:sidebar-sessions-di",
-                            ":sidebar:sidebar-sessions:sidebar-sessions-data",
-                            ":sidebar:sidebar-sessions:sidebar-sessions-domain",
-                            ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
+                            Pair(":utils", DependencyType.IMPLEMENTATION),
+                            Pair(":nav", DependencyType.IMPLEMENTATION),
+                            Pair(
+                                ":sidebar:sidebar-dates:sidebar-dates-di",
+                                DependencyType.IMPLEMENTATION,
+                            ),
+                            Pair(
+                                ":sidebar:sidebar-dates:sidebar-dates-data",
+                                DependencyType.IMPLEMENTATION,
+                            ),
+                            Pair(
+                                ":sidebar:sidebar-dates:sidebar-dates-domain",
+                                DependencyType.IMPLEMENTATION,
+                            ),
+                            Pair(
+                                ":sidebar:sidebar-dates:sidebar-dates-presentation",
+                                DependencyType.IMPLEMENTATION,
+                            ),
+                            Pair(
+                                ":sidebar:sidebar-sessions:sidebar-sessions-di",
+                                DependencyType.IMPLEMENTATION,
+                            ),
+                            Pair(
+                                ":sidebar:sidebar-sessions:sidebar-sessions-data",
+                                DependencyType.IMPLEMENTATION,
+                            ),
+                            Pair(
+                                ":sidebar:sidebar-sessions:sidebar-sessions-domain",
+                                DependencyType.IMPLEMENTATION,
+                            ),
+                            Pair(
+                                ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
+                                DependencyType.IMPLEMENTATION,
+                            ),
                         ),
                 )
             }

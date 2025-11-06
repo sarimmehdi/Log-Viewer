@@ -2,8 +2,10 @@ package com.sarim.sidebar_dates_domain.usecase
 
 import com.sarim.sidebar_dates_domain.repository.SidebarDatesRepository
 
-class GetDatesUseCase(
+class GetFilteredDatesUseCase(
     val repository: SidebarDatesRepository,
 ) {
-    operator fun invoke() = repository.dates
+    suspend operator fun invoke(searchFilter: String) =
+        repository
+            .getDatesAccordingToSearchFilter(searchFilter)
 }

@@ -1,23 +1,19 @@
 package com.sarim.sidebar_dates_domain.model
 
 import android.os.Parcelable
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Date(
-    val id: String,
+    val id: Long,
     val dateHeading: String,
     val dateSessions: Int,
-    val selected: Boolean,
-) : Parcelable
+) : Parcelable {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Date) return false
+        return id == other.id
+    }
 
-fun ImmutableList<Date>.select(target: Date?): ImmutableList<Date> =
-    map { item ->
-        if (target != null && item.id == target.id) {
-            item.copy(selected = true)
-        } else {
-            item.copy(selected = false)
-        }
-    }.toImmutableList()
+    override fun hashCode(): Int = id.hashCode()
+}
