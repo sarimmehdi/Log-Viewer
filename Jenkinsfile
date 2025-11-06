@@ -1,26 +1,34 @@
 pipeline {
     agent any
 
+    options {
+        buildDiscarder(logRotator(daysToKeepStr: '14', numToKeepStr: '30'))
+    }
+
     environment {
         GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
     }
 
     stages {
-        stage('Checkout') {
+        stage('Prepare') {
             steps {
                 checkout scm
+                sh 'chmod +x ./gradlew'
             }
         }
 
-        stage('Static Analysis') {
-            steps {
-                sh './gradlew ktlintCheck detekt'
-            }
-        }
-
-        stage('Architecture Tests') {
-            steps {
-                sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
+        stage('Analysis & Tests') {
+            parallel {
+                stage('Static Analysis') {
+                    steps {
+                        sh './gradlew ktlintCheck detekt'
+                    }
+                }
+                stage('Architecture Tests') {
+                    steps {
+                        sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
+                    }
+                }
             }
         }
 
@@ -30,14 +38,9 @@ pipeline {
             }
         }
 
-        stage('Archive Reports and APK') {
+        stage('Archive Artifacts & Reports') {
             steps {
-                // Archive code analysis and test reports
-                archiveArtifacts artifacts: '**/build/reports/ktlint/**/*.html', fingerprint: true
-                archiveArtifacts artifacts: '**/build/reports/detekt/**/*.html', fingerprint: true
-                archiveArtifacts artifacts: '**/build/reports/tests/**/*.html', fingerprint: true
-                // Archive release APK
-                archiveArtifacts artifacts: '**/build/outputs/apk/release/*.apk', fingerprint: true
+                archiveArtifacts artifacts: '**/build/reports/**/*.html, **/build/outputs/apk/release/*.apk', fingerprint: true
             }
         }
     }
