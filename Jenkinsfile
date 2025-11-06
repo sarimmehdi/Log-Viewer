@@ -41,11 +41,11 @@ pipeline {
                         sh './gradlew detekt'
                     }
                 }
-//                 stage('Android Lint') {
-//                     steps {
-//                         sh './gradlew lintDebug'
-//                     }
-//                 }
+                stage('Android Lint') {
+                    steps {
+                        sh './gradlew lintDebug'
+                    }
+                }
 //                 stage('Architecture Tests') {
 //                     steps {
 //                         sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
