@@ -31,21 +31,21 @@ pipeline {
 
         stage('Analysis & Tests') {
             parallel {
-//                 stage('Ktlint') {
-//                     steps {
-//                         sh './gradlew ktlintCheck'
-//                     }
-//                 }
-//                 stage('Static Analysis') {
-//                     steps {
-//                         sh './gradlew detekt'
-//                     }
-//                 }
-//                 stage('Android Lint') {
-//                     steps {
-//                         sh './gradlew lintDebug'
-//                     }
-//                 }
+                stage('Ktlint') {
+                    steps {
+                        sh './gradlew ktlintCheck'
+                    }
+                }
+                stage('Static Analysis') {
+                    steps {
+                        sh './gradlew detekt'
+                    }
+                }
+                stage('Android Lint') {
+                    steps {
+                        sh './gradlew lintDebug'
+                    }
+                }
                 stage('Architecture Tests') {
                     steps {
                         sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
@@ -54,17 +54,17 @@ pipeline {
             }
         }
 
-//         stage('Assemble Release') {
-//             steps {
-//                 sh './gradlew assembleRelease'
-//             }
-//         }
-//
-//         stage('Archive Artifacts & Reports') {
-//             steps {
-//                 archiveArtifacts artifacts: '**/build/reports/**/*.html, **/build/outputs/apk/release/*.apk', fingerprint: true
-//             }
-//         }
+        stage('Assemble Release') {
+            steps {
+                sh './gradlew assembleRelease'
+            }
+        }
+
+        stage('Archive Artifacts & Reports') {
+            steps {
+                archiveArtifacts artifacts: '**/build/reports/**/*.html, **/build/outputs/apk/release/*.apk', fingerprint: true
+            }
+        }
     }
 
     post {
