@@ -36,11 +36,11 @@ pipeline {
                         sh './gradlew ktlintCheck'
                     }
                 }
-//                 stage('Static Analysis') {
-//                     steps {
-//                         sh './gradlew detekt'
-//                     }
-//                 }
+                stage('Static Analysis') {
+                    steps {
+                        sh './gradlew detekt'
+                    }
+                }
 //                 stage('Android Lint') {
 //                     steps {
 //                         sh './gradlew lintDebug'
