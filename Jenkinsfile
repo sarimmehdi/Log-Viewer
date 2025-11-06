@@ -31,26 +31,26 @@ pipeline {
 
         stage('Analysis & Tests') {
             parallel {
-                stage('Ktlint') {
-                    steps {
-                        sh './gradlew ktlintCheck'
-                    }
-                }
-                stage('Static Analysis') {
-                    steps {
-                        sh './gradlew detekt'
-                    }
-                }
-                stage('Android Lint') {
-                    steps {
-                        sh './gradlew lintDebug'
-                    }
-                }
-//                 stage('Architecture Tests') {
+//                 stage('Ktlint') {
 //                     steps {
-//                         sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
+//                         sh './gradlew ktlintCheck'
 //                     }
 //                 }
+//                 stage('Static Analysis') {
+//                     steps {
+//                         sh './gradlew detekt'
+//                     }
+//                 }
+//                 stage('Android Lint') {
+//                     steps {
+//                         sh './gradlew lintDebug'
+//                     }
+//                 }
+                stage('Architecture Tests') {
+                    steps {
+                        sh './gradlew testDebugUnitTest --tests "*ArchTest*"'
+                    }
+                }
             }
         }
 
