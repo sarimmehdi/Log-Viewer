@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
@@ -37,5 +38,14 @@ subprojects {
     configure<DetektExtension> {
         config.setFrom("${project.rootDir}/detekt.yml")
         parallel = true
+    }
+
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            html.required.set(true)
+            xml.required.set(true)
+            txt.required.set(true)
+            sarif.required.set(true)
+        }
     }
 }

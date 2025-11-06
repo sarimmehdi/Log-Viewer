@@ -2,12 +2,8 @@ pipeline {
     agent any
 
     tools {
-            jdk 'Java 17'
+        jdk 'Java 17'
     }
-
-    environment {
-
-   }
 
     options {
         buildDiscarder(logRotator(daysToKeepStr: '14', numToKeepStr: '30'))
@@ -29,9 +25,19 @@ pipeline {
 
         stage('Analysis & Tests') {
             parallel {
+                stage('Ktlint') {
+                    steps {
+                        sh './gradlew ktlintCheck'
+                    }
+                }
                 stage('Static Analysis') {
                     steps {
-                        sh './gradlew ktlintCheck detekt'
+                        sh './gradlew detekt'
+                    }
+                }
+                stage('Android Lint') {
+                    steps {
+                        sh './gradlew lintDebug'
                     }
                 }
                 stage('Architecture Tests') {
@@ -50,7 +56,12 @@ pipeline {
 
         stage('Archive Artifacts & Reports') {
             steps {
-                archiveArtifacts artifacts: '**/build/reports/**/*.html, **/build/outputs/apk/release/*.apk', fingerprint: true
+                archiveArtifacts artifacts: '''
+                    **/build/reports/ktlint/**/*.html,
+                    **/build/reports/detekt/**/*.html,
+                    **/build/reports/lint-results*.{html,xml},
+                    **/build/outputs/apk/release/*.apk
+                ''', fingerprint: true
             }
         }
     }
