@@ -16,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -24,7 +23,7 @@ import java.io.IOException
 const val TOTAL_MOCK_ITEMS = 10
 
 class SidebarDatesRepositoryImpl(
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dataStore: DataStore<DateDto>,
     private val dataStoreName: String,
     private val dao: DateDtoDao,
@@ -68,7 +67,7 @@ class SidebarDatesRepositoryImpl(
                                 ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
                     ),
                 )
-            }.flowOn(ioDispatcher)
+            }
 
     override suspend fun selectDate(date: Date) =
         try {
@@ -140,5 +139,5 @@ class SidebarDatesRepositoryImpl(
                                 ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
                     ),
                 )
-            }.flowOn(ioDispatcher)
+            }
 }
