@@ -5,6 +5,12 @@ pipeline {
             jdk 'Java 17'
     }
 
+    environment {
+            JAVA_HOME = '/opt/jdk-17'
+            PATH = "${JAVA_HOME}/bin:${env.PATH}"
+            GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
+   }
+
     options {
         buildDiscarder(logRotator(daysToKeepStr: '14', numToKeepStr: '30'))
     }
