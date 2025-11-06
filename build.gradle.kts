@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.ktlintPlugin) apply false
     alias(libs.plugins.detektPlugin) apply false
     alias(libs.plugins.androidLibraryPlugin) apply false
+    alias(libs.plugins.kspPlugin) apply false
+    alias(libs.plugins.moduleGraphPlugin)
 }
 
 subprojects {

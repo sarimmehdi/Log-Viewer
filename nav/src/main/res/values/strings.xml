@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="num_sessions">%1$d sessions</string>
-    <string name="num_logs">%1$d logs</string>
-</resources>

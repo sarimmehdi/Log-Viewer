@@ -1,4 +1,4 @@
-package com.sarim.arch_test
+package com.sarim.logviewer
 
 import com.tngtech.archunit.core.domain.JavaClasses
 import com.tngtech.archunit.junit.AnalyzeClasses
@@ -36,7 +36,7 @@ internal class DomainArchTest : BaseArchTest() {
             .resideInAPackage("..*domain..")
             .and(validClasses)
             .should()
-            .dependOnClassesThat()
+            .transitivelyDependOnClassesThat()
             .resideInAnyPackage(
                 "..*presentation..",
                 "..*data..",
@@ -53,7 +53,7 @@ internal class DomainArchTest : BaseArchTest() {
             .and()
             .areNotMemberClasses()
             .should()
-            .onlyHaveDependentClassesThat()
+            .transitivelyDependOnClassesThat()
             .resideInAnyPackage(
                 "..*domain.repository..",
                 "..*domain.usecase..",
@@ -62,7 +62,7 @@ internal class DomainArchTest : BaseArchTest() {
                 "..*domain.model..",
                 "..*presentation..",
             ).orShould()
-            .onlyHaveDependentClassesThat()
+            .transitivelyDependOnClassesThat()
             .haveSimpleNameEndingWith("ViewModel")
             .check(importedClasses)
     }

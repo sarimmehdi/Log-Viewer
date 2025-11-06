@@ -1,0 +1,78 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ac8d86d6081a1e3dcc6af08f33ab846a",
+    "entities": [
+      {
+        "tableName": "DateDto",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dateHeading` TEXT NOT NULL, `dateSessions` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateHeading",
+            "columnName": "dateHeading",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateSessions",
+            "columnName": "dateSessions",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "DateDtoFts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`dateHeading` TEXT NOT NULL, content=`DateDto`)",
+        "fields": [
+          {
+            "fieldPath": "dateHeading",
+            "columnName": "dateHeading",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "rowid"
+          ]
+        },
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "DateDto",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_DateDtoFts_BEFORE_UPDATE BEFORE UPDATE ON `DateDto` BEGIN DELETE FROM `DateDtoFts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_DateDtoFts_BEFORE_DELETE BEFORE DELETE ON `DateDto` BEGIN DELETE FROM `DateDtoFts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_DateDtoFts_AFTER_UPDATE AFTER UPDATE ON `DateDto` BEGIN INSERT INTO `DateDtoFts`(`docid`, `dateHeading`) VALUES (NEW.`rowid`, NEW.`dateHeading`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_DateDtoFts_AFTER_INSERT AFTER INSERT ON `DateDto` BEGIN INSERT INTO `DateDtoFts`(`docid`, `dateHeading`) VALUES (NEW.`rowid`, NEW.`dateHeading`); END"
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ac8d86d6081a1e3dcc6af08f33ab846a')"
+    ]
+  }
+}

@@ -19,6 +19,10 @@ truthVersion = "1.4.5"
 turbineVersion = "1.2.1"
 archUnitJUnit4Version = "1.4.1"
 roboelectricVersion = "4.16"
+preferencesDataStoreVersion = "1.1.7"
+roomVersion = "2.8.3"
+kspVersion = "2.2.21-2.0.4"
+moduleGraphVersion = "0.13.0"
 conventionPluginAndroidApplicationName = "androidApplicationPlugin"
 conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
 conventionPluginDiLibraryName = "diLibraryPlugin"
@@ -33,12 +37,6 @@ conventionPluginNavLibraryName = "navLibraryPlugin"
 conventionPluginNavLibraryClass = "com.sarim.convention.AndroidNavLibraryConventionPlugin"
 conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
-conventionPluginArchTestLibraryName = "archTestLibraryPlugin"
-conventionPluginArchTestLibraryClass = "com.sarim.convention.AndroidArchTestLibraryConventionPlugin"
-junit = "1.3.0"
-espressoCoreVersion = "3.7.0"
-appcompatVersion = "1.7.1"
-materialVersion = "1.13.0"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -73,10 +71,10 @@ archUnitJUnit4Library = { group = "com.tngtech.archunit", name = "archunit-junit
 truthLibrary = { group = "com.google.truth", name = "truth", version.ref = "truthVersion" }
 turbineLibrary = { group = "app.cash.turbine", name = "turbine", version.ref = "turbineVersion" }
 roboelectricLibrary = { group = "org.robolectric", name = "robolectric", version.ref = "roboelectricVersion" }
-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+dataStoreLibrary = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "preferencesDataStoreVersion" }
+roomRunTimeLibrary = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+roomCompilerLibrary = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+roomKtxLibrary = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
 
 [bundles]
 navBundle = [
@@ -106,6 +104,9 @@ koinBundle = [
 dataStorageBundle = [
     "kotlinXSerializationLibrary",
     "kotlinXImmutableCollectionsLibrary",
+    "dataStoreLibrary",
+    "roomRunTimeLibrary",
+    "roomKtxLibrary",
 ]
 testBundle = [
     "junitLibrary",
@@ -122,6 +123,8 @@ kotlinComposePlugin = { id = "org.jetbrains.kotlin.plugin.compose", version.ref 
 ktlintPlugin = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintVersion" }
 androidLibraryPlugin = { id = "com.android.library", version.ref = "agpVersion" }
 kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinVersion" }
+kspPlugin = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
+moduleGraphPlugin = { id = "dev.iurysouza.modulegraph", version.ref = "moduleGraphVersion" }
 detektPlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
 conventionPluginAndroidApplicationId = { id = "com.sarim.convention.android.application.plugin" }
 conventionPluginDiLibraryId = { id = "com.sarim.convention.android.di.library.plugin" }
@@ -130,4 +133,3 @@ conventionPluginDomainLibraryId = { id = "com.sarim.convention.domain.library.pl
 conventionPluginPresentationLibraryId = { id = "com.sarim.convention.presentation.library.plugin" }
 conventionPluginNavLibraryId = { id = "com.sarim.convention.nav.library.plugin" }
 conventionPluginUtilsLibraryId = { id = "com.sarim.convention.utils.library.plugin" }
-conventionPluginArchTestLibraryId = { id = "com.sarim.convention.arch.test.library.plugin" }

@@ -16,7 +16,7 @@ import java.util.UUID
     device = PIXEL_TABLET,
 )
 internal fun SidebarSessionsScreenPreview(
-    @PreviewParameter(SidebarSessionsDataParameterProvider::class) data: SidebarSessionsScreenData,
+    @PreviewParameter(SidebarSessionsScreenDataParameterProvider::class) data: SidebarSessionsScreenData,
 ) {
     SidebarSessionsScreen(
         data = data,
@@ -24,7 +24,7 @@ internal fun SidebarSessionsScreenPreview(
     )
 }
 
-class SidebarSessionsDataParameterProvider : PreviewParameterProvider<SidebarSessionsScreenData> {
+class SidebarSessionsScreenDataParameterProvider : PreviewParameterProvider<SidebarSessionsScreenData> {
     override val values =
         sequenceOf(
             SidebarSessionsScreenData(

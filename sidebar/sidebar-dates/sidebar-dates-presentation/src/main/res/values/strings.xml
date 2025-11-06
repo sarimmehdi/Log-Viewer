@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="unable_to_get_dates">Unable to get dates because of %1$s</string>
-    <string name="sessions">%1$d sessions</string>
+    <plurals name="sessions">
+        <item quantity="one">%1$d session</item>
+        <item quantity="other">%1$d sessions</item>
+    </plurals>
     <string name="search_dates">Search dates</string>
     <string name="search_dates_icon_desc">Icon to search dates</string>
 </resources>

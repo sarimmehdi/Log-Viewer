@@ -6,14 +6,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.sarim.maincontent_presentation.component.ERROR_COLOR
+import com.sarim.maincontent_presentation.component.DEBUG_COLOR
+import com.sarim.maincontent_presentation.component.INFO_COLOR
+import com.sarim.maincontent_presentation.component.WARN_COLOR
+import com.sarim.maincontent_presentation.component.CRITICAL_COLOR
 import com.sarim.maincontent_presentation.component.LevelComponent
 import com.sarim.maincontent_presentation.component.LevelComponentData
-
-const val ERROR_COLOR = 0xFFD30000
-const val DEBUG_COLOR = 0xFF004AD3
-const val INFO_COLOR = 0xFF3FD300
-const val WARN_COLOR = 0xFFD36600
-const val CRITICAL_COLOR = 0xFFFF0004
 
 @Composable
 @Preview(

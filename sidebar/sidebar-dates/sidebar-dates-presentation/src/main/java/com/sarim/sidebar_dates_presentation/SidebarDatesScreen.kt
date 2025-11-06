@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sarim.sidebar_dates_domain.model.Date
@@ -46,11 +47,17 @@ fun SidebarDatesScreen(
                     iconDescription = stringResource(R.string.search_dates_icon_desc),
                     backgroundColor = Color(SIDEBAR_SCREEN_SEARCH_BOX_BACKGROUND_COLOR),
                     onValueChange = {
-                        onEvent(
-                            SidebarDatesScreenToViewModelEvents.FilterDates(
-                                dateName = it,
-                            ),
-                        )
+                        if (it.isBlank()) {
+                            onEvent(
+                                SidebarDatesScreenToViewModelEvents.GetAllDates,
+                            )
+                        } else {
+                            onEvent(
+                                SidebarDatesScreenToViewModelEvents.FilterDates(
+                                    dateName = it,
+                                ),
+                            )
+                        }
                     },
                 ),
             modifier =
@@ -72,12 +79,18 @@ fun SidebarDatesScreen(
                 ) {
                     items(data.dates.size) { index ->
                         val date = data.dates[index]
+                        val selectedDate = data.selectedDate
                         SidebarListItemComponent(
                             data =
                                 SidebarListItemComponentData(
                                     heading = date.dateHeading,
-                                    subHeading = stringResource(R.string.sessions, date.dateSessions),
-                                    selected = date.selected,
+                                    subHeading =
+                                        pluralStringResource(
+                                            R.plurals.sessions,
+                                            date.dateSessions,
+                                            date.dateSessions,
+                                        ),
+                                    selected = date == selectedDate,
                                 ),
                             onClick = {
                                 onEvent(
@@ -98,4 +111,5 @@ fun SidebarDatesScreen(
 
 data class SidebarDatesScreenData(
     val dates: ImmutableList<Date>,
+    val selectedDate: Date?,
 )

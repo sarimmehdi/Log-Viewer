@@ -1,5 +1,6 @@
 package com.sarim.convention
 
+import com.sarim.convention.utils.DependencyType
 import com.sarim.convention.utils.configureAndroidLibrary
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
@@ -48,13 +49,23 @@ class AndroidNavLibraryConventionPlugin : Plugin<Project> {
             configureModuleDependencies(
                 modules =
                     listOf(
-                        ":utils",
-                        ":sidebar:sidebar-dates:sidebar-dates-domain",
-                        ":sidebar:sidebar-dates:sidebar-dates-presentation",
-                        ":sidebar:sidebar-sessions:sidebar-sessions-domain",
-                        ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
-                        ":maincontent:maincontent-domain",
-                        ":maincontent:maincontent-presentation",
+                        Pair(":utils", DependencyType.IMPLEMENTATION),
+                        Pair(
+                            ":sidebar:sidebar-dates:sidebar-dates-domain",
+                            DependencyType.IMPLEMENTATION,
+                        ),
+                        Pair(
+                            ":sidebar:sidebar-dates:sidebar-dates-presentation",
+                            DependencyType.IMPLEMENTATION,
+                        ),
+                        Pair(
+                            ":sidebar:sidebar-sessions:sidebar-sessions-domain",
+                            DependencyType.IMPLEMENTATION,
+                        ),
+                        Pair(
+                            ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
+                            DependencyType.IMPLEMENTATION,
+                        ),
                     ),
             )
         }

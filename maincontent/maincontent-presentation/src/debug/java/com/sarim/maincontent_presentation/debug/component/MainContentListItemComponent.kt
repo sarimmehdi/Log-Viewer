@@ -13,6 +13,11 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.maincontent_presentation.component.ERROR_COLOR
+import com.sarim.maincontent_presentation.component.DEBUG_COLOR
+import com.sarim.maincontent_presentation.component.INFO_COLOR
+import com.sarim.maincontent_presentation.component.WARN_COLOR
+import com.sarim.maincontent_presentation.component.CRITICAL_COLOR
 import com.sarim.maincontent_presentation.component.Level
 import com.sarim.maincontent_presentation.component.LevelComponent
 import com.sarim.maincontent_presentation.component.LevelComponentData

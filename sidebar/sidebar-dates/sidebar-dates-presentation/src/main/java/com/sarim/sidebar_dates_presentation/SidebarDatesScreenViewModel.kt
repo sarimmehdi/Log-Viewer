@@ -3,59 +3,85 @@ package com.sarim.sidebar_dates_presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sarim.sidebar_dates_domain.model.select
+import com.sarim.sidebar_dates_domain.model.Date
 import com.sarim.utils.ui.Resource
 import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SidebarDatesScreenViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val useCases: SidebarDatesScreenUseCases,
 ) : ViewModel() {
-    private val _state =
-        savedStateHandle.getStateFlow(SIDEBAR_DATES_SCREEN_STATE_KEY, SidebarDatesScreenState())
+    val state = savedStateHandle.getStateFlow(SIDEBAR_DATES_SCREEN_STATE_KEY, SidebarDatesScreenState())
 
     init {
-        combine(
-            _state.map { it.datesFilter }.distinctUntilChanged(),
-            _state.map { it.selectedDate }.distinctUntilChanged(),
-            useCases.getDatesUseCase().onStart { emit(Resource.Success(emptyList())) },
-        ) { datesFilter, selectedDate, datesResource ->
-            if (datesResource is Resource.Success) {
-                val newState =
-                    _state.value.copy(
-                        dates =
-                            useCases.getDatesUseCase
-                                .filterDates(datesFilter, datesResource.data)
-                                .toImmutableList()
-                                .select(selectedDate),
-                    )
-                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] = newState
-            } else if (datesResource is Resource.Error) {
-                snackbarEvent(datesResource.message, R.string.unable_to_get_dates)
-            }
+        viewModelScope.launch {
+            useCases.getDatesUseCase().collectLatest { datesResource ->
+                val dates = if (datesResource is Resource.Success) datesResource.data.toImmutableList() else emptyList()
+                if (datesResource is Resource.Error) snackbarEvent(datesResource.message)
 
-            _state.value
-        }.launchIn(viewModelScope)
+                val currState = savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] ?: SidebarDatesScreenState()
+                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] = currState.copy(dates = dates.toImmutableList())
+            }
+        }
+
+        viewModelScope.launch {
+            useCases.getSelectedDateUseCase().collectLatest { selectedResource ->
+                val selectedDate = if (selectedResource is Resource.Success) selectedResource.data else null
+                if (selectedResource is Resource.Error) snackbarEvent(selectedResource.message)
+
+                val currState = savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] ?: SidebarDatesScreenState()
+                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] = currState.copy(selectedDate = selectedDate)
+            }
+        }
     }
 
-    val state = _state
-
     fun onEvent(event: SidebarDatesScreenToViewModelEvents) {
-        val currState = savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] as SidebarDatesScreenState? ?: return
+        val currState =
+            savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] as SidebarDatesScreenState? ?: return
 
-        savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
-            when (event) {
-                is SidebarDatesScreenToViewModelEvents.FilterDates -> currState.copy(datesFilter = event.dateName)
-                is SidebarDatesScreenToViewModelEvents.SelectDate -> currState.copy(selectedDate = event.date)
+        when (event) {
+            is SidebarDatesScreenToViewModelEvents.FilterDates -> {
+                viewModelScope.launch {
+                    useCases.getFilteredDatesUseCase(event.dateName).collectLatest {
+                        when (it) {
+                            is Resource.Error<List<Date>> -> snackbarEvent(it.message)
+                            is Resource.Success<List<Date>> -> {
+                                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
+                                    currState.copy(dates = it.data.toImmutableList())
+                            }
+                        }
+                    }
+                }
             }
+
+            is SidebarDatesScreenToViewModelEvents.SelectDate ->
+                viewModelScope.launch {
+                    useCases.selectDateUseCase(event.date).also {
+                        if (it is Resource.Error<Boolean>) {
+                            snackbarEvent(it.message)
+                        }
+                    }
+                }
+
+            is SidebarDatesScreenToViewModelEvents.GetAllDates -> {
+                viewModelScope.launch {
+                    useCases.getDatesUseCase().collectLatest {
+                        when (it) {
+                            is Resource.Error<List<Date>> -> snackbarEvent(it.message)
+                            is Resource.Success<List<Date>> -> {
+                                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
+                                    currState.copy(dates = it.data.toImmutableList())
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     companion object {
