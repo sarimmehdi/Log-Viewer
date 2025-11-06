@@ -11,6 +11,8 @@ pipeline {
 
     environment {
         GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
+        ANDROID_HOME = '/usr/lib/android-sdk'
+        PATH = "${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${env.PATH}"
     }
 
     stages {
