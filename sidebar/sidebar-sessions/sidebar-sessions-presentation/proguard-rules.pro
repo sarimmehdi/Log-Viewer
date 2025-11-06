@@ -1,6 +1,0 @@
--keep class com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenViewModel { *; }
--keep class com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenData { *; }
--keep class com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenKt { *; }
--keep class com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenState { *; }
--keep class com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenToViewModelEvents { *; }
--keep class com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenUseCases { *; }

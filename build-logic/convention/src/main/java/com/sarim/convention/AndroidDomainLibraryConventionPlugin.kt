@@ -1,6 +1,5 @@
 package com.sarim.convention
 
-import com.sarim.convention.utils.DependencyType
 import com.sarim.convention.utils.configureAndroidLibrary
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
@@ -37,12 +36,7 @@ class AndroidDomainLibraryConventionPlugin : Plugin<Project> {
             afterEvaluate {
                 configureModuleDependencies(
                     modules =
-                        listOf(
-                            Pair(
-                                ":utils",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                        ),
+                        listOf(":utils"),
                 )
             }
 

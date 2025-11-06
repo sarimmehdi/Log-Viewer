@@ -1,4 +1,0 @@
--keep class com.sarim.sidebar_dates_data.model.DateDtoDao { *; }
--keep class com.sarim.sidebar_dates_data.model.DateDtoSerializer { *; }
--keep class com.sarim.sidebar_dates_data.model.DateDtoSerializer$* { *; }
--keep class com.sarim.sidebar_dates_data.repository.SidebarDatesRepositoryImpl { *; }

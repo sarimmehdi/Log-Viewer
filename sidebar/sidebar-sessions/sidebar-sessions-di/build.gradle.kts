@@ -1,14 +1,12 @@
-import com.sarim.convention.utils.DependencyType
-
 plugins {
     alias(libs.plugins.conventionPluginDiLibraryId)
 }
 
 extraModules {
-    modulesWithType =
+    modules =
         listOf(
-            ":sidebar:sidebar-sessions:sidebar-sessions-data" to DependencyType.IMPLEMENTATION,
-            ":sidebar:sidebar-sessions:sidebar-sessions-domain" to DependencyType.IMPLEMENTATION,
-            ":sidebar:sidebar-sessions:sidebar-sessions-presentation" to DependencyType.IMPLEMENTATION,
+            ":sidebar:sidebar-sessions:sidebar-sessions-data",
+            ":sidebar:sidebar-sessions:sidebar-sessions-domain",
+            ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
         )
 }

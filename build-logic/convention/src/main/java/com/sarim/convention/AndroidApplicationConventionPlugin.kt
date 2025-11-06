@@ -2,7 +2,6 @@ package com.sarim.convention
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.sarim.convention.utils.Config
-import com.sarim.convention.utils.DependencyType
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
 import org.gradle.api.Plugin
@@ -12,6 +11,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
+    @Suppress("LongMethod")
     override fun apply(target: Project) =
         with(target) {
             pluginManager.apply(
@@ -47,9 +47,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 buildTypes {
                     getByName(config.releaseBuildTypeName) {
                         isMinifyEnabled = true
+                        isShrinkResources = true
                         proguardFiles(
                             getDefaultProguardFile(config.defaultProguardFileName),
-                            config.proGuardFileName,
                         )
                     }
                 }
@@ -83,40 +83,16 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 configureModuleDependencies(
                     modules =
                         listOf(
-                            Pair(":utils", DependencyType.IMPLEMENTATION),
-                            Pair(":nav", DependencyType.IMPLEMENTATION),
-                            Pair(
-                                ":sidebar:sidebar-dates:sidebar-dates-di",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                            Pair(
-                                ":sidebar:sidebar-dates:sidebar-dates-data",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                            Pair(
-                                ":sidebar:sidebar-dates:sidebar-dates-domain",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                            Pair(
-                                ":sidebar:sidebar-dates:sidebar-dates-presentation",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                            Pair(
-                                ":sidebar:sidebar-sessions:sidebar-sessions-di",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                            Pair(
-                                ":sidebar:sidebar-sessions:sidebar-sessions-data",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                            Pair(
-                                ":sidebar:sidebar-sessions:sidebar-sessions-domain",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                            Pair(
-                                ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
-                                DependencyType.IMPLEMENTATION,
-                            ),
+                            ":utils",
+                            ":nav",
+                            ":sidebar:sidebar-dates:sidebar-dates-di",
+                            ":sidebar:sidebar-dates:sidebar-dates-data",
+                            ":sidebar:sidebar-dates:sidebar-dates-domain",
+                            ":sidebar:sidebar-dates:sidebar-dates-presentation",
+                            ":sidebar:sidebar-sessions:sidebar-sessions-di",
+                            ":sidebar:sidebar-sessions:sidebar-sessions-data",
+                            ":sidebar:sidebar-sessions:sidebar-sessions-domain",
+                            ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
                         ),
                 )
             }

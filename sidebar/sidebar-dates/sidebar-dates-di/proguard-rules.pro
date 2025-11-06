@@ -1,1 +1,0 @@
--keep class com.sarim.sidebar_dates_di.ModuleKt { *; }

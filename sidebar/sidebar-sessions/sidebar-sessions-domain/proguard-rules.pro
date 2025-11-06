@@ -1,3 +1,0 @@
--keep class com.sarim.sidebar_sessions_domain.model.Session { *; }
--keep class com.sarim.sidebar_sessions_domain.repository.SidebarSessionsRepository { *; }
--keep class com.sarim.sidebar_sessions_domain.usecase.GetSessionsUseCase { *; }

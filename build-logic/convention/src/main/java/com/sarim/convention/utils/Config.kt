@@ -14,8 +14,6 @@ data class Config(
     val testInstrumentationRunner: String = "androidx.test.runner.AndroidJUnitRunner",
     val releaseBuildTypeName: String = "release",
     val defaultProguardFileName: String = "proguard-android-optimize.txt",
-    val proGuardFileName: String = "proguard-rules.pro",
-    val consumerProGuardFileName: String = "consumer-rules.pro",
     val sourceCompatibility: JavaVersion = JavaVersion.VERSION_17,
     val targetCompatibility: JavaVersion = JavaVersion.VERSION_17,
     val jvmTarget: JvmTarget = JvmTarget.JVM_17,

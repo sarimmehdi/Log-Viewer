@@ -1,7 +1,0 @@
--keep class com.sarim.sidebar_dates_presentation.SidebarDatesScreenViewModel { *; }
--keep class com.sarim.sidebar_dates_presentation.SidebarDatesScreenUseCases { *; }
--keep class com.sarim.sidebar_dates_presentation.SidebarDatesScreenUseCases { *; }
--keep class com.sarim.sidebar_dates_presentation.SidebarDatesScreenData { *; }
--keep class com.sarim.sidebar_dates_presentation.SidebarDatesScreenKt { *; }
--keep class com.sarim.sidebar_dates_presentation.SidebarDatesScreenState { *; }
--keep class com.sarim.sidebar_dates_presentation.SidebarDatesScreenToViewModelEvents { *; }
