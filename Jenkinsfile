@@ -12,6 +12,7 @@ pipeline {
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         ANDROID_HOME = '/usr/lib/android-sdk'
+        GRADLE_USER_HOME = "${env.WORKSPACE}/.gradle"
         PATH = "${JAVA_HOME}/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${env.PATH}"
         GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
     }
