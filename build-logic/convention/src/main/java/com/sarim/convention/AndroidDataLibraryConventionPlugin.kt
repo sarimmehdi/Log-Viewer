@@ -1,7 +1,6 @@
 package com.sarim.convention
 
 import com.sarim.convention.utils.AndroidExtraModulesConventionExtension
-import com.sarim.convention.utils.DependencyType
 import com.sarim.convention.utils.configureAndroidLibrary
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
@@ -10,6 +9,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 class AndroidDataLibraryConventionPlugin : Plugin<Project> {
+    @Suppress("LongMethod")
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply(
@@ -48,12 +48,7 @@ class AndroidDataLibraryConventionPlugin : Plugin<Project> {
             afterEvaluate {
                 configureModuleDependencies(
                     modules =
-                        listOf(
-                            Pair(
-                                ":utils",
-                                DependencyType.IMPLEMENTATION,
-                            ),
-                        ) + extension.modulesWithType,
+                        listOf(":utils") + extension.modules,
                 )
             }
 

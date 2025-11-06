@@ -1,14 +1,12 @@
-import com.sarim.convention.utils.DependencyType
-
 plugins {
     alias(libs.plugins.conventionPluginDiLibraryId)
 }
 
 extraModules {
-    modulesWithType =
+    modules =
         listOf(
-            ":maincontent:maincontent-data" to DependencyType.IMPLEMENTATION,
-            ":maincontent:maincontent-domain" to DependencyType.IMPLEMENTATION,
-            ":maincontent:maincontent-presentation" to DependencyType.IMPLEMENTATION,
+            ":maincontent:maincontent-data",
+            ":maincontent:maincontent-domain",
+            ":maincontent:maincontent-presentation",
         )
 }

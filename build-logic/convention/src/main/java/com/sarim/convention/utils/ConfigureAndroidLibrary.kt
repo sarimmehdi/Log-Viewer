@@ -5,7 +5,6 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.gradle.api.JavaVersion
 
 fun Project.configureAndroidLibrary(
     namespace: String,
@@ -19,16 +18,11 @@ fun Project.configureAndroidLibrary(
         defaultConfig {
             minSdk = config.minSdk
             testInstrumentationRunner = config.testInstrumentationRunner
-            consumerProguardFiles(config.consumerProGuardFileName)
         }
 
         buildTypes {
             getByName(config.releaseBuildTypeName) {
-                isMinifyEnabled = true
-                proguardFiles(
-                    getDefaultProguardFile(config.defaultProguardFileName),
-                    config.proGuardFileName,
-                )
+                isMinifyEnabled = false
             }
         }
 

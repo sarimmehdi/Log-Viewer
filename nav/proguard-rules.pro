@@ -1,1 +1,0 @@
--keep class com.sarim.nav.NavigatorKt { *; }

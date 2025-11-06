@@ -1,6 +1,0 @@
--keep class com.sarim.sidebar_dates_domain.usecase.GetFilteredDatesUseCase { *; }
--keep class com.sarim.sidebar_dates_domain.usecase.GetDatesUseCase { *; }
--keep class com.sarim.sidebar_dates_domain.usecase.GetSelectedDateUseCase { *; }
--keep class com.sarim.sidebar_dates_domain.usecase.SelectDateUseCase { *; }
--keep class com.sarim.sidebar_dates_domain.model.Date { *; }
--keep class com.sarim.sidebar_dates_domain.repository.SidebarDatesRepository { *; }

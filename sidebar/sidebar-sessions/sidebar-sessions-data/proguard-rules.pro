@@ -1,1 +1,0 @@
--keep class com.sarim.sidebar_sessions_data.repository.SidebarSessionsRepositoryImpl { *; }
