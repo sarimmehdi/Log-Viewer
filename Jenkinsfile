@@ -6,9 +6,7 @@ pipeline {
     }
 
     environment {
-            JAVA_HOME = '/opt/jdk-17'
-            PATH = "${JAVA_HOME}/bin:${env.PATH}"
-            GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
+
    }
 
     options {
@@ -16,6 +14,8 @@ pipeline {
     }
 
     environment {
+        JAVA_HOME = '/opt/jdk-17'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
         GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
     }
 
