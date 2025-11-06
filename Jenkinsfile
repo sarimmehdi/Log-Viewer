@@ -10,9 +10,10 @@ pipeline {
     }
 
     environment {
-        GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false"
-        ANDROID_HOME = '/usr/lib/android-sdk'
-        PATH = "${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${env.PATH}"
+        JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        GRADLE_OPTS = "-Dorg.gradle.daemon=true -Dorg.gradle.parallel=true"
+        GRADLE_USER_HOME = "${env.WORKSPACE}/.gradle"
     }
 
     stages {
@@ -20,6 +21,10 @@ pipeline {
             steps {
                 checkout scm
                 sh 'chmod +x ./gradlew'
+                sh '''
+                    mkdir -p $GRADLE_USER_HOME
+                    chown -R jenkins:jenkins $GRADLE_USER_HOME
+                '''
             }
         }
 
@@ -56,12 +61,7 @@ pipeline {
 
         stage('Archive Artifacts & Reports') {
             steps {
-                archiveArtifacts artifacts: '''
-                    **/build/reports/ktlint/**/*.html,
-                    **/build/reports/detekt/**/*.html,
-                    **/build/reports/lint-results*.{html,xml},
-                    **/build/outputs/apk/release/*.apk
-                ''', fingerprint: true
+                archiveArtifacts artifacts: '**/build/reports/**/*.html, **/build/outputs/apk/release/*.apk', fingerprint: true
             }
         }
     }
