@@ -8,6 +8,7 @@ import com.sarim.sidebar_dates_data.model.DateDto
 import com.sarim.sidebar_dates_data.model.DateDtoDao
 import com.sarim.sidebar_dates_data.model.DateDtoDatabase
 import com.sarim.sidebar_dates_data.model.DateDtoSerializer
+import com.sarim.sidebar_dates_data.model.DateDtoSerializer.Companion.DATE_DTO_DATASTORE_QUALIFIER
 import com.sarim.sidebar_dates_data.repository.SidebarDatesRepositoryImpl
 import com.sarim.sidebar_dates_domain.repository.SidebarDatesRepository
 import com.sarim.sidebar_dates_domain.usecase.GetDatesUseCase
@@ -18,12 +19,13 @@ import com.sarim.sidebar_dates_presentation.SidebarDatesScreenUseCases
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.lazyModule
 
 fun module() =
     lazyModule {
         val dateDtoDataStoreName = DateDtoSerializer.Companion.DataStoreType.ACTUAL.dataStoreName
-        single<DataStore<DateDto>> {
+        single<DataStore<DateDto>>(named(DATE_DTO_DATASTORE_QUALIFIER)) {
             DataStoreFactory.create(
                 serializer = DateDtoSerializer.create(dateDtoDataStoreName),
                 produceFile = { androidContext().dataStoreFile(dateDtoDataStoreName) },
@@ -42,7 +44,7 @@ fun module() =
 
         single<SidebarDatesRepository> {
             SidebarDatesRepositoryImpl(
-                dataStore = get(),
+                dataStore = get(named(DATE_DTO_DATASTORE_QUALIFIER)),
                 dataStoreName = dateDtoDataStoreName,
                 dao = get(),
             )

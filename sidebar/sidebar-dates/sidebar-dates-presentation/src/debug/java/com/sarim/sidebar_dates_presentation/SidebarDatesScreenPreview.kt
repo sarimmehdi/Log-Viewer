@@ -1,4 +1,4 @@
-package com.sarim.sidebar_dates_presentation.debug
+package com.sarim.sidebar_dates_presentation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
@@ -6,15 +6,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.sarim.sidebar_dates_domain.model.Date
-import com.sarim.sidebar_dates_presentation.SidebarDatesScreen
-import com.sarim.sidebar_dates_presentation.SidebarDatesScreenData
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 @Preview(
     device = PIXEL_TABLET,
 )
-internal fun SidebarDatesScreenPreview(
+private fun SidebarDatesScreenPreview(
     @PreviewParameter(SidebarDatesScreenDataParameterProvider::class) data: SidebarDatesScreenData,
 ) {
     SidebarDatesScreen(
@@ -23,23 +21,25 @@ internal fun SidebarDatesScreenPreview(
     )
 }
 
-class SidebarDatesScreenDataParameterProvider : PreviewParameterProvider<SidebarDatesScreenData> {
+private const val LIST_ITEM_COUNT = 10
+
+private class SidebarDatesScreenDataParameterProvider : PreviewParameterProvider<SidebarDatesScreenData> {
     override val values =
         sequenceOf(
             SidebarDatesScreenData(
                 dates =
-                    List(10) { index ->
+                    List(LIST_ITEM_COUNT) { index ->
                         Date(
-                            id = index.toLong(),
+                            dateId = index.toLong(),
                             dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                             dateSessions = index,
                         )
                     }.toImmutableList(),
                 selectedDate =
                     Date(
-                        id = 0,
+                        dateId = 0,
                         dateHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                        dateSessions = 0,
+                        dateSessions = 10,
                     ),
             ),
         )

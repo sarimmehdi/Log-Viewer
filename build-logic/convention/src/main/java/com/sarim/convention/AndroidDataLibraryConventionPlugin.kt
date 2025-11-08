@@ -8,7 +8,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-class AndroidDataLibraryConventionPlugin : Plugin<Project> {
+internal class AndroidDataLibraryConventionPlugin : Plugin<Project> {
     @Suppress("LongMethod")
     override fun apply(target: Project) {
         with(target) {

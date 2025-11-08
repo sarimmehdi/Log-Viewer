@@ -7,7 +7,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-class AndroidNavLibraryConventionPlugin : Plugin<Project> {
+internal class AndroidNavLibraryConventionPlugin : Plugin<Project> {
     @Suppress("LongMethod")
     override fun apply(target: Project) =
         with(target) {

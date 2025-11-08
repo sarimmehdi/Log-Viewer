@@ -12,7 +12,7 @@ import com.sarim.utils.component.VerticalDividerComponent
     device = PIXEL_TABLET,
 )
 @Composable
-fun VerticalDividerComponentPreview() {
+private fun VerticalDividerComponentPreview() {
     VerticalDividerComponent(
         modifier =
             Modifier

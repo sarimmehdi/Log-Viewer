@@ -18,7 +18,7 @@ import com.sarim.utils.component.CustomScrollableListComponentData
     device = PIXEL_TABLET,
 )
 @Composable
-fun CustomScrollableListComponentPreview() {
+private fun CustomScrollableListComponentPreview() {
     CustomScrollableListComponent(
         customScrollableListComponentData =
             CustomScrollableListComponentData(

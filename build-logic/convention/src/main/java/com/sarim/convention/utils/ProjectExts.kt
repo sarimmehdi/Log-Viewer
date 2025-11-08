@@ -8,13 +8,13 @@ import org.gradle.api.provider.ProviderConvertible
 import org.gradle.kotlin.dsl.the
 import org.gradle.plugin.use.PluginDependency
 
-val Project.libs: LibrariesForLibs
+internal val Project.libs: LibrariesForLibs
     get() = the()
 
-fun PluginManager.alias(notation: Provider<PluginDependency>) {
+internal fun PluginManager.alias(notation: Provider<PluginDependency>) {
     apply(notation.get().pluginId)
 }
 
-fun PluginManager.alias(notation: ProviderConvertible<PluginDependency>) {
+internal fun PluginManager.alias(notation: ProviderConvertible<PluginDependency>) {
     apply(notation.asProvider().get().pluginId)
 }

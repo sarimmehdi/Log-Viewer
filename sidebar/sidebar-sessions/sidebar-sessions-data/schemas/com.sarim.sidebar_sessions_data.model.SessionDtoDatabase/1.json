@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "97bd15b677c28bdda4d0e03b941e86ee",
+    "entities": [
+      {
+        "tableName": "SessionDto",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dateId` INTEGER NOT NULL, `sessionHeading` TEXT NOT NULL, `sessionLogs` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateId",
+            "columnName": "dateId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionHeading",
+            "columnName": "sessionHeading",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionLogs",
+            "columnName": "sessionLogs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "sessionId"
+          ]
+        }
+      },
+      {
+        "tableName": "SessionDtoFts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`sessionHeading` TEXT NOT NULL, content=`SessionDto`)",
+        "fields": [
+          {
+            "fieldPath": "sessionHeading",
+            "columnName": "sessionHeading",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "rowid"
+          ]
+        },
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "SessionDto",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_SessionDtoFts_BEFORE_UPDATE BEFORE UPDATE ON `SessionDto` BEGIN DELETE FROM `SessionDtoFts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_SessionDtoFts_BEFORE_DELETE BEFORE DELETE ON `SessionDto` BEGIN DELETE FROM `SessionDtoFts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_SessionDtoFts_AFTER_UPDATE AFTER UPDATE ON `SessionDto` BEGIN INSERT INTO `SessionDtoFts`(`docid`, `sessionHeading`) VALUES (NEW.`rowid`, NEW.`sessionHeading`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_SessionDtoFts_AFTER_INSERT AFTER INSERT ON `SessionDto` BEGIN INSERT INTO `SessionDtoFts`(`docid`, `sessionHeading`) VALUES (NEW.`rowid`, NEW.`sessionHeading`); END"
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '97bd15b677c28bdda4d0e03b941e86ee')"
+    ]
+  }
+}

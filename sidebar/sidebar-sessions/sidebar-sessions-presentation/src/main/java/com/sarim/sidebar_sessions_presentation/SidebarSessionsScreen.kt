@@ -44,11 +44,17 @@ fun SidebarSessionsScreen(
                     iconDescription = stringResource(R.string.search_sessions_icon_desc),
                     backgroundColor = Color(SIDEBAR_SCREEN_SEARCH_BOX_BACKGROUND_COLOR),
                     onValueChange = {
-                        onEvent(
-                            SidebarSessionsScreenToViewModelEvents.FilterSessions(
-                                sessionName = it,
-                            ),
-                        )
+                        if (it.isBlank()) {
+                            onEvent(
+                                SidebarSessionsScreenToViewModelEvents.GetAllSessionForSelectedDate,
+                            )
+                        } else {
+                            onEvent(
+                                SidebarSessionsScreenToViewModelEvents.FilterSessions(
+                                    sessionName = it,
+                                ),
+                            )
+                        }
                     },
                 ),
             modifier =
@@ -70,6 +76,7 @@ fun SidebarSessionsScreen(
                 ) {
                     items(data.sessions.size) { index ->
                         val session = data.sessions[index]
+                        val selectedSession = data.selectedSession
                         SidebarListItemComponent(
                             data =
                                 SidebarListItemComponentData(
@@ -80,7 +87,7 @@ fun SidebarSessionsScreen(
                                             session.sessionLogs,
                                             session.sessionLogs,
                                         ),
-                                    selected = session.selected,
+                                    selected = session == selectedSession,
                                 ),
                             onClick = {
                                 onEvent(
@@ -96,4 +103,5 @@ fun SidebarSessionsScreen(
 
 data class SidebarSessionsScreenData(
     val sessions: ImmutableList<Session>,
+    val selectedSession: Session?,
 )

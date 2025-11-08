@@ -105,4 +105,17 @@ internal class DomainArchTest : BaseArchTest() {
             .mayOnlyBeAccessedByLayers("Use Case", "Di", "RepositoryImpl")
             .check(importedClasses)
     }
+
+    @ArchTest
+    fun visibilityCheck(importedClasses: JavaClasses) {
+        classes()
+            .that()
+            .resideInAPackage("..*domain..")
+            .and(validClasses)
+            .and()
+            .areTopLevelClasses()
+            .should()
+            .bePublic()
+            .check(importedClasses)
+    }
 }

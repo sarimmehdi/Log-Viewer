@@ -9,6 +9,6 @@ import com.sarim.utils.component.HorizontalDividerComponent
     device = PIXEL_TABLET,
 )
 @Composable
-fun HorizontalDividerComponentPreview() {
+private fun HorizontalDividerComponentPreview() {
     HorizontalDividerComponent()
 }

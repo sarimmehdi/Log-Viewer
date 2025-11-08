@@ -19,6 +19,6 @@ interface DateDtoDao {
     )
     fun getDateDtosAccordingToHeading(searchQuery: String): Flow<List<DateDto>>
 
-    @Query("SELECT * FROM dateDto ORDER BY id")
+    @Query("SELECT * FROM dateDto ORDER BY dateId")
     fun getAll(): Flow<List<DateDto>>
 }

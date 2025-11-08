@@ -1,9 +1,10 @@
 package com.sarim.sidebar_sessions_domain.usecase
 
+import com.sarim.sidebar_sessions_domain.model.Session
 import com.sarim.sidebar_sessions_domain.repository.SidebarSessionsRepository
 
-class GetSessionsUseCase(
+class SelectSessionUseCase(
     val repository: SidebarSessionsRepository,
 ) {
-    operator fun invoke(dateId: Long) = repository.getSessions(dateId)
+    suspend operator fun invoke(session: Session) = repository.selectSession(session)
 }

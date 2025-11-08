@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-class AndroidApplicationConventionPlugin : Plugin<Project> {
+internal class AndroidApplicationConventionPlugin : Plugin<Project> {
     @Suppress("LongMethod")
     override fun apply(target: Project) =
         with(target) {

@@ -12,7 +12,7 @@ import com.sarim.utils.component.SidebarListItemComponentData
 @Preview(
     device = PIXEL_TABLET,
 )
-internal fun SidebarListItemComponentPreview(
+private fun SidebarListItemComponentPreview(
     @PreviewParameter(SidebarListItemComponentDataParameterProvider::class) data: SidebarListItemComponentData,
 ) {
     SidebarListItemComponent(
@@ -21,7 +21,7 @@ internal fun SidebarListItemComponentPreview(
     )
 }
 
-class SidebarListItemComponentDataParameterProvider : PreviewParameterProvider<SidebarListItemComponentData> {
+private class SidebarListItemComponentDataParameterProvider : PreviewParameterProvider<SidebarListItemComponentData> {
     override val values =
         sequenceOf(
             SidebarListItemComponentData(

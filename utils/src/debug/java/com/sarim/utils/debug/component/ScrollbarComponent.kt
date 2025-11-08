@@ -12,7 +12,7 @@ import com.sarim.utils.component.ScrollbarComponent
     device = PIXEL_TABLET,
 )
 @Composable
-fun ScrollbarComponentPreview() {
+private fun ScrollbarComponentPreview() {
     ScrollbarComponent(
         modifier = Modifier.size(56.dp),
     )
