@@ -3,5 +3,6 @@ plugins {
 }
 
 extraModules {
-    modules = listOf(":maincontent:maincontent-domain")
+    modules =
+        listOf(":maincontent:maincontent-domain", ":sidebar:sidebar-sessions:sidebar-sessions-data")
 }

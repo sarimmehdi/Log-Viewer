@@ -5,5 +5,8 @@ import com.sarim.utils.ui.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface LogMessageRepository {
-    fun getLogMessages(pageNumber: Int): Flow<Resource<List<LogMessage>>>
+    fun getLogMessages(
+        sessionId: Long,
+        pageNumber: Int,
+    ): Flow<Resource<List<LogMessage>>>
 }

@@ -1,36 +1,107 @@
 package com.sarim.maincontent_data.repository
 
-import com.sarim.maincontent_domain.model.LogMessage
+import com.sarim.maincontent_data.model.LogMessageDto
+import com.sarim.maincontent_data.model.LogMessageDto.Companion.toLogMessage
+import com.sarim.maincontent_data.model.LogMessageDtoDao
 import com.sarim.maincontent_domain.model.LogType
 import com.sarim.maincontent_domain.repository.LogMessageRepository
+import com.sarim.sidebar_sessions_data.model.SessionDtoDao
+import com.sarim.utils.R
+import com.sarim.utils.ui.MessageType
 import com.sarim.utils.ui.Resource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import java.util.UUID
-import kotlin.random.Random
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlin.collections.map
 
-const val TOTAL_MOCK_ITEMS = 500
-const val LOWEST_POSSIBLE_LINE_NUMBER = 0
-const val HIGHEST_POSSIBLE_LINE_NUMBER = 9999
+const val TOTAL_MOCK_ITEMS = 100
 
-class LogMessageRepositoryImpl : LogMessageRepository {
-    override fun getLogMessages(pageNumber: Int): Flow<Resource<List<LogMessage>>> =
-        flow {
-            val mockLogs =
-                List(TOTAL_MOCK_ITEMS) { index ->
-                    LogMessage(
-                        id = UUID.randomUUID().toString(),
-                        message = "Log message #${index + 1} on page $pageNumber",
-                        className = "ExampleClass${index + 1}",
-                        functionName = "exampleFunction${index + 1}",
-                        lineNumber =
-                            Random.nextInt(
-                                LOWEST_POSSIBLE_LINE_NUMBER,
-                                HIGHEST_POSSIBLE_LINE_NUMBER,
-                            ),
-                        logType = LogType.entries.random(),
-                    )
+class LogMessageRepositoryImpl(
+    ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val logMessageDtoDao: LogMessageDtoDao,
+    private val sessionDtoDao: SessionDtoDao,
+) : LogMessageRepository {
+    init {
+        CoroutineScope(ioDispatcher).launch {
+            sessionDtoDao.getAll().collectLatest { sessionDtos ->
+                sessionDtos.forEach { sessionDto ->
+                    val existing = logMessageDtoDao.getAllLogMessagesForSessionId(sessionDto.sessionId).firstOrNull()
+                    if (existing.isNullOrEmpty()) {
+                        val mockClassNames =
+                            listOf(
+                                "NetworkManager",
+                                "DatabaseHelper",
+                                "UserRepository",
+                                "MainViewModel",
+                                "AuthService",
+                                "FileHandler",
+                                "ApiClient",
+                                "CacheManager",
+                                "SettingsViewModel",
+                                "NotificationService",
+                            )
+                        val mockFunctionNames =
+                            listOf(
+                                "fetchData",
+                                "saveUser",
+                                "deleteItem",
+                                "loadConfig",
+                                "syncData",
+                                "handleError",
+                                "updateCache",
+                                "loginUser",
+                                "logoutUser",
+                                "refreshToken",
+                            )
+                        val logTypes = LogType.entries.toTypedArray()
+
+                        val initialLogMessages =
+                            List(TOTAL_MOCK_ITEMS) { index ->
+                                LogMessageDto(
+                                    sessionId = sessionDto.sessionId,
+                                    message = "${sessionDto.sessionHeading}: Mock log message #$index",
+                                    className = mockClassNames[index % mockClassNames.size],
+                                    functionName = mockFunctionNames[index % mockFunctionNames.size],
+                                    lineNumber = (index + 1) * 10,
+                                    logType = logTypes[index % logTypes.size],
+                                )
+                            }
+                        logMessageDtoDao.insertAll(initialLogMessages)
+                    }
                 }
-            emit(Resource.Success(mockLogs))
+            }
+        }
+    }
+
+    override fun getLogMessages(
+        sessionId: Long,
+        pageNumber: Int,
+    ) = logMessageDtoDao
+        .getAllLogMessagesForSessionId(sessionId)
+        .map { logMessageDto ->
+            try {
+                Resource.Success(logMessageDto.map { it.toLogMessage() })
+            } catch (
+                @Suppress("TooGenericExceptionCaught") e: Exception,
+            ) {
+                Resource.Error(
+                    message =
+                        e.localizedMessage?.let { MessageType.StringMessage(it) }
+                            ?: MessageType.IntMessage(R.string.unknown_reason_exception),
+                )
+            }
+        }.catch { e ->
+            emit(
+                Resource.Error(
+                    message =
+                        e.localizedMessage?.let { MessageType.StringMessage(it) }
+                            ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
+                ),
+            )
         }
 }

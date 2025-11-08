@@ -1,8 +1,7 @@
 package com.sarim.sidebar_sessions_data.repository
 
 import androidx.datastore.core.DataStore
-import com.sarim.sidebar_dates_data.model.DateDto
-import com.sarim.sidebar_dates_data.model.DateDto.Companion.NO_SELECTED_DATE_DTO
+import com.sarim.sidebar_dates_data.model.DateDtoDao
 import com.sarim.sidebar_sessions_data.model.SessionDto
 import com.sarim.sidebar_sessions_data.model.SessionDto.Companion.fromSession
 import com.sarim.sidebar_sessions_data.model.SessionDto.Companion.toSession
@@ -27,35 +26,34 @@ const val TOTAL_MOCK_ITEMS = 10
 
 class SidebarSessionsRepositoryImpl(
     ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-    private val dateDtoDataStore: DataStore<DateDto>,
     private val sessionDtoDataStore: DataStore<SessionDto>,
     private val dataStoreName: String,
-    private val dao: SessionDtoDao,
+    private val dateDtoDao: DateDtoDao,
+    private val sessionDtoDao: SessionDtoDao,
 ) : SidebarSessionsRepository {
     init {
         CoroutineScope(ioDispatcher).launch {
-            dateDtoDataStore.data
-                .collectLatest {
-                    if (it != NO_SELECTED_DATE_DTO) {
-                        val existing = dao.getAllSessionsForDateId(it.dateId).firstOrNull()
-                        if (existing.isNullOrEmpty()) {
-                            val initialSessions =
-                                List(TOTAL_MOCK_ITEMS) { index ->
-                                    SessionDto(
-                                        dateId = it.dateId,
-                                        sessionHeading = "Session ${index + 1}",
-                                        sessionLogs = 10,
-                                    )
-                                }
-                            dao.insertAll(initialSessions)
-                        }
+            dateDtoDao.getAll().collectLatest { dateDtos ->
+                dateDtos.forEach { dateDto ->
+                    val existing = sessionDtoDao.getAllSessionsForDateId(dateDto.dateId).firstOrNull()
+                    if (existing.isNullOrEmpty()) {
+                        val initialSessions =
+                            List(TOTAL_MOCK_ITEMS) { index ->
+                                SessionDto(
+                                    dateId = dateDto.dateId,
+                                    sessionHeading = "Session ${index + 1}",
+                                    sessionLogs = 10,
+                                )
+                            }
+                        sessionDtoDao.insertAll(initialSessions)
                     }
                 }
+            }
         }
     }
 
     override fun getSessions(dateId: Long) =
-        dao
+        sessionDtoDao
             .getAllSessionsForDateId(dateId)
             .map { sessionDto ->
                 try {
@@ -129,7 +127,7 @@ class SidebarSessionsRepositoryImpl(
     override suspend fun getSessionsAccordingToSearchFilterForDate(
         searchFilter: String,
         dateId: Long,
-    ) = dao
+    ) = sessionDtoDao
         .getSessionDtosAccordingToHeading(searchFilter, dateId)
         .map { sessionDtoList ->
             println("searchFilter = $searchFilter")

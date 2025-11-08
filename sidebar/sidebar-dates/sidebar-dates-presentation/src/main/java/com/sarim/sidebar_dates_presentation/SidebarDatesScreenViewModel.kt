@@ -31,6 +31,7 @@ class SidebarDatesScreenViewModel(
 
         viewModelScope.launch {
             useCases.getSelectedDateUseCase().collectLatest { selectedResource ->
+                println("selectedResource = $selectedResource")
                 val selectedDate = if (selectedResource is Resource.Success) selectedResource.data else null
                 if (selectedResource is Resource.Error) snackbarEvent(selectedResource.message)
 

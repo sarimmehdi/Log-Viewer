@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7cc91083a3f1ffd282bb975041479dcd",
+    "entities": [
+      {
+        "tableName": "LogMessageDto",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`logMessageId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sessionId` INTEGER NOT NULL, `message` TEXT NOT NULL, `className` TEXT NOT NULL, `functionName` TEXT NOT NULL, `lineNumber` INTEGER NOT NULL, `logType` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "logMessageId",
+            "columnName": "logMessageId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "className",
+            "columnName": "className",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "functionName",
+            "columnName": "functionName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lineNumber",
+            "columnName": "lineNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "logType",
+            "columnName": "logType",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "logMessageId"
+          ]
+        }
+      },
+      {
+        "tableName": "LogMessageDtoFts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`message` TEXT NOT NULL, content=`LogMessageDto`)",
+        "fields": [
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "rowid"
+          ]
+        },
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "LogMessageDto",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogMessageDtoFts_BEFORE_UPDATE BEFORE UPDATE ON `LogMessageDto` BEGIN DELETE FROM `LogMessageDtoFts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogMessageDtoFts_BEFORE_DELETE BEFORE DELETE ON `LogMessageDto` BEGIN DELETE FROM `LogMessageDtoFts` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogMessageDtoFts_AFTER_UPDATE AFTER UPDATE ON `LogMessageDto` BEGIN INSERT INTO `LogMessageDtoFts`(`docid`, `message`) VALUES (NEW.`rowid`, NEW.`message`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogMessageDtoFts_AFTER_INSERT AFTER INSERT ON `LogMessageDto` BEGIN INSERT INTO `LogMessageDtoFts`(`docid`, `message`) VALUES (NEW.`rowid`, NEW.`message`); END"
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7cc91083a3f1ffd282bb975041479dcd')"
+    ]
+  }
+}

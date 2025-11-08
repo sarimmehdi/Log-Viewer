@@ -24,4 +24,7 @@ interface SessionDtoDao {
 
     @Query("SELECT * FROM sessiondto WHERE dateId = :dateId ORDER BY sessionId")
     fun getAllSessionsForDateId(dateId: Long): Flow<List<SessionDto>>
+
+    @Query("SELECT * FROM sessiondto ORDER BY sessionId")
+    fun getAll(): Flow<List<SessionDto>>
 }

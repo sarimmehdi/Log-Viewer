@@ -9,25 +9,12 @@ enum class LogType {
     INFO,
     WARN,
     CRITICAL,
-    UNKNOWN,
-    ;
-
-    companion object {
-        fun fromString(value: String): LogType =
-            when (value.lowercase()) {
-                "error" -> ERROR
-                "debug" -> DEBUG
-                "info" -> INFO
-                "warning" -> WARN
-                "critical" -> CRITICAL
-                else -> UNKNOWN
-            }
-    }
 }
 
 @Parcelize
 data class LogMessage(
-    val id: String,
+    val logMessageId: Long,
+    val sessionId: Long,
     val message: String,
     val className: String,
     val functionName: String,
