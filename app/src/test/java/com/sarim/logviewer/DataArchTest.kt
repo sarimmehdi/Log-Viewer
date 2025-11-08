@@ -93,4 +93,39 @@ internal class DataArchTest : BaseArchTest() {
             .haveSimpleNameEndingWith("RepositoryImpl")
             .check(importedClasses)
     }
+
+    @ArchTest
+    fun visibilityCheck(importedClasses: JavaClasses) {
+        classes()
+            .that()
+            .resideInAPackage("..*data..")
+            .and(validClasses)
+            .and()
+            .areTopLevelClasses()
+            .and()
+            .haveSimpleNameEndingWith("Dto")
+            .or()
+            .haveSimpleNameEndingWith("DtoDao")
+            .or()
+            .haveSimpleNameEndingWith("DtoDabase")
+            .or()
+            .haveSimpleNameEndingWith("DtoSerializer")
+            .or()
+            .haveSimpleNameEndingWith("RepositoryImpl")
+            .should()
+            .bePublic()
+            .check(importedClasses)
+
+        classes()
+            .that()
+            .resideInAPackage("..*data..")
+            .and(validClasses)
+            .and()
+            .areTopLevelClasses()
+            .and()
+            .haveSimpleNameEndingWith("DtoFts")
+            .should()
+            .bePackagePrivate()
+            .check(importedClasses)
+    }
 }

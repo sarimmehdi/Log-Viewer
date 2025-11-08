@@ -1,23 +1,20 @@
 package com.sarim.sidebar_sessions_domain.model
 
 import android.os.Parcelable
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Session(
-    val id: String,
+    val sessionId: Long,
+    val dateId: Long,
     val sessionHeading: String,
     val sessionLogs: Int,
-    val selected: Boolean,
-) : Parcelable
+) : Parcelable {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Session) return false
+        return sessionId == other.sessionId
+    }
 
-fun ImmutableList<Session>.select(target: Session?): ImmutableList<Session> =
-    map { item ->
-        if (target != null && item.id == target.id) {
-            item.copy(selected = true)
-        } else {
-            item.copy(selected = false)
-        }
-    }.toImmutableList()
+    override fun hashCode(): Int = sessionId.hashCode()
+}

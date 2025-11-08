@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.sarim.utils.R
 
 @Composable
-fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
+internal fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
     Row(
         modifier =
             modifier

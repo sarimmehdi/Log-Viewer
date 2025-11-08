@@ -9,13 +9,12 @@ import com.sarim.sidebar_sessions_domain.model.Session
 import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreen
 import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenData
 import kotlinx.collections.immutable.toImmutableList
-import java.util.UUID
 
 @Composable
 @Preview(
     device = PIXEL_TABLET,
 )
-internal fun SidebarSessionsScreenPreview(
+private fun SidebarSessionsScreenPreview(
     @PreviewParameter(SidebarSessionsScreenDataParameterProvider::class) data: SidebarSessionsScreenData,
 ) {
     SidebarSessionsScreen(
@@ -24,19 +23,28 @@ internal fun SidebarSessionsScreenPreview(
     )
 }
 
-class SidebarSessionsScreenDataParameterProvider : PreviewParameterProvider<SidebarSessionsScreenData> {
+private const val LIST_ITEM_COUNT = 10
+
+private class SidebarSessionsScreenDataParameterProvider : PreviewParameterProvider<SidebarSessionsScreenData> {
     override val values =
         sequenceOf(
             SidebarSessionsScreenData(
                 sessions =
-                    List(10) { index ->
+                    List(LIST_ITEM_COUNT) { index ->
                         Session(
-                            id = UUID.randomUUID().toString(),
+                            sessionId = index.toLong(),
+                            dateId = 1,
                             sessionHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                             sessionLogs = index,
-                            selected = index % 2 == 0,
                         )
                     }.toImmutableList(),
+                selectedSession =
+                    Session(
+                        sessionId = 1,
+                        dateId = 1,
+                        sessionHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                        sessionLogs = 100,
+                    ),
             ),
         )
 }

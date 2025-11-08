@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ac8d86d6081a1e3dcc6af08f33ab846a",
+    "identityHash": "53546bea81253d71efac6b1d0f8c700f",
     "entities": [
       {
         "tableName": "DateDto",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dateHeading` TEXT NOT NULL, `dateSessions` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dateId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dateHeading` TEXT NOT NULL, `dateSessions` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "dateId",
+            "columnName": "dateId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -30,7 +30,7 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "id"
+            "dateId"
           ]
         }
       },
@@ -72,7 +72,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ac8d86d6081a1e3dcc6af08f33ab846a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '53546bea81253d71efac6b1d0f8c700f')"
     ]
   }
 }

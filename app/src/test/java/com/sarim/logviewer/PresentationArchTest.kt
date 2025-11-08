@@ -41,6 +41,8 @@ internal class PresentationArchTest : BaseArchTest() {
             .haveSimpleNameEndingWith("ComponentData")
             .orShould()
             .haveSimpleNameEndingWith("ComponentDataParameterProvider")
+            .orShould()
+            .haveSimpleNameEndingWith("Preview")
             .check(importedClasses)
     }
 
@@ -86,6 +88,53 @@ internal class PresentationArchTest : BaseArchTest() {
             .haveSimpleNameEndingWith("ScreenToViewModelEvents")
             .orShould()
             .haveSimpleNameEndingWith("ScreenUseCases")
+            .check(importedClasses)
+    }
+
+    @ArchTest
+    fun visibilityCheck(importedClasses: JavaClasses) {
+        classes()
+            .that()
+            .resideInAPackage("..*presentation..")
+            .and(validClasses)
+            .and()
+            .areTopLevelClasses()
+            .and()
+            .haveSimpleNameEndingWith("Screen")
+            .or()
+            .haveSimpleNameEndingWith("ScreenState")
+            .or()
+            .haveSimpleNameEndingWith("ScreenToViewModelEvents")
+            .or()
+            .haveSimpleNameEndingWith("ScreenUseCases")
+            .or()
+            .haveSimpleNameEndingWith("ScreenViewModel")
+            .should()
+            .bePublic()
+            .check(importedClasses)
+
+        classes()
+            .that()
+            .resideInAPackage("..*presentation..")
+            .and(validClasses)
+            .and()
+            .areTopLevelClasses()
+            .and()
+            .haveSimpleNameEndingWith("Component")
+            .should()
+            .bePackagePrivate()
+            .check(importedClasses)
+
+        classes()
+            .that()
+            .resideInAPackage("..*presentation..")
+            .and(validClasses)
+            .and()
+            .areTopLevelClasses()
+            .and()
+            .haveSimpleNameEndingWith("Preview")
+            .should()
+            .bePrivate()
             .check(importedClasses)
     }
 }

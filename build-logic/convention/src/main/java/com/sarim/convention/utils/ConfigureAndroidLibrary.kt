@@ -6,7 +6,7 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-fun Project.configureAndroidLibrary(
+internal fun Project.configureAndroidLibrary(
     namespace: String,
     useCompose: Boolean,
 ) {

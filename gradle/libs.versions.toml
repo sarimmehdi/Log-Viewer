@@ -37,6 +37,10 @@ conventionPluginNavLibraryName = "navLibraryPlugin"
 conventionPluginNavLibraryClass = "com.sarim.convention.AndroidNavLibraryConventionPlugin"
 conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
+junit = "1.3.0"
+espressoCoreVersion = "3.7.0"
+appcompatVersion = "1.7.1"
+materialVersion = "1.13.0"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -75,6 +79,10 @@ dataStoreLibrary = { group = "androidx.datastore", name = "datastore-preferences
 roomRunTimeLibrary = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
 roomCompilerLibrary = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
 roomKtxLibrary = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
+junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [bundles]
 navBundle = [

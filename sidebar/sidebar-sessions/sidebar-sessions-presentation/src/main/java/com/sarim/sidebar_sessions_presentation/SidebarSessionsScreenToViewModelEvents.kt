@@ -10,4 +10,6 @@ sealed interface SidebarSessionsScreenToViewModelEvents {
     data class SelectSession(
         val session: Session,
     ) : SidebarSessionsScreenToViewModelEvents
+
+    data object GetAllSessionForSelectedDate : SidebarSessionsScreenToViewModelEvents
 }

@@ -1,4 +1,4 @@
-package com.sarim.sidebar_dates_data.model
+package com.sarim.sidebar_sessions_data.model
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.IOException
@@ -8,16 +8,16 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-class DateDtoSerializer(
+class SessionDtoSerializer(
     private val dataStoreName: String,
-) : Serializer<DateDto> {
-    override val defaultValue: DateDto
-        get() = DateDto.NO_SELECTED_DATE_DTO
+) : Serializer<SessionDto> {
+    override val defaultValue: SessionDto
+        get() = SessionDto.NO_SELECTED_SESSION_DTO
 
-    override suspend fun readFrom(input: InputStream): DateDto {
+    override suspend fun readFrom(input: InputStream): SessionDto {
         try {
             return Json.decodeFromString(
-                DateDto.serializer(),
+                SessionDto.serializer(),
                 input.readBytes().decodeToString(),
             )
         } catch (serialization: SerializationException) {
@@ -29,34 +29,34 @@ class DateDtoSerializer(
     }
 
     override suspend fun writeTo(
-        t: DateDto,
+        t: SessionDto,
         output: OutputStream,
     ) {
         try {
             output.write(
                 Json
-                    .encodeToString(DateDto.serializer(), t)
+                    .encodeToString(SessionDto.serializer(), t)
                     .encodeToByteArray(),
             )
         } catch (e: IOException) {
             throw CorruptionException(
-                "Unable to write DateDto to $dataStoreName",
+                "Unable to write SessionDto to $dataStoreName",
                 e,
             )
         }
     }
 
     companion object {
-        const val DATE_DTO_DATASTORE_QUALIFIER = "DATE_DTO_DATASTORE_QUALIFIER"
+        const val SESSION_DTO_DATASTORE_QUALIFIER = "SESSION_DTO_DATASTORE_QUALIFIER"
 
         enum class DataStoreType(
             val dataStoreName: String,
         ) {
-            ACTUAL("DateDto.json"),
-            TEST("DateDtoTest.json"),
-            TEST_ERROR("DateDtoTestError.json"),
+            ACTUAL("SessionDto.json"),
+            TEST("SessionDtoTest.json"),
+            TEST_ERROR("SessionDtoTestError.json"),
         }
 
-        fun create(dataStoreName: String): DateDtoSerializer = DateDtoSerializer(dataStoreName)
+        fun create(dataStoreName: String): SessionDtoSerializer = SessionDtoSerializer(dataStoreName)
     }
 }

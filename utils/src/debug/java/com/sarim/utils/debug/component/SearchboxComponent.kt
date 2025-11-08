@@ -13,7 +13,7 @@ import com.sarim.utils.component.SearchboxComponentData
 @Preview(
     device = PIXEL_TABLET,
 )
-internal fun SearchboxComponentPreview(
+private fun SearchboxComponentPreview(
     @PreviewParameter(SearchboxComponentDataParameterProvider::class) data: SearchboxComponentData,
 ) {
     SearchboxComponent(
@@ -21,7 +21,7 @@ internal fun SearchboxComponentPreview(
     )
 }
 
-class SearchboxComponentDataParameterProvider : PreviewParameterProvider<SearchboxComponentData> {
+private class SearchboxComponentDataParameterProvider : PreviewParameterProvider<SearchboxComponentData> {
     override val values =
         sequenceOf(
             SearchboxComponentData(

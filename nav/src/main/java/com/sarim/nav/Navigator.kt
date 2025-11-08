@@ -103,6 +103,7 @@ fun Navigator(
                                     sidebarSessionsScreenData =
                                         SidebarSessionsScreenData(
                                             sessions = sideBarSessionsScreenState.sessions.toImmutableList(),
+                                            selectedSession = sideBarSessionsScreenState.selectedSession,
                                         ),
 //                                    mainContentScreenData =
 //                                        MainContentScreenData(
@@ -134,10 +135,10 @@ fun Navigator(
     )
 }
 
-const val APP_SCREEN_BACKGROUND_COLOR = 0xFF01070B
+private const val APP_SCREEN_BACKGROUND_COLOR = 0xFF01070B
 
 @Composable
-fun AppScreenComponent(
+private fun AppScreenComponent(
     data: AppScreenComponentData,
     onEvent: AppScreenComponentOnEvent,
     modifier: Modifier = Modifier,
@@ -191,14 +192,14 @@ fun AppScreenComponent(
     }
 }
 
-data class AppScreenComponentData(
+private data class AppScreenComponentData(
     val sidebarDatesScreenData: SidebarDatesScreenData,
     val sidebarSessionsScreenData: SidebarSessionsScreenData,
 //    val mainContentScreenData: MainContentScreenData,
 //    val footerComponentData: FooterComponentData,
 )
 
-data class AppScreenComponentOnEvent(
+private data class AppScreenComponentOnEvent(
     val sidebarDatesScreenToViewModelEvents: (SidebarDatesScreenToViewModelEvents) -> Unit,
     val sidebarSessionsScreenToViewModelEvents: (SidebarSessionsScreenToViewModelEvents) -> Unit,
 //    val mainContentScreenToViewModelEvents: (MainContentScreenToViewModelEvents) -> Unit,
@@ -377,4 +378,4 @@ data class AppScreenComponentOnEvent(
 // }
 
 @Serializable
-data object AppScreen : NavKey
+private data object AppScreen : NavKey

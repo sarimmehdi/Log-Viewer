@@ -3,7 +3,7 @@ package com.sarim.convention.utils
 import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-data class Config(
+internal data class Config(
     val baseNamespace: String = "com.sarim",
     val applicationId: String = "com.sarim.logviewer",
     val compileSdk: Int = 36,
