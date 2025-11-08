@@ -13,7 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.maincontent_domain.model.LogMessage
 import com.sarim.maincontent_presentation.component.Level
+import com.sarim.maincontent_presentation.component.Level.Content.Companion.fromLogType
 import com.sarim.maincontent_presentation.component.Line
 import com.sarim.maincontent_presentation.component.MainContentListItemComponent
 import com.sarim.maincontent_presentation.component.MainContentListItemComponentData
@@ -27,7 +29,6 @@ const val MAIN_CONTENT_BACKGROUND_COLOR = 0xFF03111B
 @Composable
 fun MainContentScreen(
     data: MainContentScreenData,
-    @Suppress("UNUSED_PARAMETER") onEvent: (MainContentScreenToViewModelEvents) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -56,9 +57,19 @@ fun MainContentScreen(
                 CustomScrollableListComponentData(
                     contentHeight = 584.dp,
                 ) {
-                    items(data.logObjects.size) { index ->
+                    items(data.logs.size) { index ->
+                        val log = data.logs[index]
                         MainContentListItemComponent(
-                            data = data.logObjects[index],
+                            data =
+                                MainContentListItemComponentData(
+                                    message = log.message,
+                                    className = log.className,
+                                    functionName = log.functionName,
+                                    lineNumber = Line.Integer(log.lineNumber),
+                                    level = fromLogType(log.logType),
+                                    textSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                ),
                         )
                         HorizontalDividerComponent()
                     }
@@ -68,5 +79,5 @@ fun MainContentScreen(
 }
 
 data class MainContentScreenData(
-    val logObjects: ImmutableList<MainContentListItemComponentData>,
+    val logs: ImmutableList<LogMessage>,
 )

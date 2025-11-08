@@ -16,6 +16,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
@@ -23,6 +24,9 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.sarim.maincontent_presentation.MainContentScreen
+import com.sarim.maincontent_presentation.MainContentScreenData
+import com.sarim.maincontent_presentation.MainContentScreenViewModel
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreen
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenData
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenToViewModelEvents
@@ -42,7 +46,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun Navigator(
     sideBarDatesScreenViewModel: SidebarDatesScreenViewModel = koinViewModel(),
     sideBarSessionsScreenViewModel: SidebarSessionsScreenViewModel = koinViewModel(),
-//    mainContentScreenViewModel: MainContentScreenViewModel = koinViewModel(),
+    mainContentScreenViewModel: MainContentScreenViewModel = koinViewModel(),
 ) {
     val snackbarHostState =
         remember {
@@ -89,8 +93,8 @@ fun Navigator(
                             sideBarDatesScreenViewModel.state.collectAsStateWithLifecycle()
                         val sideBarSessionsScreenState by
                             sideBarSessionsScreenViewModel.state.collectAsStateWithLifecycle()
-//                        val mainContentScreenState by
-//                            mainContentScreenViewModel.state.collectAsStateWithLifecycle()
+                        val mainContentScreenState by
+                            mainContentScreenViewModel.state.collectAsStateWithLifecycle()
                         AppScreenComponent(
                             modifier = Modifier.padding(innerPadding),
                             data =
@@ -105,22 +109,10 @@ fun Navigator(
                                             sessions = sideBarSessionsScreenState.sessions.toImmutableList(),
                                             selectedSession = sideBarSessionsScreenState.selectedSession,
                                         ),
-//                                    mainContentScreenData =
-//                                        MainContentScreenData(
-//                                            logObjects =
-//                                                mainContentScreenState.logMessages
-//                                                    .map {
-//                                                        MainContentListItemComponentData(
-//                                                            message = it.message,
-//                                                            className = it.className,
-//                                                            functionName = it.functionName,
-//                                                            lineNumber = Line.Integer(it.lineNumber),
-//                                                            level = Level.Content.fromLogType(it.logType),
-//                                                            textSize = 12.sp,
-//                                                            fontWeight = FontWeight.Bold,
-//                                                        )
-//                                                    }.toImmutableList(),
-//                                        ),
+                                    mainContentScreenData =
+                                        MainContentScreenData(
+                                            logs = mainContentScreenState.logs.toImmutableList(),
+                                        ),
                                 ),
                             onEvent =
                                 AppScreenComponentOnEvent(
@@ -168,17 +160,16 @@ private fun AppScreenComponent(
 //                            end = 18.dp,
 //                        ),
 //            )
-//            MainContentScreen(
-//                data = data.mainContentScreenData,
-//                onEvent = onEvent.mainContentScreenToViewModelEvents,
-//                modifier =
-//                    Modifier
-//                        .padding(
-//                            top = (27 + 24).dp,
-//                            start = (18 + 18).dp,
-//                            end = (18 + 18).dp,
-//                        ),
-//            )
+            MainContentScreen(
+                data = data.mainContentScreenData,
+                modifier =
+                    Modifier
+                        .padding(
+                            top = (27 + 24).dp,
+                            start = 18.dp,
+                            end = 18.dp,
+                        ),
+            )
 //            FooterComponent(
 //                data = data.footerComponentData,
 //                modifier =
@@ -195,14 +186,13 @@ private fun AppScreenComponent(
 private data class AppScreenComponentData(
     val sidebarDatesScreenData: SidebarDatesScreenData,
     val sidebarSessionsScreenData: SidebarSessionsScreenData,
-//    val mainContentScreenData: MainContentScreenData,
+    val mainContentScreenData: MainContentScreenData,
 //    val footerComponentData: FooterComponentData,
 )
 
 private data class AppScreenComponentOnEvent(
     val sidebarDatesScreenToViewModelEvents: (SidebarDatesScreenToViewModelEvents) -> Unit,
     val sidebarSessionsScreenToViewModelEvents: (SidebarSessionsScreenToViewModelEvents) -> Unit,
-//    val mainContentScreenToViewModelEvents: (MainContentScreenToViewModelEvents) -> Unit,
 )
 
 // @Preview(

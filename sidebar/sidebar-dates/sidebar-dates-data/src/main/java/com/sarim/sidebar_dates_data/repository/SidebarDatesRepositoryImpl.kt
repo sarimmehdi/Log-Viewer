@@ -71,6 +71,7 @@ class SidebarDatesRepositoryImpl(
 
     override suspend fun selectDate(date: Date) =
         try {
+            println("trying to select date")
             dataStore.updateData {
                 date.fromDate()
             }
@@ -100,6 +101,7 @@ class SidebarDatesRepositoryImpl(
     override fun getSelectedDate() =
         dataStore.data
             .map {
+                println("GOT SELECTED DATE!")
                 Resource.Success(it.toDate()) as Resource<Date>
             }.catch { e ->
                 emit(

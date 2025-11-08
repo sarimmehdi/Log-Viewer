@@ -3,6 +3,7 @@ package com.sarim.logviewer
 import android.app.Application
 import com.sarim.sidebar_dates_di.module as sideBarDatesModule
 import com.sarim.sidebar_sessions_di.module as sideBarSessionsModule
+import com.sarim.maincontent_di.module as mainContentModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.androix.startup.KoinStartup
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -19,6 +20,7 @@ internal class MainApplication :
             lazyModules(
                 sideBarDatesModule(),
                 sideBarSessionsModule(),
+                mainContentModule(),
             )
         }
 }

@@ -1,4 +1,4 @@
-package com.sarim.maincontent_presentation.debug.component
+package com.sarim.maincontent_presentation.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
@@ -6,13 +6,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.sarim.maincontent_presentation.component.ERROR_COLOR
-import com.sarim.maincontent_presentation.component.DEBUG_COLOR
-import com.sarim.maincontent_presentation.component.INFO_COLOR
-import com.sarim.maincontent_presentation.component.WARN_COLOR
-import com.sarim.maincontent_presentation.component.CRITICAL_COLOR
-import com.sarim.maincontent_presentation.component.LevelComponent
-import com.sarim.maincontent_presentation.component.LevelComponentData
 
 @Composable
 @Preview(

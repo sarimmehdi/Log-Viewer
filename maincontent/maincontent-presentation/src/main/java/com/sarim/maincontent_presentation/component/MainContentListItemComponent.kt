@@ -152,7 +152,7 @@ fun MainContentListItemComponent(
                             Font(utilsR.font.inter_24_medium, FontWeight.Medium),
                             Font(utilsR.font.inter_24_bold, FontWeight.Bold),
                         ),
-                    text = "Level",
+                    text = data.level.value,
                     color = Color.White.copy(alpha = 0.7f),
                 )
             }
@@ -259,26 +259,8 @@ sealed class Level {
                                     modifier =
                                         Modifier
                                             .padding(
-                                                start = 57.dp,
-                                                end = 73.dp,
-                                            ),
-                                )
-                            },
-                        )
-                    LogType.UNKNOWN ->
-                        Content(
-                            composable = {
-                                LevelComponent(
-                                    data =
-                                        LevelComponentData(
-                                            name = stringResource(R.string.unknown),
-                                            color = Color(UNKNOWN_COLOR),
-                                        ),
-                                    modifier =
-                                        Modifier
-                                            .padding(
-                                                start = 57.dp,
-                                                end = 73.dp,
+                                                start = 50.dp,
+                                                end = 65.dp,
                                             ),
                                 )
                             },

@@ -4,7 +4,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import androidx.room.Room
-import com.sarim.sidebar_dates_data.model.DateDtoSerializer.Companion.DATE_DTO_DATASTORE_QUALIFIER
 import com.sarim.sidebar_dates_domain.usecase.GetSelectedDateUseCase
 import com.sarim.sidebar_sessions_data.model.SessionDto
 import com.sarim.sidebar_sessions_data.model.SessionDtoDao
@@ -46,10 +45,10 @@ fun module() =
 
         single<SidebarSessionsRepository> {
             SidebarSessionsRepositoryImpl(
-                dateDtoDataStore = get(named(DATE_DTO_DATASTORE_QUALIFIER)),
                 sessionDtoDataStore = get(named(SESSION_DTO_DATASTORE_QUALIFIER)),
                 dataStoreName = sessionDtoDataStoreName,
-                dao = get(),
+                dateDtoDao = get(),
+                sessionDtoDao = get(),
             )
         }
         viewModel {

@@ -54,6 +54,8 @@ internal class AndroidNavLibraryConventionPlugin : Plugin<Project> {
                         ":sidebar:sidebar-dates:sidebar-dates-presentation",
                         ":sidebar:sidebar-sessions:sidebar-sessions-domain",
                         ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
+                        ":maincontent:maincontent-domain",
+                        ":maincontent:maincontent-presentation",
                     ),
             )
         }

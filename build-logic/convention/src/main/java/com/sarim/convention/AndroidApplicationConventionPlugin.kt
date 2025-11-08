@@ -93,6 +93,10 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                             ":sidebar:sidebar-sessions:sidebar-sessions-data",
                             ":sidebar:sidebar-sessions:sidebar-sessions-domain",
                             ":sidebar:sidebar-sessions:sidebar-sessions-presentation",
+                            ":maincontent:maincontent-di",
+                            ":maincontent:maincontent-data",
+                            ":maincontent:maincontent-domain",
+                            ":maincontent:maincontent-presentation",
                         ),
                 )
             }
