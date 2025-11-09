@@ -1,4 +1,4 @@
-package com.sarim.logviewer.components
+package com.sarim.footer_presentation.component
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -26,19 +28,24 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sarim.logviewer.R
+import com.sarim.utils.R
 import java.util.Locale
 
 @Composable
 fun CurrentPageNumberComponent(
-    data: CurrentPageNumberComponentData,
     modifier: Modifier = Modifier,
+    data: CurrentPageNumberComponentData,
+    onDone: (Int) -> Unit,
 ) {
     var text by remember {
         mutableStateOf(
             String.format(Locale.ROOT, "%02d", data.currentPageNumber),
         )
     }
+    LaunchedEffect(data.currentPageNumber) {
+        text = String.format(Locale.ROOT, "%02d", data.currentPageNumber)
+    }
+    val focusManager = LocalFocusManager.current
     BasicTextField(
         value = text,
         onValueChange = { input ->
@@ -65,7 +72,8 @@ fun CurrentPageNumberComponent(
         keyboardActions =
             KeyboardActions(onDone = {
                 text.toIntOrNull()?.let {
-                    text = String.format(Locale.ROOT, "%02d", it)
+                    onDone(it)
+                    focusManager.clearFocus()
                 }
             }),
         cursorBrush = SolidColor(Color.White.copy(alpha = 0.8f)),

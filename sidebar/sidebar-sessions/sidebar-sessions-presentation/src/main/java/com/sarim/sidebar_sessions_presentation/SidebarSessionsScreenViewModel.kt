@@ -65,7 +65,6 @@ class SidebarSessionsScreenViewModel(
 
         viewModelScope.launch {
             useCases.getSelectedSessionUseCase().collectLatest { selectedResource ->
-                println("selectedResource = $selectedResource")
                 val selectedSession =
                     if (selectedResource is Resource.Success) selectedResource.data else null
                 if (selectedResource is Resource.Error) snackbarEvent(selectedResource.message)

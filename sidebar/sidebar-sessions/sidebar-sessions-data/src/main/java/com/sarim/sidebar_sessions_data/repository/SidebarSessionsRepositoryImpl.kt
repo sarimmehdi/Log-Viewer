@@ -130,11 +130,6 @@ class SidebarSessionsRepositoryImpl(
     ) = sessionDtoDao
         .getSessionDtosAccordingToHeading(searchFilter, dateId)
         .map { sessionDtoList ->
-            println("searchFilter = $searchFilter")
-            println("dateId = $dateId")
-            sessionDtoList.forEach {
-                println("getSessionsAccordingToSearchFilterForDate: $it")
-            }
             try {
                 Resource.Success(sessionDtoList.map { it.toSession() })
             } catch (

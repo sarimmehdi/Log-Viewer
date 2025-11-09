@@ -24,6 +24,10 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.sarim.footer_presentation.FooterScreen
+import com.sarim.footer_presentation.FooterScreenData
+import com.sarim.footer_presentation.FooterScreenToViewModelEvents
+import com.sarim.footer_presentation.FooterScreenViewModel
 import com.sarim.maincontent_presentation.MainContentScreen
 import com.sarim.maincontent_presentation.MainContentScreenData
 import com.sarim.maincontent_presentation.MainContentScreenViewModel
@@ -47,6 +51,7 @@ fun Navigator(
     sideBarDatesScreenViewModel: SidebarDatesScreenViewModel = koinViewModel(),
     sideBarSessionsScreenViewModel: SidebarSessionsScreenViewModel = koinViewModel(),
     mainContentScreenViewModel: MainContentScreenViewModel = koinViewModel(),
+    footerScreenViewModel: FooterScreenViewModel = koinViewModel(),
 ) {
     val snackbarHostState =
         remember {
@@ -95,6 +100,8 @@ fun Navigator(
                             sideBarSessionsScreenViewModel.state.collectAsStateWithLifecycle()
                         val mainContentScreenState by
                             mainContentScreenViewModel.state.collectAsStateWithLifecycle()
+                        val footerScreenState by
+                            footerScreenViewModel.state.collectAsStateWithLifecycle()
                         AppScreenComponent(
                             modifier = Modifier.padding(innerPadding),
                             data =
@@ -113,12 +120,22 @@ fun Navigator(
                                         MainContentScreenData(
                                             logs = mainContentScreenState.logs.toImmutableList(),
                                         ),
+                                    footerScreenData =
+                                        FooterScreenData(
+                                            numberFirstLogOnPage = footerScreenState.numFirstLogOnCurrPage,
+                                            numberLastLogOnPage = footerScreenState.numLastLogOnCurrPage,
+                                            totalLogs = footerScreenState.totalLogs,
+                                            currentPageNumber = footerScreenState.currentPageNum,
+                                            totalPages = footerScreenState.totalPages,
+                                            canGoToNextPage = footerScreenState.canGoToNextPage,
+                                            canGoToPreviousPage = footerScreenState.canGoToPreviousPage,
+                                        ),
                                 ),
                             onEvent =
                                 AppScreenComponentOnEvent(
                                     sidebarDatesScreenToViewModelEvents = sideBarDatesScreenViewModel::onEvent,
                                     sidebarSessionsScreenToViewModelEvents = sideBarSessionsScreenViewModel::onEvent,
-//                                    mainContentScreenToViewModelEvents = mainContentScreenViewModel::onEvent,
+                                    footerScreenToViewModelEvents = footerScreenViewModel::onEvent,
                                 ),
                         )
                     }
@@ -170,15 +187,17 @@ private fun AppScreenComponent(
                             end = 18.dp,
                         ),
             )
-//            FooterComponent(
-//                data = data.footerComponentData,
-//                modifier =
-//                    Modifier
-//                        .padding(
-//                            start = 18.dp,
-//                            end = 18.dp,
-//                        ),
-//            )
+            FooterScreen(
+                data = data.footerScreenData,
+                onEvent = onEvent.footerScreenToViewModelEvents,
+                modifier =
+                    Modifier
+                        .padding(
+                            top = 24.dp,
+                            start = 18.dp,
+                            end = 18.dp,
+                        ),
+            )
         }
     }
 }
@@ -187,12 +206,13 @@ private data class AppScreenComponentData(
     val sidebarDatesScreenData: SidebarDatesScreenData,
     val sidebarSessionsScreenData: SidebarSessionsScreenData,
     val mainContentScreenData: MainContentScreenData,
-//    val footerComponentData: FooterComponentData,
+    val footerScreenData: FooterScreenData,
 )
 
 private data class AppScreenComponentOnEvent(
     val sidebarDatesScreenToViewModelEvents: (SidebarDatesScreenToViewModelEvents) -> Unit,
     val sidebarSessionsScreenToViewModelEvents: (SidebarSessionsScreenToViewModelEvents) -> Unit,
+    val footerScreenToViewModelEvents: (FooterScreenToViewModelEvents) -> Unit,
 )
 
 // @Preview(

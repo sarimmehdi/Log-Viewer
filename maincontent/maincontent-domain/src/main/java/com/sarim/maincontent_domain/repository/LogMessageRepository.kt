@@ -9,4 +9,6 @@ interface LogMessageRepository {
         sessionId: Long,
         pageNumber: Int,
     ): Flow<Resource<List<LogMessage>>>
+
+    fun getTotalLogMessagesNum(sessionId: Long): Flow<Resource<Int>>
 }

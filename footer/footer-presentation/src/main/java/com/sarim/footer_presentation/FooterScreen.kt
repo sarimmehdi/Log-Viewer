@@ -1,45 +1,69 @@
-package com.sarim.logviewer.components
+package com.sarim.footer_presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sarim.logviewer.R
+import com.sarim.footer_domain.usecase.ChangeType
+import com.sarim.footer_presentation.component.CircleWithImageComponent
+import com.sarim.footer_presentation.component.CircleWithImageComponentData
+import com.sarim.footer_presentation.component.CurrentPageNumberComponent
+import com.sarim.footer_presentation.component.CurrentPageNumberComponentData
 
 @Composable
-fun FooterComponent(
-    data: FooterComponentData,
+fun FooterScreen(
     modifier: Modifier = Modifier,
+    data: FooterScreenData,
+    onEvent: (FooterScreenToViewModelEvents) -> Unit,
 ) {
     Row(
         modifier =
             modifier
-                .width(819.dp)
-                .height(50.dp),
+                .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             color = Color.White.copy(alpha = 0.8f),
-            text = "Showing ${data.numberFirstLogOnPage} - ${data.numberLastLogOnPage} results of ${data.totalLogs}",
+            text =
+                stringResource(
+                    R.string.showing_results,
+                    data.numberFirstLogOnPage,
+                    data.numberLastLogOnPage,
+                    data.totalLogs,
+                ),
         )
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             CircleWithImageComponent(
                 data =
                     CircleWithImageComponentData(
                         imageResource = R.drawable.double_arrows,
-                        imageResourceDescription = "Click on this icon to go to the first page of log messages",
+                        imageResourceDescription = stringResource(R.string.jump_to_first_page_icon_desc),
                         imageRotation = 180.0f,
-                        alpha = 0.8f,
+                        alpha =
+                            if (data.canGoToPreviousPage) {
+                                1.0f
+                            } else {
+                                0.8f
+                            },
                     ),
+                modifier =
+                    Modifier.clickable {
+                        onEvent(
+                            FooterScreenToViewModelEvents.ChangeCurrentPageNumber(1),
+                        )
+                    },
             )
             Spacer(
                 modifier =
@@ -50,10 +74,21 @@ fun FooterComponent(
                 data =
                     CircleWithImageComponentData(
                         imageResource = R.drawable.single_arrow,
-                        imageResourceDescription = "Click on this icon to go to the previous page of log messages",
+                        imageResourceDescription = stringResource(R.string.jump_to_previous_page_icon_desc),
                         imageRotation = 180.0f,
-                        alpha = 0.8f,
+                        alpha =
+                            if (data.canGoToPreviousPage) {
+                                1.0f
+                            } else {
+                                0.8f
+                            },
                     ),
+                modifier =
+                    Modifier.clickable {
+                        onEvent(
+                            FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(ChangeType.DECREASE),
+                        )
+                    },
             )
             Spacer(
                 modifier =
@@ -65,6 +100,11 @@ fun FooterComponent(
                     CurrentPageNumberComponentData(
                         currentPageNumber = data.currentPageNumber,
                     ),
+                onDone = {
+                    onEvent(
+                        FooterScreenToViewModelEvents.ChangeCurrentPageNumber(it),
+                    )
+                },
             )
             Spacer(
                 modifier =
@@ -75,10 +115,21 @@ fun FooterComponent(
                 data =
                     CircleWithImageComponentData(
                         imageResource = R.drawable.single_arrow,
-                        imageResourceDescription = "Click on this icon to go to the next page of log messages",
+                        imageResourceDescription = stringResource(R.string.jump_to_next_page_icon_desc),
                         imageRotation = 0.0f,
-                        alpha = 1.0f,
+                        alpha =
+                            if (data.canGoToNextPage) {
+                                1.0f
+                            } else {
+                                0.8f
+                            },
                     ),
+                modifier =
+                    Modifier.clickable {
+                        onEvent(
+                            FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(ChangeType.INCREASE),
+                        )
+                    },
             )
             Spacer(
                 modifier =
@@ -89,20 +140,34 @@ fun FooterComponent(
                 data =
                     CircleWithImageComponentData(
                         imageResource = R.drawable.double_arrows,
-                        imageResourceDescription = "Click on this icon to go to the last page of log messages",
+                        imageResourceDescription = stringResource(R.string.jump_to_last_page_icon_desc),
                         imageRotation = 0.0f,
-                        alpha = 1.0f,
+                        alpha =
+                            if (data.canGoToNextPage) {
+                                1.0f
+                            } else {
+                                0.8f
+                            },
                     ),
+                modifier =
+                    Modifier.clickable {
+                        onEvent(
+                            FooterScreenToViewModelEvents.ChangeCurrentPageNumber(data.totalPages),
+                        )
+                    },
             )
         }
     }
 }
 
-data class FooterComponentData(
+data class FooterScreenData(
     val numberFirstLogOnPage: Int,
     val numberLastLogOnPage: Int,
     val totalLogs: Int,
     val currentPageNumber: Int,
+    val totalPages: Int,
+    val canGoToNextPage: Boolean,
+    val canGoToPreviousPage: Boolean,
 )
 
 // @Composable

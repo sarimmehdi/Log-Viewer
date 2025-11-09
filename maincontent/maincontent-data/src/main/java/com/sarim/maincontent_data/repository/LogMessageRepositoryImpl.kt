@@ -30,7 +30,10 @@ class LogMessageRepositoryImpl(
         CoroutineScope(ioDispatcher).launch {
             sessionDtoDao.getAll().collectLatest { sessionDtos ->
                 sessionDtos.forEach { sessionDto ->
-                    val existing = logMessageDtoDao.getAllLogMessagesForSessionId(sessionDto.sessionId).firstOrNull()
+                    val existing =
+                        logMessageDtoDao
+                            .getAllLogMessagesForSessionId(sessionDto.sessionId)
+                            .firstOrNull()
                     if (existing.isNullOrEmpty()) {
                         val mockClassNames =
                             listOf(
@@ -104,4 +107,29 @@ class LogMessageRepositoryImpl(
                 ),
             )
         }
+
+    override fun getTotalLogMessagesNum(sessionId: Long) =
+        logMessageDtoDao
+            .getTotalLogCount(sessionId)
+            .map { count ->
+                try {
+                    Resource.Success(count)
+                } catch (
+                    @Suppress("TooGenericExceptionCaught") e: Exception,
+                ) {
+                    Resource.Error(
+                        message =
+                            e.localizedMessage?.let { MessageType.StringMessage(it) }
+                                ?: MessageType.IntMessage(R.string.unknown_reason_exception),
+                    )
+                }
+            }.catch { e ->
+                emit(
+                    Resource.Error(
+                        message =
+                            e.localizedMessage?.let { MessageType.StringMessage(it) }
+                                ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
+                    ),
+                )
+            }
 }

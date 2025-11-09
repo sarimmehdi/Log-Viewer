@@ -1,4 +1,4 @@
-package com.sarim.logviewer.components
+package com.sarim.footer_presentation.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
