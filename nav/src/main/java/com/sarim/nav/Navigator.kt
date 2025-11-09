@@ -118,7 +118,7 @@ fun Navigator(
                                         ),
                                     mainContentScreenData =
                                         MainContentScreenData(
-                                            logs = mainContentScreenState.logs.toImmutableList(),
+                                            logs = mainContentScreenState.logs,
                                         ),
                                     footerScreenData =
                                         FooterScreenData(

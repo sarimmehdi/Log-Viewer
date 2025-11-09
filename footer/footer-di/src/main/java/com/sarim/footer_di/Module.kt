@@ -15,7 +15,6 @@ import com.sarim.footer_domain.usecase.GetTotalPagesUseCase
 import com.sarim.footer_presentation.FooterScreenUseCases
 import com.sarim.footer_presentation.FooterScreenViewModel
 import com.sarim.maincontent_domain.usecase.GetTotalLogMessagesNumUseCase
-import com.sarim.sidebar_sessions_domain.usecase.GetSelectedSessionUseCase
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -44,7 +43,6 @@ fun module() =
                     FooterScreenUseCases(
                         getFooterUseCase = GetFooterUseCase(get()),
                         changeCurrentPageNumUseCase = ChangeCurrentPageNumUseCase(get()),
-                        getSelectedSessionUseCase = GetSelectedSessionUseCase(get()),
                         getTotalLogMessagesNumUseCase = GetTotalLogMessagesNumUseCase(get()),
                         getTotalPagesUseCase = GetTotalPagesUseCase(),
                         getPageInfoUseCase = GetPageInfoUseCase(),

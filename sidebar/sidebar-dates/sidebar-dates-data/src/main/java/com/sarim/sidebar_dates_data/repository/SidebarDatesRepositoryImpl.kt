@@ -48,17 +48,7 @@ class SidebarDatesRepositoryImpl(
         dao
             .getAll()
             .map { dateDtoList ->
-                try {
-                    Resource.Success(dateDtoList.map { it.toDate() })
-                } catch (
-                    @Suppress("TooGenericExceptionCaught") e: Exception,
-                ) {
-                    Resource.Error(
-                        message =
-                            e.localizedMessage?.let { MessageType.StringMessage(it) }
-                                ?: MessageType.IntMessage(R.string.unknown_reason_exception),
-                    )
-                }
+                Resource.Success(dateDtoList.map { it.toDate() }) as Resource<List<Date>>
             }.catch { e ->
                 emit(
                     Resource.Error(
@@ -120,17 +110,7 @@ class SidebarDatesRepositoryImpl(
         dao
             .getDateDtosAccordingToHeading(searchFilter)
             .map { dateDtoList ->
-                try {
-                    Resource.Success(dateDtoList.map { it.toDate() })
-                } catch (
-                    @Suppress("TooGenericExceptionCaught") e: Exception,
-                ) {
-                    Resource.Error(
-                        message =
-                            e.localizedMessage?.let { MessageType.StringMessage(it) }
-                                ?: MessageType.IntMessage(R.string.unknown_reason_exception),
-                    )
-                }
+                Resource.Success(dateDtoList.map { it.toDate() }) as Resource<List<Date>>
             }.catch { e ->
                 emit(
                     Resource.Error(

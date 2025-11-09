@@ -5,12 +5,10 @@ import com.sarim.footer_domain.usecase.GetFooterUseCase
 import com.sarim.footer_domain.usecase.GetPageInfoUseCase
 import com.sarim.footer_domain.usecase.GetTotalPagesUseCase
 import com.sarim.maincontent_domain.usecase.GetTotalLogMessagesNumUseCase
-import com.sarim.sidebar_sessions_domain.usecase.GetSelectedSessionUseCase
 
 data class FooterScreenUseCases(
     val getFooterUseCase: GetFooterUseCase,
     val changeCurrentPageNumUseCase: ChangeCurrentPageNumUseCase,
-    val getSelectedSessionUseCase: GetSelectedSessionUseCase,
     val getTotalLogMessagesNumUseCase: GetTotalLogMessagesNumUseCase,
     val getTotalPagesUseCase: GetTotalPagesUseCase,
     val getPageInfoUseCase: GetPageInfoUseCase,

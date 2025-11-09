@@ -12,17 +12,11 @@ data class FooterDto(
         val DEFAULT_FOOTER_DTO =
             FooterDto(
                 currentPageNum = 1,
-                maxResultsPerPage = 10,
+                maxResultsPerPage = 20,
             )
 
         fun FooterDto.toFooter() =
             Footer(
-                currentPageNum = currentPageNum,
-                maxResultsPerPage = maxResultsPerPage,
-            )
-
-        fun Footer.fromFooter() =
-            FooterDto(
                 currentPageNum = currentPageNum,
                 maxResultsPerPage = maxResultsPerPage,
             )

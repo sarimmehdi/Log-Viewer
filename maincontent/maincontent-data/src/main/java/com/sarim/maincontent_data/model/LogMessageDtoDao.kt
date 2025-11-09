@@ -22,6 +22,18 @@ interface LogMessageDtoDao {
         sessionId: Long,
     ): Flow<List<LogMessageDto>>
 
+    @Query(
+        """
+        SELECT * FROM logmessagedto WHERE sessionId = :sessionId ORDER BY logMessageId 
+        LIMIT :pageSize OFFSET :offset
+        """,
+    )
+    suspend fun getLogsForPage(
+        sessionId: Long,
+        pageSize: Int,
+        offset: Int,
+    ): List<LogMessageDto>
+
     @Query("SELECT * FROM logmessagedto WHERE sessionId = :sessionId ORDER BY sessionId")
     fun getAllLogMessagesForSessionId(sessionId: Long): Flow<List<LogMessageDto>>
 
