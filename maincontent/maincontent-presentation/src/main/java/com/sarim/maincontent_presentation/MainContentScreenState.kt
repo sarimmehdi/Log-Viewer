@@ -11,4 +11,5 @@ import kotlinx.parcelize.Parcelize
 data class MainContentScreenState(
     val logs: ImmutableList<LogMessage> = persistentListOf(),
     val selectedSession: Session? = null,
+    val currentPageNum: Int = 1,
 ) : Parcelable
