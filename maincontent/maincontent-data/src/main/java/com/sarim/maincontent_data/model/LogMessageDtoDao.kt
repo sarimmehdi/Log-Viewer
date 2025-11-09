@@ -24,4 +24,7 @@ interface LogMessageDtoDao {
 
     @Query("SELECT * FROM logmessagedto WHERE sessionId = :sessionId ORDER BY sessionId")
     fun getAllLogMessagesForSessionId(sessionId: Long): Flow<List<LogMessageDto>>
+
+    @Query("SELECT COUNT(*) FROM logmessagedto WHERE sessionId = :sessionId")
+    fun getTotalLogCount(sessionId: Long): Flow<Int>
 }

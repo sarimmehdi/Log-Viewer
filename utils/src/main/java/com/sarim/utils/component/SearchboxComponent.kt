@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -35,6 +36,7 @@ fun SearchboxComponent(
     modifier: Modifier = Modifier,
 ) {
     var text by remember { mutableStateOf("") }
+    val focusManager = LocalFocusManager.current
     TextField(
         value = text,
         onValueChange = {
@@ -82,7 +84,7 @@ fun SearchboxComponent(
             }
         },
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { }),
+        keyboardActions = KeyboardActions(onSearch = { focusManager.clearFocus() }),
         colors =
             TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,

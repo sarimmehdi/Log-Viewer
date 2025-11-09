@@ -25,6 +25,11 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/build-logic/convention" />
+            <option value="$PROJECT_DIR$/footer" />
+            <option value="$PROJECT_DIR$/footer/footer-data" />
+            <option value="$PROJECT_DIR$/footer/footer-di" />
+            <option value="$PROJECT_DIR$/footer/footer-domain" />
+            <option value="$PROJECT_DIR$/footer/footer-presentation" />
             <option value="$PROJECT_DIR$/maincontent" />
             <option value="$PROJECT_DIR$/maincontent/maincontent-data" />
             <option value="$PROJECT_DIR$/maincontent/maincontent-di" />

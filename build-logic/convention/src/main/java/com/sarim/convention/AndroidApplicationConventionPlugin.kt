@@ -97,6 +97,10 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                             ":maincontent:maincontent-data",
                             ":maincontent:maincontent-domain",
                             ":maincontent:maincontent-presentation",
+                            ":footer:footer-di",
+                            ":footer:footer-data",
+                            ":footer:footer-domain",
+                            ":footer:footer-presentation",
                         ),
                 )
             }
