@@ -1,6 +1,7 @@
 package com.sarim.maincontent_di
 
 import androidx.room.Room
+import com.sarim.footer_domain.usecase.GetFooterUseCase
 import com.sarim.maincontent_data.model.LogMessageDtoDao
 import com.sarim.maincontent_data.model.LogMessageDtoDatabase
 import com.sarim.maincontent_data.repository.LogMessageRepositoryImpl
@@ -38,6 +39,7 @@ fun module() =
                     MainContentScreenUseCases(
                         getLogMessagesUseCase = GetLogMessagesUseCase(get()),
                         getSelectedSessionUseCase = GetSelectedSessionUseCase(get()),
+                        getFooterUseCase = GetFooterUseCase(get()),
                     ),
             )
         }

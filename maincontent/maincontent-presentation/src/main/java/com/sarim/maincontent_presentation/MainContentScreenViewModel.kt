@@ -8,6 +8,7 @@ import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
@@ -41,24 +42,40 @@ class MainContentScreenViewModel(
         }
 
         viewModelScope.launch {
-            state
-                .map { it.selectedSession }
-                .distinctUntilChanged()
-                .filterNotNull()
-                .flatMapLatest { selectedSession ->
-                    useCases.getLogMessagesUseCase(selectedSession.sessionId, 0)
-                }.collectLatest { logsResource ->
+            useCases.getFooterUseCase().collectLatest { selectedResource ->
+                val selectedFooter =
+                    if (selectedResource is Resource.Success) selectedResource.data else null
+                if (selectedResource is Resource.Error) snackbarEvent(selectedResource.message)
+
+                selectedFooter?.let {
+                    val currState =
+                        savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY]
+                            ?: MainContentScreenState()
+                    savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
+                        currState.copy(currentPageNum = it.currentPageNum)
+                }
+            }
+        }
+
+        viewModelScope.launch {
+            combineTransform(
+                state.map { it.selectedSession }.filterNotNull().distinctUntilChanged(),
+                state.map { it.currentPageNum }.distinctUntilChanged(),
+            ) { selectedSession, currentPageNum ->
+                emit(
+                    useCases.getLogMessagesUseCase(
+                        selectedSession.sessionId,
+                        currentPageNum,
+                    ),
+                )
+            }.flatMapLatest { it }
+                .collectLatest { logsResource ->
                     val logs =
-                        if (logsResource is Resource.Success) {
-                            logsResource.data.toImmutableList()
-                        } else {
-                            emptyList()
-                        }
+                        if (logsResource is Resource.Success) logsResource.data.toImmutableList() else emptyList()
                     if (logsResource is Resource.Error) snackbarEvent(logsResource.message)
 
                     val currState = state.value
-                    savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
-                        currState.copy(logs = logs.toImmutableList())
+                    savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] = currState.copy(logs = logs.toImmutableList())
                 }
         }
     }
