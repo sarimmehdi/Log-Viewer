@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="showing_results">Showing %1$d - %2$d results of %3$d</string>
+    <plurals name="showing_results">
+        <item quantity="one">Showing %1$d result of %2$d</item>
+        <item quantity="other">Showing %1$d - %2$d results of %3$d</item>
+    </plurals>
     <string name="jump_to_first_page_icon_desc">Click on this icon to go to the first page of log messages</string>
     <string name="jump_to_previous_page_icon_desc">Click on this icon to go to the previous page of log messages</string>
     <string name="jump_to_next_page_icon_desc">Click on this icon to go to the next page of log messages</string>

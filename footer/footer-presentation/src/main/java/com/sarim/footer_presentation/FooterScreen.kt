@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sarim.footer_domain.usecase.ChangeType
@@ -35,8 +36,9 @@ fun FooterScreen(
         Text(
             color = Color.White.copy(alpha = 0.8f),
             text =
-                stringResource(
-                    R.string.showing_results,
+                pluralStringResource(
+                    id = R.plurals.showing_results,
+                    count = data.totalLogs,
                     data.numberFirstLogOnPage,
                     data.numberLastLogOnPage,
                     data.totalLogs,
