@@ -8,7 +8,6 @@ extraModules {
             ":footer:footer-data",
             ":footer:footer-domain",
             ":footer:footer-presentation",
-            ":sidebar:sidebar-sessions:sidebar-sessions-domain",
             ":maincontent:maincontent-domain",
         )
 }

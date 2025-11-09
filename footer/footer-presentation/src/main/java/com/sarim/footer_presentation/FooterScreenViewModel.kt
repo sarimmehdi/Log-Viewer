@@ -6,13 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.sarim.utils.ui.Resource
 import com.sarim.utils.ui.snackbarEvent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -20,50 +21,38 @@ class FooterScreenViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val useCases: FooterScreenUseCases,
 ) : ViewModel() {
-    val state = savedStateHandle.getStateFlow(FOOTER_SCREEN_STATE_KEY, FooterScreenState())
+    private val _state = savedStateHandle.getStateFlow(FOOTER_SCREEN_STATE_KEY, FooterScreenState())
+    val state =
+        _state
+            .onStart { loadData() }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(TIMEOUT),
+                FooterScreenState(),
+            )
 
-    init {
+    private fun loadData() {
         viewModelScope.launch {
-            useCases.getSelectedSessionUseCase().collectLatest { selectedResource ->
-                val selectedSession =
-                    if (selectedResource is Resource.Success) selectedResource.data else null
-                if (selectedResource is Resource.Error) snackbarEvent(selectedResource.message)
+            useCases.getTotalLogMessagesNumUseCase().collectLatest { logCountResource ->
+                val logCount =
+                    if (logCountResource is Resource.Success) {
+                        logCountResource.data
+                    } else {
+                        0
+                    }
+                if (logCountResource is Resource.Error) snackbarEvent(logCountResource.message)
 
-                val currState =
-                    savedStateHandle[FOOTER_SCREEN_STATE_KEY]
-                        ?: FooterScreenState()
+                val currState = state.value
                 savedStateHandle[FOOTER_SCREEN_STATE_KEY] =
-                    currState.copy(selectedSession = selectedSession)
+                    currState.copy(
+                        totalPages =
+                            useCases.getTotalPagesUseCase(
+                                logCount,
+                                currState.maxResultsPerPage,
+                            ),
+                        totalLogs = logCount,
+                    )
             }
-        }
-
-        viewModelScope.launch {
-            state
-                .map { it.selectedSession }
-                .distinctUntilChanged()
-                .filterNotNull()
-                .flatMapLatest { selectedSession ->
-                    useCases.getTotalLogMessagesNumUseCase(selectedSession.sessionId)
-                }.collectLatest { logCountResource ->
-                    val logCount =
-                        if (logCountResource is Resource.Success) {
-                            logCountResource.data
-                        } else {
-                            0
-                        }
-                    if (logCountResource is Resource.Error) snackbarEvent(logCountResource.message)
-
-                    val currState = state.value
-                    savedStateHandle[FOOTER_SCREEN_STATE_KEY] =
-                        currState.copy(
-                            totalPages =
-                                useCases.getTotalPagesUseCase(
-                                    logCount,
-                                    currState.maxResultsPerPage,
-                                ),
-                            totalLogs = logCount,
-                        )
-                }
         }
 
         combine(
@@ -139,6 +128,7 @@ class FooterScreenViewModel(
     }
 
     companion object {
-        const val FOOTER_SCREEN_STATE_KEY = "FOOTER_SCREEN_STATE_KEY"
+        private const val FOOTER_SCREEN_STATE_KEY = "FOOTER_SCREEN_STATE_KEY"
+        private const val TIMEOUT = 500L
     }
 }

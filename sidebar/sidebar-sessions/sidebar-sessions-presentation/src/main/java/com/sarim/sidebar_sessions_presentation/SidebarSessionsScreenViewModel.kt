@@ -8,11 +8,10 @@ import com.sarim.utils.ui.Resource
 import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -20,47 +19,35 @@ class SidebarSessionsScreenViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val useCases: SidebarSessionsScreenUseCases,
 ) : ViewModel() {
-    val state =
+    private val _state =
         savedStateHandle.getStateFlow(
             SIDEBAR_SESSIONS_SCREEN_STATE_KEY,
             SidebarSessionsScreenState(),
         )
+    val state =
+        _state
+            .onStart { loadData() }
+            .stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(TIMEOUT),
+                SidebarSessionsScreenState(),
+            )
 
-    init {
+    private fun loadData() {
         viewModelScope.launch {
-            useCases.getSelectedDateUseCase().collectLatest { selectedResource ->
-                val selectedDate =
-                    if (selectedResource is Resource.Success) selectedResource.data else null
-                if (selectedResource is Resource.Error) snackbarEvent(selectedResource.message)
+            useCases.getSessionsUseCase().collectLatest { sessionsResource ->
+                val sessions =
+                    if (sessionsResource is Resource.Success) {
+                        sessionsResource.data.toImmutableList()
+                    } else {
+                        emptyList()
+                    }
+                if (sessionsResource is Resource.Error) snackbarEvent(sessionsResource.message)
 
-                val currState =
-                    savedStateHandle[SIDEBAR_SESSIONS_SCREEN_STATE_KEY]
-                        ?: SidebarSessionsScreenState()
+                val currState = state.value
                 savedStateHandle[SIDEBAR_SESSIONS_SCREEN_STATE_KEY] =
-                    currState.copy(selectedDate = selectedDate)
+                    currState.copy(sessions = sessions.toImmutableList())
             }
-        }
-
-        viewModelScope.launch {
-            state
-                .map { it.selectedDate }
-                .distinctUntilChanged()
-                .filterNotNull()
-                .flatMapLatest { selectedDate ->
-                    useCases.getSessionsUseCase(selectedDate.dateId)
-                }.collectLatest { sessionsResource ->
-                    val sessions =
-                        if (sessionsResource is Resource.Success) {
-                            sessionsResource.data.toImmutableList()
-                        } else {
-                            emptyList()
-                        }
-                    if (sessionsResource is Resource.Error) snackbarEvent(sessionsResource.message)
-
-                    val currState = state.value
-                    savedStateHandle[SIDEBAR_SESSIONS_SCREEN_STATE_KEY] =
-                        currState.copy(sessions = sessions.toImmutableList())
-                }
         }
 
         viewModelScope.launch {
@@ -85,22 +72,19 @@ class SidebarSessionsScreenViewModel(
 
         when (event) {
             is SidebarSessionsScreenToViewModelEvents.FilterSessions -> {
-                currState.selectedDate?.let { selectedDate ->
-                    viewModelScope.launch {
-                        useCases
-                            .getFilteredSessionsUseCase(
-                                event.sessionName,
-                                selectedDate.dateId,
-                            ).collectLatest {
-                                when (it) {
-                                    is Resource.Error<List<Session>> -> snackbarEvent(it.message)
-                                    is Resource.Success<List<Session>> -> {
-                                        savedStateHandle[SIDEBAR_SESSIONS_SCREEN_STATE_KEY] =
-                                            currState.copy(sessions = it.data.toImmutableList())
-                                    }
+                viewModelScope.launch {
+                    useCases
+                        .getFilteredSessionsUseCase(
+                            event.sessionName,
+                        ).collectLatest {
+                            when (it) {
+                                is Resource.Error<List<Session>> -> snackbarEvent(it.message)
+                                is Resource.Success<List<Session>> -> {
+                                    savedStateHandle[SIDEBAR_SESSIONS_SCREEN_STATE_KEY] =
+                                        currState.copy(sessions = it.data.toImmutableList())
                                 }
                             }
-                    }
+                        }
                 }
             }
 
@@ -114,15 +98,13 @@ class SidebarSessionsScreenViewModel(
                 }
 
             is SidebarSessionsScreenToViewModelEvents.GetAllSessionForSelectedDate -> {
-                currState.selectedDate?.let { selectedDate ->
-                    viewModelScope.launch {
-                        useCases.getSessionsUseCase(selectedDate.dateId).collectLatest {
-                            when (it) {
-                                is Resource.Error<List<Session>> -> snackbarEvent(it.message)
-                                is Resource.Success<List<Session>> -> {
-                                    savedStateHandle[SIDEBAR_SESSIONS_SCREEN_STATE_KEY] =
-                                        currState.copy(sessions = it.data.toImmutableList())
-                                }
+                viewModelScope.launch {
+                    useCases.getSessionsUseCase().collectLatest {
+                        when (it) {
+                            is Resource.Error<List<Session>> -> snackbarEvent(it.message)
+                            is Resource.Success<List<Session>> -> {
+                                savedStateHandle[SIDEBAR_SESSIONS_SCREEN_STATE_KEY] =
+                                    currState.copy(sessions = it.data.toImmutableList())
                             }
                         }
                     }
@@ -132,6 +114,7 @@ class SidebarSessionsScreenViewModel(
     }
 
     companion object {
-        const val SIDEBAR_SESSIONS_SCREEN_STATE_KEY = "SIDEBAR_SESSIONS_SCREEN_STATE_KEY"
+        private const val SIDEBAR_SESSIONS_SCREEN_STATE_KEY = "SIDEBAR_SESSIONS_SCREEN_STATE_KEY"
+        private const val TIMEOUT = 500L
     }
 }

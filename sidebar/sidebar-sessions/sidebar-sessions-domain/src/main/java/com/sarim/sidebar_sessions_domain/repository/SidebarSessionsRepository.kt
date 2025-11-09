@@ -5,14 +5,11 @@ import com.sarim.utils.ui.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface SidebarSessionsRepository {
-    fun getSessions(dateId: Long): Flow<Resource<List<Session>>>
+    fun getSessions(): Flow<Resource<List<Session>>>
 
     suspend fun selectSession(session: Session): Resource<Boolean>
 
     fun getSelectedSession(): Flow<Resource<Session>>
 
-    suspend fun getSessionsAccordingToSearchFilterForDate(
-        searchFilter: String,
-        dateId: Long,
-    ): Flow<Resource<List<Session>>>
+    suspend fun getSessionsAccordingToSearchFilterForDate(searchFilter: String): Flow<Resource<List<Session>>>
 }

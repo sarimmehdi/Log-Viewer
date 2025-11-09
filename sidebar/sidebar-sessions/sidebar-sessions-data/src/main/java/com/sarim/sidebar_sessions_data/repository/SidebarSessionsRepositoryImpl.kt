@@ -1,6 +1,7 @@
 package com.sarim.sidebar_sessions_data.repository
 
 import androidx.datastore.core.DataStore
+import com.sarim.sidebar_dates_data.model.DateDto
 import com.sarim.sidebar_dates_data.model.DateDtoDao
 import com.sarim.sidebar_sessions_data.model.SessionDto
 import com.sarim.sidebar_sessions_data.model.SessionDto.Companion.fromSession
@@ -14,9 +15,12 @@ import com.sarim.utils.ui.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -27,6 +31,7 @@ const val TOTAL_MOCK_ITEMS = 10
 class SidebarSessionsRepositoryImpl(
     ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val sessionDtoDataStore: DataStore<SessionDto>,
+    private val datesDtoDataStore: DataStore<DateDto>,
     private val dataStoreName: String,
     private val dateDtoDao: DateDtoDao,
     private val sessionDtoDao: SessionDtoDao,
@@ -35,7 +40,8 @@ class SidebarSessionsRepositoryImpl(
         CoroutineScope(ioDispatcher).launch {
             dateDtoDao.getAll().collectLatest { dateDtos ->
                 dateDtos.forEach { dateDto ->
-                    val existing = sessionDtoDao.getAllSessionsForDateId(dateDto.dateId).firstOrNull()
+                    val existing =
+                        sessionDtoDao.getAllSessionsForDateId(dateDto.dateId).firstOrNull()
                     if (existing.isNullOrEmpty()) {
                         val initialSessions =
                             List(TOTAL_MOCK_ITEMS) { index ->
@@ -52,29 +58,25 @@ class SidebarSessionsRepositoryImpl(
         }
     }
 
-    override fun getSessions(dateId: Long) =
-        sessionDtoDao
-            .getAllSessionsForDateId(dateId)
-            .map { sessionDto ->
-                try {
-                    Resource.Success(sessionDto.map { it.toSession() })
-                } catch (
-                    @Suppress("TooGenericExceptionCaught") e: Exception,
-                ) {
-                    Resource.Error(
-                        message =
-                            e.localizedMessage?.let { MessageType.StringMessage(it) }
-                                ?: MessageType.IntMessage(R.string.unknown_reason_exception),
-                    )
-                }
-            }.catch { e ->
-                emit(
-                    Resource.Error(
-                        message =
-                            e.localizedMessage?.let { MessageType.StringMessage(it) }
-                                ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
-                    ),
-                )
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun getSessions() =
+        datesDtoDataStore.data
+            .filter { it != DateDto.NO_SELECTED_DATE_DTO }
+            .map { it.dateId }
+            .flatMapLatest { dateId ->
+                sessionDtoDao
+                    .getAllSessionsForDateId(dateId)
+                    .map { sessionDtos ->
+                        Resource.Success(sessionDtos.map { it.toSession() }) as Resource<List<Session>>
+                    }.catch { e ->
+                        emit(
+                            Resource.Error(
+                                message =
+                                    e.localizedMessage?.let { MessageType.StringMessage(it) }
+                                        ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
+                            ),
+                        )
+                    }
             }
 
     override suspend fun selectSession(session: Session) =
@@ -124,30 +126,24 @@ class SidebarSessionsRepositoryImpl(
                 )
             }
 
-    override suspend fun getSessionsAccordingToSearchFilterForDate(
-        searchFilter: String,
-        dateId: Long,
-    ) = sessionDtoDao
-        .getSessionDtosAccordingToHeading(searchFilter, dateId)
-        .map { sessionDtoList ->
-            try {
-                Resource.Success(sessionDtoList.map { it.toSession() })
-            } catch (
-                @Suppress("TooGenericExceptionCaught") e: Exception,
-            ) {
-                Resource.Error(
-                    message =
-                        e.localizedMessage?.let { MessageType.StringMessage(it) }
-                            ?: MessageType.IntMessage(R.string.unknown_reason_exception),
-                )
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override suspend fun getSessionsAccordingToSearchFilterForDate(searchFilter: String) =
+        datesDtoDataStore.data
+            .filter { it != DateDto.NO_SELECTED_DATE_DTO }
+            .map { it.dateId }
+            .flatMapLatest { dateId ->
+                sessionDtoDao
+                    .getSessionDtosAccordingToHeading(searchFilter, dateId)
+                    .map { sessionDtoList ->
+                        Resource.Success(sessionDtoList.map { it.toSession() }) as Resource<List<Session>>
+                    }.catch { e ->
+                        emit(
+                            Resource.Error(
+                                message =
+                                    e.localizedMessage?.let { MessageType.StringMessage(it) }
+                                        ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
+                            ),
+                        )
+                    }
             }
-        }.catch { e ->
-            emit(
-                Resource.Error(
-                    message =
-                        e.localizedMessage?.let { MessageType.StringMessage(it) }
-                            ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
-                ),
-            )
-        }
 }
