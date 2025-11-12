@@ -4,9 +4,9 @@ import androidx.datastore.core.DataStore
 import com.sarim.sidebar_dates_data.model.DateDto
 import com.sarim.sidebar_dates_data.model.DateDtoDao
 import com.sarim.sidebar_sessions_data.model.SessionDto
-import com.sarim.sidebar_sessions_data.model.SessionDto.Companion.fromSession
-import com.sarim.sidebar_sessions_data.model.SessionDto.Companion.toSession
 import com.sarim.sidebar_sessions_data.model.SessionDtoDao
+import com.sarim.sidebar_sessions_data.model.createSession
+import com.sarim.sidebar_sessions_data.model.createSessionDto
 import com.sarim.sidebar_sessions_domain.model.Session
 import com.sarim.sidebar_sessions_domain.repository.SidebarSessionsRepository
 import com.sarim.utils.R
@@ -67,7 +67,7 @@ class SidebarSessionsRepositoryImpl(
                 sessionDtoDao
                     .getAllSessionsForDateId(dateId)
                     .map { sessionDtos ->
-                        Resource.Success(sessionDtos.map { it.toSession() }) as Resource<List<Session>>
+                        Resource.Success(sessionDtos.map { createSession(it) }) as Resource<List<Session>>
                     }.catch { e ->
                         emit(
                             Resource.Error(
@@ -82,7 +82,7 @@ class SidebarSessionsRepositoryImpl(
     override suspend fun selectSession(session: Session) =
         try {
             sessionDtoDataStore.updateData {
-                session.fromSession()
+                createSessionDto(session)
             }
             Resource.Success(true)
         } catch (e: IOException) {
@@ -110,7 +110,7 @@ class SidebarSessionsRepositoryImpl(
     override fun getSelectedSession() =
         sessionDtoDataStore.data
             .map {
-                Resource.Success(it.toSession()) as Resource<Session>
+                Resource.Success(createSession(it)) as Resource<Session>
             }.catch { e ->
                 emit(
                     Resource.Error(
@@ -135,7 +135,7 @@ class SidebarSessionsRepositoryImpl(
                 sessionDtoDao
                     .getSessionDtosAccordingToHeading(searchFilter, dateId)
                     .map { sessionDtoList ->
-                        Resource.Success(sessionDtoList.map { it.toSession() }) as Resource<List<Session>>
+                        Resource.Success(sessionDtoList.map { createSession(it) }) as Resource<List<Session>>
                     }.catch { e ->
                         emit(
                             Resource.Error(

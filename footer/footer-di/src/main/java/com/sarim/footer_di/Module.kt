@@ -8,15 +8,7 @@ import com.sarim.footer_data.model.FooterDtoSerializer
 import com.sarim.footer_data.model.FooterDtoSerializer.Companion.FOOTER_DTO_DATASTORE_QUALIFIER
 import com.sarim.footer_data.repository.FooterRepositoryImpl
 import com.sarim.footer_domain.repository.FooterRepository
-import com.sarim.footer_domain.usecase.ChangeCurrentPageNumUseCase
-import com.sarim.footer_domain.usecase.GetFooterUseCase
-import com.sarim.footer_domain.usecase.GetPageInfoUseCase
-import com.sarim.footer_domain.usecase.GetTotalPagesUseCase
-import com.sarim.footer_presentation.FooterScreenUseCases
-import com.sarim.footer_presentation.FooterScreenViewModel
-import com.sarim.maincontent_domain.usecase.GetTotalLogMessagesNumUseCase
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.lazyModule
 
@@ -34,19 +26,6 @@ fun module() =
             FooterRepositoryImpl(
                 dataStore = get(named(FOOTER_DTO_DATASTORE_QUALIFIER)),
                 dataStoreName = footerDtoDataStoreName,
-            )
-        }
-        viewModel {
-            FooterScreenViewModel(
-                savedStateHandle = get(),
-                useCases =
-                    FooterScreenUseCases(
-                        getFooterUseCase = GetFooterUseCase(get()),
-                        changeCurrentPageNumUseCase = ChangeCurrentPageNumUseCase(get()),
-                        getTotalLogMessagesNumUseCase = GetTotalLogMessagesNumUseCase(get()),
-                        getTotalPagesUseCase = GetTotalPagesUseCase(),
-                        getPageInfoUseCase = GetPageInfoUseCase(),
-                    ),
             )
         }
     }

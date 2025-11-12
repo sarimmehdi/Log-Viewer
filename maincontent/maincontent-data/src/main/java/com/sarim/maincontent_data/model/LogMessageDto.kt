@@ -20,31 +20,18 @@ data class LogMessageDto(
     val functionName: String,
     val lineNumber: Int,
     val logType: LogType,
-) {
-    companion object {
-        fun LogMessageDto.toLogMessage() =
-            LogMessage(
-                logMessageId = logMessageId,
-                sessionId = sessionId,
-                message = message,
-                className = className,
-                functionName = functionName,
-                lineNumber = lineNumber,
-                logType = logType,
-            )
+)
 
-        fun LogMessage.fromLogMessage() =
-            LogMessageDto(
-                logMessageId = logMessageId,
-                sessionId = sessionId,
-                message = message,
-                className = className,
-                functionName = functionName,
-                lineNumber = lineNumber,
-                logType = logType,
-            )
-    }
-}
+fun createLogMessage(logMessageDto: LogMessageDto) =
+    LogMessage(
+        logMessageId = logMessageDto.logMessageId,
+        sessionId = logMessageDto.sessionId,
+        message = logMessageDto.message,
+        className = logMessageDto.className,
+        functionName = logMessageDto.functionName,
+        lineNumber = logMessageDto.lineNumber,
+        logType = logMessageDto.logType,
+    )
 
 @Entity
 @Fts4(contentEntity = LogMessageDto::class)

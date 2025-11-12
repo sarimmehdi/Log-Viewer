@@ -30,6 +30,8 @@
             <option value="$PROJECT_DIR$/footer/footer-di" />
             <option value="$PROJECT_DIR$/footer/footer-domain" />
             <option value="$PROJECT_DIR$/footer/footer-presentation" />
+            <option value="$PROJECT_DIR$/header" />
+            <option value="$PROJECT_DIR$/header/header-presentation" />
             <option value="$PROJECT_DIR$/maincontent" />
             <option value="$PROJECT_DIR$/maincontent/maincontent-data" />
             <option value="$PROJECT_DIR$/maincontent/maincontent-di" />

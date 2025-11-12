@@ -27,7 +27,6 @@ import androidx.navigation3.ui.NavDisplay
 import com.sarim.footer_presentation.FooterScreen
 import com.sarim.footer_presentation.FooterScreenData
 import com.sarim.footer_presentation.FooterScreenToViewModelEvents
-import com.sarim.footer_presentation.FooterScreenViewModel
 import com.sarim.maincontent_presentation.MainContentScreen
 import com.sarim.maincontent_presentation.MainContentScreenData
 import com.sarim.maincontent_presentation.MainContentScreenViewModel
@@ -51,7 +50,6 @@ fun Navigator(
     sideBarDatesScreenViewModel: SidebarDatesScreenViewModel = koinViewModel(),
     sideBarSessionsScreenViewModel: SidebarSessionsScreenViewModel = koinViewModel(),
     mainContentScreenViewModel: MainContentScreenViewModel = koinViewModel(),
-    footerScreenViewModel: FooterScreenViewModel = koinViewModel(),
 ) {
     val snackbarHostState =
         remember {
@@ -100,8 +98,6 @@ fun Navigator(
                             sideBarSessionsScreenViewModel.state.collectAsStateWithLifecycle()
                         val mainContentScreenState by
                             mainContentScreenViewModel.state.collectAsStateWithLifecycle()
-                        val footerScreenState by
-                            footerScreenViewModel.state.collectAsStateWithLifecycle()
                         AppScreenComponent(
                             modifier = Modifier.padding(innerPadding),
                             data =
@@ -122,20 +118,34 @@ fun Navigator(
                                         ),
                                     footerScreenData =
                                         FooterScreenData(
-                                            numberFirstLogOnPage = footerScreenState.numFirstLogOnCurrPage,
-                                            numberLastLogOnPage = footerScreenState.numLastLogOnCurrPage,
-                                            totalLogs = footerScreenState.totalLogs,
-                                            currentPageNumber = footerScreenState.currentPageNum,
-                                            totalPages = footerScreenState.totalPages,
-                                            canGoToNextPage = footerScreenState.canGoToNextPage,
-                                            canGoToPreviousPage = footerScreenState.canGoToPreviousPage,
+                                            numberFirstLogOnPage =
+                                                mainContentScreenState
+                                                    .footerScreenState.numFirstLogOnCurrPage,
+                                            numberLastLogOnPage =
+                                                mainContentScreenState
+                                                    .footerScreenState.numLastLogOnCurrPage,
+                                            totalLogs =
+                                                mainContentScreenState
+                                                    .footerScreenState.totalLogs,
+                                            currentPageNumber =
+                                                mainContentScreenState
+                                                    .footerScreenState.currentPageNum,
+                                            totalPages =
+                                                mainContentScreenState
+                                                    .footerScreenState.totalPages,
+                                            canGoToNextPage =
+                                                mainContentScreenState
+                                                    .footerScreenState.canGoToNextPage,
+                                            canGoToPreviousPage =
+                                                mainContentScreenState
+                                                    .footerScreenState.canGoToPreviousPage,
                                         ),
                                 ),
                             onEvent =
                                 AppScreenComponentOnEvent(
                                     sidebarDatesScreenToViewModelEvents = sideBarDatesScreenViewModel::onEvent,
                                     sidebarSessionsScreenToViewModelEvents = sideBarSessionsScreenViewModel::onEvent,
-                                    footerScreenToViewModelEvents = footerScreenViewModel::onEvent,
+                                    footerScreenToViewModelEvents = mainContentScreenViewModel::onEvent,
                                 ),
                         )
                     }

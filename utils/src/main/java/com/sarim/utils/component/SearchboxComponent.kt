@@ -64,12 +64,14 @@ fun SearchboxComponent(
         singleLine = true,
         textStyle = LocalTextStyle.current.copy(color = Color.White, fontSize = 24.sp),
         trailingIcon = {
-            val icon = if (text.isEmpty()) R.drawable.magnifying_glass else R.drawable.side_bar_close_icon
+            val icon =
+                if (text.isEmpty()) R.drawable.magnifying_glass else R.drawable.side_bar_close_icon
             IconButton(
                 onClick = {
                     if (text.isNotEmpty()) {
                         text = ""
                         data.onValueChange("")
+                        focusManager.clearFocus()
                     }
                 },
                 modifier =

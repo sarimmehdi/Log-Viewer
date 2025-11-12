@@ -26,14 +26,16 @@ class SidebarSessionsScreenViewModel(
         )
     val state =
         _state
-            .onStart { loadData() }
-            .stateIn(
+            .onStart {
+                getSessions()
+                getSelectedSession()
+            }.stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(TIMEOUT),
                 SidebarSessionsScreenState(),
             )
 
-    private fun loadData() {
+    private fun getSessions() {
         viewModelScope.launch {
             useCases.getSessionsUseCase().collectLatest { sessionsResource ->
                 val sessions =
@@ -49,7 +51,9 @@ class SidebarSessionsScreenViewModel(
                     currState.copy(sessions = sessions.toImmutableList())
             }
         }
+    }
 
+    private fun getSelectedSession() {
         viewModelScope.launch {
             useCases.getSelectedSessionUseCase().collectLatest { selectedResource ->
                 val selectedSession =

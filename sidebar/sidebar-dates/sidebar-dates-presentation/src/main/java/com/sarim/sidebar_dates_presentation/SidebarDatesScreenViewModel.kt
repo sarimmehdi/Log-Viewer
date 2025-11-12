@@ -23,14 +23,16 @@ class SidebarDatesScreenViewModel(
         savedStateHandle.getStateFlow(SIDEBAR_DATES_SCREEN_STATE_KEY, SidebarDatesScreenState())
     val state =
         _state
-            .onStart { loadData() }
-            .stateIn(
+            .onStart {
+                loadDates()
+                getSelectedDate()
+            }.stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(TIMEOUT),
                 SidebarDatesScreenState(),
             )
 
-    private fun loadData() {
+    private fun loadDates() {
         viewModelScope.launch {
             useCases.getDatesUseCase().collectLatest { datesResource ->
                 val dates =
@@ -43,7 +45,9 @@ class SidebarDatesScreenViewModel(
                     currState.copy(dates = dates.toImmutableList())
             }
         }
+    }
 
+    private fun getSelectedDate() {
         viewModelScope.launch {
             useCases.getSelectedDateUseCase().collectLatest { selectedResource ->
                 val selectedDate =

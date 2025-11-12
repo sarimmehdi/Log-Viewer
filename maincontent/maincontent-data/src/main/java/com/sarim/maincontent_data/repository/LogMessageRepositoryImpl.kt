@@ -3,8 +3,8 @@ package com.sarim.maincontent_data.repository
 import androidx.datastore.core.DataStore
 import com.sarim.footer_data.model.FooterDto
 import com.sarim.maincontent_data.model.LogMessageDto
-import com.sarim.maincontent_data.model.LogMessageDto.Companion.toLogMessage
 import com.sarim.maincontent_data.model.LogMessageDtoDao
+import com.sarim.maincontent_data.model.createLogMessage
 import com.sarim.maincontent_domain.model.LogType
 import com.sarim.maincontent_domain.repository.LogMessageRepository
 import com.sarim.sidebar_sessions_data.model.SessionDto
@@ -90,11 +90,14 @@ class LogMessageRepositoryImpl(
         }
     }
 
-    override fun getLogMessages() =
-        combine(sessionDataStore.data, footerDataStore.data) { session, footer ->
+    override fun getLogMessages(currentPageNum: Int) =
+        combine(
+            sessionDataStore.data,
+            footerDataStore.data,
+        ) { session, footerData ->
             try {
-                val pageSize = footer.maxResultsPerPage
-                val offset = (footer.currentPageNum - 1) * pageSize
+                val pageSize = footerData.maxResultsPerPage
+                val offset = (currentPageNum - 1) * pageSize
 
                 val dtos =
                     logMessageDtoDao.getLogsForPage(
@@ -103,7 +106,7 @@ class LogMessageRepositoryImpl(
                         offset = offset,
                     )
 
-                Resource.Success(dtos.map { it.toLogMessage() })
+                Resource.Success(dtos.map { createLogMessage(it) })
             } catch (e: IOException) {
                 Resource.Error(
                     message =
