@@ -2,9 +2,9 @@ package com.sarim.sidebar_dates_data.repository
 
 import androidx.datastore.core.DataStore
 import com.sarim.sidebar_dates_data.model.DateDto
-import com.sarim.sidebar_dates_data.model.DateDto.Companion.fromDate
-import com.sarim.sidebar_dates_data.model.DateDto.Companion.toDate
 import com.sarim.sidebar_dates_data.model.DateDtoDao
+import com.sarim.sidebar_dates_data.model.createDate
+import com.sarim.sidebar_dates_data.model.createDateDto
 import com.sarim.sidebar_dates_domain.model.Date
 import com.sarim.sidebar_dates_domain.repository.SidebarDatesRepository
 import com.sarim.utils.R
@@ -48,7 +48,7 @@ class SidebarDatesRepositoryImpl(
         dao
             .getAll()
             .map { dateDtoList ->
-                Resource.Success(dateDtoList.map { it.toDate() }) as Resource<List<Date>>
+                Resource.Success(dateDtoList.map { createDate(it) }) as Resource<List<Date>>
             }.catch { e ->
                 emit(
                     Resource.Error(
@@ -62,7 +62,7 @@ class SidebarDatesRepositoryImpl(
     override suspend fun selectDate(date: Date) =
         try {
             dataStore.updateData {
-                date.fromDate()
+                createDateDto(date)
             }
             Resource.Success(true)
         } catch (e: IOException) {
@@ -90,7 +90,7 @@ class SidebarDatesRepositoryImpl(
     override fun getSelectedDate() =
         dataStore.data
             .map {
-                Resource.Success(it.toDate()) as Resource<Date>
+                Resource.Success(createDate(it)) as Resource<Date>
             }.catch { e ->
                 emit(
                     Resource.Error(
@@ -110,7 +110,7 @@ class SidebarDatesRepositoryImpl(
         dao
             .getDateDtosAccordingToHeading(searchFilter)
             .map { dateDtoList ->
-                Resource.Success(dateDtoList.map { it.toDate() }) as Resource<List<Date>>
+                Resource.Success(dateDtoList.map { createDate(it) }) as Resource<List<Date>>
             }.catch { e ->
                 emit(
                     Resource.Error(

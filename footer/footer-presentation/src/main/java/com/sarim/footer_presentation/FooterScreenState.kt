@@ -1,6 +1,7 @@
 package com.sarim.footer_presentation
 
 import android.os.Parcelable
+import com.sarim.sidebar_sessions_domain.model.Session
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -13,4 +14,5 @@ data class FooterScreenState(
     val numLastLogOnCurrPage: Int = 1,
     val canGoToNextPage: Boolean = true,
     val canGoToPreviousPage: Boolean = true,
+    val selectedSession: Session? = null,
 ) : Parcelable

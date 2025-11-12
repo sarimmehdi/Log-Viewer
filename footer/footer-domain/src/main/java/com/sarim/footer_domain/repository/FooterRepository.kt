@@ -6,6 +6,4 @@ import kotlinx.coroutines.flow.Flow
 
 interface FooterRepository {
     val footer: Flow<Resource<Footer>>
-
-    suspend fun setCurrentPageNumber(currPageNum: Int): Resource<Boolean>
 }

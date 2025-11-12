@@ -25,22 +25,22 @@ data class DateDto(
                 dateHeading = "",
                 dateSessions = -1,
             )
-
-        fun DateDto.toDate() =
-            Date(
-                dateId = dateId,
-                dateHeading = dateHeading,
-                dateSessions = dateSessions,
-            )
-
-        fun Date.fromDate() =
-            DateDto(
-                dateId = dateId,
-                dateHeading = dateHeading,
-                dateSessions = dateSessions,
-            )
     }
 }
+
+fun createDateDto(date: Date) =
+    DateDto(
+        dateId = date.dateId,
+        dateHeading = date.dateHeading,
+        dateSessions = date.dateSessions,
+    )
+
+fun createDate(dateDto: DateDto) =
+    Date(
+        dateId = dateDto.dateId,
+        dateHeading = dateDto.dateHeading,
+        dateSessions = dateDto.dateSessions,
+    )
 
 @Entity
 @Fts4(contentEntity = DateDto::class)

@@ -1,5 +1,5 @@
 [versions]
-agpVersion = "8.13.0"
+agpVersion = "8.13.1"
 kotlinVersion = "2.2.21"
 coreKtxVersion = "1.17.0"
 lifecycleRuntimeKtxVersion = "2.9.4"
@@ -39,6 +39,10 @@ conventionPluginNavLibraryName = "navLibraryPlugin"
 conventionPluginNavLibraryClass = "com.sarim.convention.AndroidNavLibraryConventionPlugin"
 conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
+junit = "1.3.0"
+espressoCoreVersion = "3.7.0"
+appcompatVersion = "1.7.1"
+materialVersion = "1.13.0"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -80,6 +84,10 @@ roomKtxLibrary = { group = "androidx.room", name = "room-ktx", version.ref = "ro
 pagingKtxLibrary = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagingVersion" }
 pagingComposeLibrary = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingComposeVersion" }
 roomPagingLibrary = { group = "androidx.room", name = "room-paging", version.ref = "roomVersion" }
+junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 [bundles]
 navBundle = [

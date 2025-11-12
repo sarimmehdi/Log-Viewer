@@ -38,6 +38,7 @@ subprojects {
     configure<DetektExtension> {
         config.setFrom("${project.rootDir}/detekt.yml")
         parallel = true
+        ignoreFailures = false
     }
 
     tasks.withType<Detekt>().configureEach {

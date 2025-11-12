@@ -5,6 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Footer(
-    val currentPageNum: Int,
     val maxResultsPerPage: Int,
 ) : Parcelable

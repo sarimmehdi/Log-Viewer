@@ -27,24 +27,24 @@ data class SessionDto(
                 sessionHeading = "",
                 sessionLogs = -1,
             )
-
-        fun SessionDto.toSession() =
-            Session(
-                sessionId = sessionId,
-                dateId = dateId,
-                sessionHeading = sessionHeading,
-                sessionLogs = sessionLogs,
-            )
-
-        fun Session.fromSession() =
-            SessionDto(
-                sessionId = sessionId,
-                dateId = dateId,
-                sessionHeading = sessionHeading,
-                sessionLogs = sessionLogs,
-            )
     }
 }
+
+fun createSessionDto(session: Session) =
+    SessionDto(
+        sessionId = session.sessionId,
+        dateId = session.dateId,
+        sessionHeading = session.sessionHeading,
+        sessionLogs = session.sessionLogs,
+    )
+
+fun createSession(sessionDto: SessionDto) =
+    Session(
+        sessionId = sessionDto.sessionId,
+        dateId = sessionDto.dateId,
+        sessionHeading = sessionDto.sessionHeading,
+        sessionLogs = sessionDto.sessionLogs,
+    )
 
 @Entity
 @Fts4(contentEntity = SessionDto::class)

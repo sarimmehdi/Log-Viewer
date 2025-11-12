@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface LogMessageRepository {
     fun getTotalLogMessagesNum(): Flow<Resource<Int>>
 
-    fun getLogMessages(): Flow<Resource<List<LogMessage>>>
+    fun getLogMessages(currentPageNum: Int): Flow<Resource<List<LogMessage>>>
 }
