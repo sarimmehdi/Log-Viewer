@@ -5,6 +5,7 @@ import com.sarim.footer_data.model.FooterDto
 import com.sarim.maincontent_data.model.LogMessageDto
 import com.sarim.maincontent_data.model.LogMessageDtoDao
 import com.sarim.maincontent_data.model.createLogMessage
+import com.sarim.maincontent_domain.model.LogMessage
 import com.sarim.maincontent_domain.model.LogType
 import com.sarim.maincontent_domain.repository.LogMessageRepository
 import com.sarim.sidebar_sessions_data.model.SessionDto
@@ -132,6 +133,25 @@ class LogMessageRepositoryImpl(
                     .getTotalLogCount(sessionId)
                     .map { count ->
                         Resource.Success(count) as Resource<Int>
+                    }.catch { e ->
+                        emit(
+                            Resource.Error(
+                                message =
+                                    e.localizedMessage?.let { MessageType.StringMessage(it) }
+                                        ?: MessageType.IntMessage(R.string.unknown_reason_read_exception),
+                            ),
+                        )
+                    }
+            }
+
+    override suspend fun getLogsAccordingToSearchFilter(searchFilter: String) =
+        sessionDataStore.data
+            .map { it.sessionId }
+            .flatMapLatest { sessionId ->
+                logMessageDtoDao
+                    .getLogMessageDtosAccordingToMessage(searchFilter, sessionId)
+                    .map { dateDtoList ->
+                        Resource.Success(dateDtoList.map { createLogMessage(it) }) as Resource<List<LogMessage>>
                     }.catch { e ->
                         emit(
                             Resource.Error(

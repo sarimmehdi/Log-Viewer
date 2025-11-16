@@ -1,5 +1,7 @@
 package com.sarim.convention
 
+import com.sarim.convention.utils.ModuleName
+import com.sarim.convention.utils.ModuleType
 import com.sarim.convention.utils.configureAndroidLibrary
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
@@ -58,7 +60,7 @@ internal class AndroidNavLibraryConventionPlugin : Plugin<Project> {
                         ":maincontent:maincontent-presentation",
                         ":footer:footer-domain",
                         ":footer:footer-presentation",
-                    ),
+                    ).map { ModuleName(moduleType = ModuleType.IMPLEMENTATION, name = it) },
             )
         }
 }

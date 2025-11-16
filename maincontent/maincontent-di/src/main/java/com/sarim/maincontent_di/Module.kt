@@ -11,6 +11,7 @@ import com.sarim.maincontent_data.model.LogMessageDtoDao
 import com.sarim.maincontent_data.model.LogMessageDtoDatabase
 import com.sarim.maincontent_data.repository.LogMessageRepositoryImpl
 import com.sarim.maincontent_domain.repository.LogMessageRepository
+import com.sarim.maincontent_domain.usecase.GetFilteredLogsUseCase
 import com.sarim.maincontent_domain.usecase.GetLogMessagesUseCase
 import com.sarim.maincontent_domain.usecase.GetTotalLogMessagesNumUseCase
 import com.sarim.maincontent_presentation.MainContentScreenUseCases
@@ -48,11 +49,12 @@ fun module() =
                 useCases =
                     MainContentScreenUseCases(
                         getLogMessagesUseCase = GetLogMessagesUseCase(get()),
+                        getTotalLogMessagesNumUseCase = GetTotalLogMessagesNumUseCase(get()),
+                        getFilteredLogsUseCase = GetFilteredLogsUseCase(get()),
                         footerScreenUseCases =
                             FooterScreenUseCases(
                                 getFooterUseCase = GetFooterUseCase(get()),
                                 changeCurrentPageNumUseCase = ChangeCurrentPageNumUseCase(),
-                                getTotalLogMessagesNumUseCase = GetTotalLogMessagesNumUseCase(get()),
                                 getTotalPagesUseCase = GetTotalPagesUseCase(),
                                 getPageInfoUseCase = GetPageInfoUseCase(),
                                 getSelectedSessionUseCase = GetSelectedSessionUseCase(get()),

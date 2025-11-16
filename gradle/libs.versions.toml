@@ -4,17 +4,17 @@ kotlinVersion = "2.2.21"
 coreKtxVersion = "1.17.0"
 lifecycleRuntimeKtxVersion = "2.9.4"
 activityComposeVersion = "1.11.0"
-composeBomVersion = "2025.10.01"
+composeBomVersion = "2025.11.00"
 kotlinXImmutableCollectionsVersion = "0.4.0"
-ktlintVersion = "13.1.0"
+ktlintVersion = "14.0.1"
 koinBomVersion = "4.1.1"
 kotlinxSerializationVersion = "1.9.0"
-nav3CoreVersion = "1.0.0-beta01"
-lifecycleViewmodelNav3Version = "2.10.0-beta01"
+nav3CoreVersion = "1.0.0-rc01"
+lifecycleViewmodelNav3Version = "2.10.0-rc01"
 kotlinxSerializationCoreVersion = "1.9.0"
-material3AdaptiveNav3Version = "1.3.0-alpha02"
+material3AdaptiveNav3Version = "1.3.0-alpha03"
 detektVersion = "1.23.8"
-junitVersion = "4.13.2"
+junitBomVersion = "6.0.1"
 truthVersion = "1.4.5"
 turbineVersion = "1.2.1"
 archUnitJUnit4Version = "1.4.1"
@@ -25,6 +25,9 @@ kspVersion = "2.2.21-2.0.4"
 moduleGraphVersion = "0.13.0"
 pagingVersion = "3.3.6"
 pagingComposeVersion = "3.4.0-alpha04"
+googleFontsVersion = "1.9.4"
+coroutinesTestVersion = "1.10.2"
+mockkVersion = "1.14.6"
 conventionPluginAndroidApplicationName = "androidApplicationPlugin"
 conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
 conventionPluginDiLibraryName = "diLibraryPlugin"
@@ -39,10 +42,8 @@ conventionPluginNavLibraryName = "navLibraryPlugin"
 conventionPluginNavLibraryClass = "com.sarim.convention.AndroidNavLibraryConventionPlugin"
 conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
-junit = "1.3.0"
-espressoCoreVersion = "3.7.0"
-appcompatVersion = "1.7.1"
-materialVersion = "1.13.0"
+conventionPluginUiLibraryName = "uiLibraryPlugin"
+conventionPluginUiLibraryClass = "com.sarim.convention.AndroidUiLibraryConventionPlugin"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -72,8 +73,13 @@ androidxMaterial3AdaptiveNavigation3Library = { group = "androidx.compose.materi
 androidGradlePluginLibrary = { group = "com.android.tools.build", name = "gradle", version.ref = "agpVersion" }
 kotlinGradlePluginLibrary = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlinVersion" }
 kotlinSerializationPluginLibrary = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinVersion" }
-junitLibrary = { group = "junit", name = "junit", version.ref = "junitVersion" }
+junitBomLibrary = { group = "org.junit", name = "junit-bom", version.ref = "junitBomVersion" }
+junitJupiteribrary = { group = "org.junit.jupiter", name = "junit-jupiter" }
+junitPlatformibrary = { group = "org.junit.platform", name = "junit-platform-launcher" }
 archUnitJUnit4Library = { group = "com.tngtech.archunit", name = "archunit-junit4", version.ref = "archUnitJUnit4Version" }
+coroutinesTestLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTestVersion" }
+mockkAndroidLibrary = { group = "io.mockk", name = "mockk-android", version.ref = "mockkVersion" }
+mockkAgentLibrary = { group = "io.mockk", name = "mockk-agent", version.ref = "mockkVersion" }
 truthLibrary = { group = "com.google.truth", name = "truth", version.ref = "truthVersion" }
 turbineLibrary = { group = "app.cash.turbine", name = "turbine", version.ref = "turbineVersion" }
 roboelectricLibrary = { group = "org.robolectric", name = "robolectric", version.ref = "roboelectricVersion" }
@@ -84,10 +90,7 @@ roomKtxLibrary = { group = "androidx.room", name = "room-ktx", version.ref = "ro
 pagingKtxLibrary = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagingVersion" }
 pagingComposeLibrary = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingComposeVersion" }
 roomPagingLibrary = { group = "androidx.room", name = "room-paging", version.ref = "roomVersion" }
-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+googleFontsLibrary = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "googleFontsVersion" }
 
 [bundles]
 navBundle = [
@@ -101,6 +104,7 @@ composeImplementationBundle = [
     "androidxComposeUiGraphicsLibrary",
     "androidxComposeMaterial3Library",
     "pagingComposeLibrary",
+    "googleFontsLibrary",
 ]
 composeDebugImplementationBundle = [
     "androidxComposeUiToolingLibrary",
@@ -125,8 +129,11 @@ dataStorageBundle = [
     "roomPagingLibrary",
 ]
 testBundle = [
-    "junitLibrary",
+    "junitJupiteribrary",
     "archUnitJUnit4Library",
+    "coroutinesTestLibrary",
+    "mockkAgentLibrary",
+    "mockkAndroidLibrary",
     "truthLibrary",
     "turbineLibrary",
     "roboelectricLibrary",
@@ -148,4 +155,5 @@ conventionPluginDataLibraryId = { id = "com.sarim.convention.android.data.librar
 conventionPluginDomainLibraryId = { id = "com.sarim.convention.domain.library.plugin" }
 conventionPluginPresentationLibraryId = { id = "com.sarim.convention.presentation.library.plugin" }
 conventionPluginNavLibraryId = { id = "com.sarim.convention.nav.library.plugin" }
+conventionPluginUiLibraryId = { id = "com.sarim.convention.ui.library.plugin" }
 conventionPluginUtilsLibraryId = { id = "com.sarim.convention.utils.library.plugin" }

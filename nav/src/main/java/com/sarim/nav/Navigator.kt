@@ -29,6 +29,7 @@ import com.sarim.footer_presentation.FooterScreenData
 import com.sarim.footer_presentation.FooterScreenToViewModelEvents
 import com.sarim.maincontent_presentation.MainContentScreen
 import com.sarim.maincontent_presentation.MainContentScreenData
+import com.sarim.maincontent_presentation.MainContentScreenToViewModelEvents
 import com.sarim.maincontent_presentation.MainContentScreenViewModel
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreen
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenData
@@ -145,7 +146,11 @@ fun Navigator(
                                 AppScreenComponentOnEvent(
                                     sidebarDatesScreenToViewModelEvents = sideBarDatesScreenViewModel::onEvent,
                                     sidebarSessionsScreenToViewModelEvents = sideBarSessionsScreenViewModel::onEvent,
-                                    footerScreenToViewModelEvents = mainContentScreenViewModel::onEvent,
+                                    footerScreenToViewModelEvents = { event ->
+                                        mainContentScreenViewModel.onEvent(
+                                            MainContentScreenToViewModelEvents.FooterEvent(event),
+                                        )
+                                    },
                                 ),
                         )
                     }

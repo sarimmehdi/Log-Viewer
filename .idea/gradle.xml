@@ -49,6 +49,7 @@
             <option value="$PROJECT_DIR$/sidebar/sidebar-sessions/sidebar-sessions-di" />
             <option value="$PROJECT_DIR$/sidebar/sidebar-sessions/sidebar-sessions-domain" />
             <option value="$PROJECT_DIR$/sidebar/sidebar-sessions/sidebar-sessions-presentation" />
+            <option value="$PROJECT_DIR$/ui" />
             <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>

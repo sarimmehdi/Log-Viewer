@@ -2,6 +2,7 @@ package com.sarim.convention.utils
 
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Project
+import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -31,13 +32,21 @@ internal fun Project.configureAndroidLibrary(
             targetCompatibility = config.targetCompatibility
         }
 
-        if (useCompose) {
-            buildFeatures {
-                compose = true
-            }
+        buildFeatures {
+            compose = useCompose
         }
         buildFeatures {
             buildConfig = true
+        }
+        testFixtures {
+            enable = true
+        }
+    }
+
+    tasks.withType(Test::class.java).configureEach {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
         }
     }
 

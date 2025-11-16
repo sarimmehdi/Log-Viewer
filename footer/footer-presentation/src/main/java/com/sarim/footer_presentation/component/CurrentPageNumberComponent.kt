@@ -20,15 +20,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sarim.utils.R
+import com.sarim.ui.theme.bodyFontFamily
 import java.util.Locale
 
 @Composable
@@ -60,12 +57,7 @@ fun CurrentPageNumberComponent(
                 color = Color.White.copy(alpha = 0.8f),
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center,
-                fontFamily =
-                    FontFamily(
-                        Font(R.font.inter_24_regular, FontWeight.Normal),
-                        Font(R.font.inter_24_medium, FontWeight.Medium),
-                        Font(R.font.inter_24_bold, FontWeight.Bold),
-                    ),
+                fontFamily = bodyFontFamily,
             ),
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),

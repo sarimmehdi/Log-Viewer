@@ -65,4 +65,10 @@ gradlePlugin {
             implementationClass = libs.versions.conventionPluginUtilsLibraryClass.get()
         }
     }
+    plugins {
+        create(libs.versions.conventionPluginUiLibraryName.get()) {
+            id = libs.plugins.conventionPluginUiLibraryId.get().pluginId
+            implementationClass = libs.versions.conventionPluginUiLibraryClass.get()
+        }
+    }
 }

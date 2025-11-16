@@ -12,11 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.ui.theme.bodyFontFamily
 import com.sarim.utils.R
 
 @Composable
@@ -34,12 +33,7 @@ internal fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
                     .padding(start = 33.dp, top = 20.dp),
             fontWeight = FontWeight.Normal,
             fontSize = 48.sp,
-            fontFamily =
-                FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold),
-                ),
+            fontFamily = bodyFontFamily,
             color = Color.White,
         )
         Spacer(

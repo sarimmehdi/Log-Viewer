@@ -1,5 +1,7 @@
 package com.sarim.convention
 
+import com.sarim.convention.utils.ModuleName
+import com.sarim.convention.utils.ModuleType
 import com.sarim.convention.utils.configureAndroidLibrary
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
@@ -36,7 +38,12 @@ internal class AndroidDomainLibraryConventionPlugin : Plugin<Project> {
             afterEvaluate {
                 configureModuleDependencies(
                     modules =
-                        listOf(":utils"),
+                        listOf(":utils").map {
+                            ModuleName(
+                                moduleType = ModuleType.IMPLEMENTATION,
+                                name = it,
+                            )
+                        },
                 )
             }
 
@@ -45,6 +52,9 @@ internal class AndroidDomainLibraryConventionPlugin : Plugin<Project> {
                 "implementation"(platform(libs.koinBomLibrary))
                 "implementation"(libs.bundles.koinBundle)
                 "implementation"(libs.bundles.dataStorageBundle)
+                "testImplementation"(platform(libs.junitBomLibrary))
+                "testImplementation"(libs.bundles.testBundle)
+                "testRuntimeOnly"(libs.junitPlatformibrary)
             }
         }
 }

@@ -17,6 +17,7 @@ import com.sarim.sidebar_dates_domain.usecase.GetSelectedDateUseCase
 import com.sarim.sidebar_dates_domain.usecase.SelectDateUseCase
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenUseCases
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenViewModel
+import com.sarim.utils.test.DefaultDispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -51,6 +52,7 @@ fun module() =
         }
         viewModel {
             SidebarDatesScreenViewModel(
+                dispatchers = DefaultDispatchers(),
                 savedStateHandle = get(),
                 useCases =
                     SidebarDatesScreenUseCases(

@@ -1,6 +1,8 @@
 package com.sarim.convention
 
 import com.sarim.convention.utils.AndroidExtraModulesConventionExtension
+import com.sarim.convention.utils.ModuleName
+import com.sarim.convention.utils.ModuleType
 import com.sarim.convention.utils.configureAndroidLibrary
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
@@ -37,7 +39,12 @@ internal class AndroidDiLibraryConventionPlugin : Plugin<Project> {
             afterEvaluate {
                 configureModuleDependencies(
                     modules =
-                        listOf(":utils") + extension.modules,
+                        (listOf(":utils") + extension.modules).map {
+                            ModuleName(
+                                moduleType = ModuleType.IMPLEMENTATION,
+                                name = it,
+                            )
+                        },
                 )
             }
 

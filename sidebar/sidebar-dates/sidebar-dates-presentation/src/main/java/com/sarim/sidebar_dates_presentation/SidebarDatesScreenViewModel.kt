@@ -4,18 +4,23 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sarim.sidebar_dates_domain.model.Date
+import com.sarim.utils.test.DispatcherProvider
 import com.sarim.utils.ui.Resource
 import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SidebarDatesScreenViewModel(
+    private val dispatchers: DispatcherProvider,
     private val savedStateHandle: SavedStateHandle,
     private val useCases: SidebarDatesScreenUseCases,
 ) : ViewModel() {
@@ -26,14 +31,16 @@ class SidebarDatesScreenViewModel(
             .onStart {
                 loadDates()
                 getSelectedDate()
-            }.stateIn(
+                getFilteredDates()
+            }.flowOn(dispatchers.main)
+            .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(TIMEOUT),
                 SidebarDatesScreenState(),
             )
 
     private fun loadDates() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             useCases.getDatesUseCase().collectLatest { datesResource ->
                 val dates =
                     if (datesResource is Resource.Success) datesResource.data.toImmutableList() else emptyList()
@@ -48,7 +55,7 @@ class SidebarDatesScreenViewModel(
     }
 
     private fun getSelectedDate() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             useCases.getSelectedDateUseCase().collectLatest { selectedResource ->
                 val selectedDate =
                     if (selectedResource is Resource.Success) selectedResource.data else null
@@ -62,47 +69,62 @@ class SidebarDatesScreenViewModel(
         }
     }
 
+    private fun getFilteredDates() {
+        viewModelScope.launch(dispatchers.main) {
+            _state
+                .map { it.searchString }
+                .distinctUntilChanged()
+                .collectLatest { searchString ->
+                    val currState = state.value
+                    if (searchString.isEmpty()) {
+                        useCases.getDatesUseCase().collectLatest {
+                            when (it) {
+                                is Resource.Error<List<Date>> -> snackbarEvent(it.message)
+                                is Resource.Success<List<Date>> -> {
+                                    savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
+                                        currState.copy(dates = it.data.toImmutableList())
+                                }
+                            }
+                        }
+                    } else {
+                        useCases
+                            .getFilteredDatesUseCase(
+                                searchString,
+                            ).collectLatest { datesResource ->
+                                val dates =
+                                    if (datesResource is Resource.Success) datesResource.data else emptyList()
+                                if (datesResource is Resource.Error) {
+                                    snackbarEvent(
+                                        datesResource.message,
+                                    )
+                                }
+
+                                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
+                                    currState.copy(dates = dates.toImmutableList())
+                            }
+                    }
+                }
+        }
+    }
+
     fun onEvent(event: SidebarDatesScreenToViewModelEvents) {
         val currState =
             savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] as SidebarDatesScreenState? ?: return
 
         when (event) {
             is SidebarDatesScreenToViewModelEvents.FilterDates -> {
-                viewModelScope.launch {
-                    useCases.getFilteredDatesUseCase(event.dateName).collectLatest {
-                        when (it) {
-                            is Resource.Error<List<Date>> -> snackbarEvent(it.message)
-                            is Resource.Success<List<Date>> -> {
-                                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
-                                    currState.copy(dates = it.data.toImmutableList())
-                            }
-                        }
-                    }
-                }
+                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
+                    currState.copy(searchString = event.dateName)
             }
 
             is SidebarDatesScreenToViewModelEvents.SelectDate ->
-                viewModelScope.launch {
+                viewModelScope.launch(dispatchers.main) {
                     useCases.selectDateUseCase(event.date).also {
                         if (it is Resource.Error<Boolean>) {
                             snackbarEvent(it.message)
                         }
                     }
                 }
-
-            is SidebarDatesScreenToViewModelEvents.GetAllDates -> {
-                viewModelScope.launch {
-                    useCases.getDatesUseCase().collectLatest {
-                        when (it) {
-                            is Resource.Error<List<Date>> -> snackbarEvent(it.message)
-                            is Resource.Success<List<Date>> -> {
-                                savedStateHandle[SIDEBAR_DATES_SCREEN_STATE_KEY] =
-                                    currState.copy(dates = it.data.toImmutableList())
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 

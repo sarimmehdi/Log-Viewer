@@ -8,4 +8,6 @@ interface LogMessageRepository {
     fun getTotalLogMessagesNum(): Flow<Resource<Int>>
 
     fun getLogMessages(currentPageNum: Int): Flow<Resource<List<LogMessage>>>
+
+    suspend fun getLogsAccordingToSearchFilter(searchFilter: String): Flow<Resource<List<LogMessage>>>
 }

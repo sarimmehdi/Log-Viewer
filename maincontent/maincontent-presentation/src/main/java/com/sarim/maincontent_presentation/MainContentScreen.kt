@@ -19,9 +19,9 @@ import com.sarim.maincontent_presentation.component.Level.Content.Companion.from
 import com.sarim.maincontent_presentation.component.Line
 import com.sarim.maincontent_presentation.component.MainContentListItemComponent
 import com.sarim.maincontent_presentation.component.MainContentListItemComponentData
-import com.sarim.utils.component.CustomScrollableListComponent
-import com.sarim.utils.component.CustomScrollableListComponentData
-import com.sarim.utils.component.HorizontalDividerComponent
+import com.sarim.ui.component.CustomScrollableListComponent
+import com.sarim.ui.component.CustomScrollableListComponentData
+import com.sarim.ui.component.HorizontalDividerComponent
 import kotlinx.collections.immutable.ImmutableList
 
 const val MAIN_CONTENT_BACKGROUND_COLOR = 0xFF03111B

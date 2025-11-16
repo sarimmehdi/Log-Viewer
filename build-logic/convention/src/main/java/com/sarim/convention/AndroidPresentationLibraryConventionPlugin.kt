@@ -1,6 +1,8 @@
 package com.sarim.convention
 
 import com.sarim.convention.utils.AndroidExtraModulesConventionExtension
+import com.sarim.convention.utils.ModuleName
+import com.sarim.convention.utils.ModuleType
 import com.sarim.convention.utils.configureAndroidLibrary
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
@@ -37,7 +39,7 @@ internal class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
             val inferredNamespace = project.name.replace("-", "_")
             configureAndroidLibrary(
                 namespace = inferredNamespace,
-                useCompose = false,
+                useCompose = true,
             )
 
             val extension =
@@ -49,7 +51,17 @@ internal class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
             afterEvaluate {
                 configureModuleDependencies(
                     modules =
-                        listOf(":utils") + extension.modules,
+                        (
+                            listOf(
+                                ":utils",
+                                ":ui",
+                            ) + extension.modules
+                        ).map {
+                            ModuleName(
+                                moduleType = ModuleType.IMPLEMENTATION,
+                                name = it,
+                            )
+                        },
                 )
             }
 
@@ -64,6 +76,11 @@ internal class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
                 "implementation"(libs.bundles.koinBundle)
                 "debugImplementation"(platform(libs.androidxComposeBomLibrary))
                 "debugImplementation"(libs.bundles.composeDebugImplementationBundle)
+                "testImplementation"(platform(libs.androidxComposeBomLibrary))
+                "testImplementation"(platform(libs.junitBomLibrary))
+                "testImplementation"(libs.bundles.testBundle)
+                "testRuntimeOnly"(libs.junitPlatformibrary)
+                add("testImplementation", testFixtures(project(":utils")))
             }
         }
 }

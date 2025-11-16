@@ -42,6 +42,14 @@ internal class AndroidUtilsLibraryConventionPlugin : Plugin<Project> {
                 "implementation"(libs.bundles.dataStorageBundle)
                 "debugImplementation"(platform(libs.androidxComposeBomLibrary))
                 "debugImplementation"(libs.bundles.composeDebugImplementationBundle)
+                "testFixturesApi"(platform(libs.junitBomLibrary))
+                "testFixturesApi"(libs.bundles.testBundle)
+                "testFixturesApi"(platform(libs.androidxComposeBomLibrary))
+                "testFixturesImplementation"(platform(libs.androidxComposeBomLibrary))
+                "testImplementation"(platform(libs.androidxComposeBomLibrary))
+                "testFixturesApi"(libs.bundles.composeImplementationBundle)
+                "testFixturesImplementation"(libs.bundles.composeImplementationBundle)
+                "testImplementation"(libs.bundles.composeImplementationBundle)
             }
         }
 }

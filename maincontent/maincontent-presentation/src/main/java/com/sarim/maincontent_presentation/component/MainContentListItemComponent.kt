@@ -10,23 +10,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.sarim.maincontent_domain.model.LogType
-import com.sarim.utils.R as utilsR
 import com.sarim.maincontent_presentation.R
-import com.sarim.utils.component.VerticalDividerComponent
+import com.sarim.ui.component.VerticalDividerComponent
+import com.sarim.ui.theme.bodyFontFamily
 
 const val ERROR_COLOR = 0xFFD30000
 const val DEBUG_COLOR = 0xFF004AD3
 const val INFO_COLOR = 0xFF3FD300
 const val WARN_COLOR = 0xFFD36600
 const val CRITICAL_COLOR = 0xFFFF0004
-const val UNKNOWN_COLOR = 0xFF4D4141
 
 @Composable
 fun MainContentListItemComponent(
@@ -47,12 +44,7 @@ fun MainContentListItemComponent(
                     ).width(247.dp),
             fontWeight = data.fontWeight,
             fontSize = data.textSize,
-            fontFamily =
-                FontFamily(
-                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
-                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
-                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
-                ),
+            fontFamily = bodyFontFamily,
             text = data.message,
             color = Color.White.copy(alpha = 0.7f),
             maxLines = 1,
@@ -71,12 +63,7 @@ fun MainContentListItemComponent(
                     ).width(89.dp),
             fontWeight = data.fontWeight,
             fontSize = data.textSize,
-            fontFamily =
-                FontFamily(
-                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
-                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
-                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
-                ),
+            fontFamily = bodyFontFamily,
             text = data.className,
             color = Color.White.copy(alpha = 0.7f),
             maxLines = 1,
@@ -95,12 +82,7 @@ fun MainContentListItemComponent(
                     ).width(102.dp),
             fontWeight = data.fontWeight,
             fontSize = data.textSize,
-            fontFamily =
-                FontFamily(
-                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
-                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
-                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
-                ),
+            fontFamily = bodyFontFamily,
             text = data.functionName,
             color = Color.White.copy(alpha = 0.7f),
             maxLines = 1,
@@ -119,12 +101,7 @@ fun MainContentListItemComponent(
                     ).width(68.dp),
             fontWeight = data.fontWeight,
             fontSize = data.textSize,
-            fontFamily =
-                FontFamily(
-                    Font(utilsR.font.inter_24_regular, FontWeight.Normal),
-                    Font(utilsR.font.inter_24_medium, FontWeight.Medium),
-                    Font(utilsR.font.inter_24_bold, FontWeight.Bold),
-                ),
+            fontFamily = bodyFontFamily,
             text = data.lineNumber.toString(),
             color = Color.White.copy(alpha = 0.7f),
             maxLines = 1,
@@ -146,12 +123,7 @@ fun MainContentListItemComponent(
                             ),
                     fontWeight = data.fontWeight,
                     fontSize = data.textSize,
-                    fontFamily =
-                        FontFamily(
-                            Font(utilsR.font.inter_24_regular, FontWeight.Normal),
-                            Font(utilsR.font.inter_24_medium, FontWeight.Medium),
-                            Font(utilsR.font.inter_24_bold, FontWeight.Bold),
-                        ),
+                    fontFamily = bodyFontFamily,
                     text = data.level.value,
                     color = Color.White.copy(alpha = 0.7f),
                 )

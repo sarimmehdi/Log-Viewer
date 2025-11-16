@@ -10,6 +10,4 @@ sealed interface SidebarDatesScreenToViewModelEvents {
     data class SelectDate(
         val date: Date,
     ) : SidebarDatesScreenToViewModelEvents
-
-    data object GetAllDates : SidebarDatesScreenToViewModelEvents
 }

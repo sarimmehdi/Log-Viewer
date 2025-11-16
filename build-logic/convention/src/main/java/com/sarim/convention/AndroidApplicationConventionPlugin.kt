@@ -2,6 +2,8 @@ package com.sarim.convention
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.sarim.convention.utils.Config
+import com.sarim.convention.utils.ModuleName
+import com.sarim.convention.utils.ModuleType
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
 import org.gradle.api.Plugin
@@ -75,9 +77,6 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                 "implementation"(platform(libs.koinBomLibrary))
                 "implementation"(libs.bundles.koinBundle)
                 "implementation"(libs.bundles.dataStorageBundle)
-                "debugImplementation"(platform(libs.androidxComposeBomLibrary))
-                "debugImplementation"(libs.bundles.composeImplementationBundle)
-                "testImplementation"(libs.bundles.testBundle)
             }
             afterEvaluate {
                 configureModuleDependencies(
@@ -85,6 +84,7 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                         listOf(
                             ":utils",
                             ":nav",
+                            ":ui",
                             ":sidebar:sidebar-dates:sidebar-dates-di",
                             ":sidebar:sidebar-dates:sidebar-dates-data",
                             ":sidebar:sidebar-dates:sidebar-dates-domain",
@@ -101,7 +101,7 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                             ":footer:footer-data",
                             ":footer:footer-domain",
                             ":footer:footer-presentation",
-                        ),
+                        ).map { ModuleName(moduleType = ModuleType.IMPLEMENTATION, name = it) },
                 )
             }
         }

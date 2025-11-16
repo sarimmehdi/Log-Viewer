@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sarim.footer_presentation.FooterScreenToViewModelEvents
+import com.sarim.header_presentation.HeaderScreenToViewModelEvents
+import com.sarim.maincontent_domain.model.LogMessage
 import com.sarim.utils.ui.Resource
 import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
@@ -34,6 +36,7 @@ class MainContentScreenViewModel(
                 getFooterInfo()
                 getSelectedSession()
                 resetPageNumOnSessionChange()
+                getFilteredLogs()
             }.stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(TIMEOUT),
@@ -63,7 +66,7 @@ class MainContentScreenViewModel(
 
     private fun getTotalLogNumAndPageCount() {
         viewModelScope.launch {
-            useCases.footerScreenUseCases
+            useCases
                 .getTotalLogMessagesNumUseCase()
                 .collectLatest { logCountResource ->
                     val logCount =
@@ -136,6 +139,10 @@ class MainContentScreenViewModel(
                                                             currState.footerScreenState.currentPageNum,
                                                         ),
                                             ),
+                                        headerScreenState =
+                                            currState.headerScreenState.copy(
+                                                searchString = "",
+                                            ),
                                     )
                             } else if (footerResource is Resource.Error) {
                                 snackbarEvent(footerResource.message)
@@ -181,15 +188,70 @@ class MainContentScreenViewModel(
                                 currState.footerScreenState.copy(
                                     currentPageNum = 1,
                                 ),
+                            headerScreenState =
+                                currState.headerScreenState.copy(
+                                    searchString = "",
+                                ),
                         )
                 }
         }
     }
 
-    fun onEvent(event: FooterScreenToViewModelEvents) {
+    private fun getFilteredLogs() {
+        viewModelScope.launch {
+            _state
+                .map { it.headerScreenState.searchString }
+                .distinctUntilChanged()
+                .collectLatest { searchString ->
+                    val currState = state.value
+                    if (searchString.isEmpty()) {
+                        useCases
+                            .getLogMessagesUseCase(currState.footerScreenState.currentPageNum)
+                            .collectLatest {
+                                when (it) {
+                                    is Resource.Error<List<LogMessage>> -> snackbarEvent(it.message)
+                                    is Resource.Success<List<LogMessage>> -> {
+                                        savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
+                                            currState.copy(logs = it.data.toImmutableList())
+                                    }
+                                }
+                            }
+                    } else {
+                        useCases
+                            .getFilteredLogsUseCase(
+                                searchString,
+                            ).collectLatest { logsResource ->
+                                val logs =
+                                    if (logsResource is Resource.Success) logsResource.data else emptyList()
+                                if (logsResource is Resource.Error) {
+                                    snackbarEvent(
+                                        logsResource.message,
+                                    )
+                                }
+
+                                savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
+                                    currState.copy(logs = logs.toImmutableList())
+                            }
+                    }
+                }
+        }
+    }
+
+    fun onEvent(event: MainContentScreenToViewModelEvents) {
+        when (event) {
+            is MainContentScreenToViewModelEvents.FooterEvent -> {
+                onFooterEvent(event.event)
+            }
+
+            is MainContentScreenToViewModelEvents.HeaderEvent -> {
+                onHeaderEvent(event.event)
+            }
+        }
+    }
+
+    private fun onFooterEvent(event: FooterScreenToViewModelEvents) {
         val currState =
             savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] as MainContentScreenState? ?: return
-
         when (event) {
             is FooterScreenToViewModelEvents.ChangeCurrentPageNumber -> {
                 viewModelScope.launch {
@@ -204,6 +266,10 @@ class MainContentScreenViewModel(
                                     footerScreenState =
                                         currState.footerScreenState.copy(
                                             currentPageNum = it,
+                                        ),
+                                    headerScreenState =
+                                        currState.headerScreenState.copy(
+                                            searchString = "",
                                         ),
                                 )
                         }
@@ -225,10 +291,38 @@ class MainContentScreenViewModel(
                                         currState.footerScreenState.copy(
                                             currentPageNum = it,
                                         ),
+                                    headerScreenState =
+                                        currState.headerScreenState.copy(
+                                            searchString = "",
+                                        ),
                                 )
                         }
                 }
             }
+        }
+    }
+
+    private fun onHeaderEvent(event: HeaderScreenToViewModelEvents) {
+        val currState =
+            savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] as MainContentScreenState? ?: return
+        when (event) {
+            is HeaderScreenToViewModelEvents.FilterLogs ->
+                savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
+                    currState.copy(
+                        headerScreenState =
+                            currState.headerScreenState.copy(
+                                searchString = event.text,
+                            ),
+                    )
+
+            is HeaderScreenToViewModelEvents.CangeDropDownType ->
+                savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
+                    currState.copy(
+                        headerScreenState =
+                            currState.headerScreenState.copy(
+                                dropDownType = event.dropDownType,
+                            ),
+                    )
         }
     }
 

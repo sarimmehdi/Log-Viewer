@@ -14,13 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sarim.sidebar_dates_domain.model.Date
 import com.sarim.sidebar_dates_presentation.component.SidebarHeaderComponent
-import com.sarim.utils.component.CustomScrollableListComponent
-import com.sarim.utils.component.CustomScrollableListComponentData
-import com.sarim.utils.component.HorizontalDividerComponent
-import com.sarim.utils.component.SearchboxComponent
-import com.sarim.utils.component.SearchboxComponentData
-import com.sarim.utils.component.SidebarListItemComponent
-import com.sarim.utils.component.SidebarListItemComponentData
+import com.sarim.ui.component.CustomScrollableListComponent
+import com.sarim.ui.component.CustomScrollableListComponentData
+import com.sarim.ui.component.HorizontalDividerComponent
+import com.sarim.ui.component.SearchboxComponent
+import com.sarim.ui.component.SearchboxComponentData
+import com.sarim.ui.component.SidebarListItemComponent
+import com.sarim.ui.component.SidebarListItemComponentData
 import kotlinx.collections.immutable.ImmutableList
 
 const val SIDEBAR_SCREEN_BACKGROUND_COLOR = 0xFF03111B
@@ -47,17 +47,11 @@ fun SidebarDatesScreen(
                     iconDescription = stringResource(R.string.search_dates_icon_desc),
                     backgroundColor = Color(SIDEBAR_SCREEN_SEARCH_BOX_BACKGROUND_COLOR),
                     onValueChange = {
-                        if (it.isBlank()) {
-                            onEvent(
-                                SidebarDatesScreenToViewModelEvents.GetAllDates,
-                            )
-                        } else {
-                            onEvent(
-                                SidebarDatesScreenToViewModelEvents.FilterDates(
-                                    dateName = it,
-                                ),
-                            )
-                        }
+                        onEvent(
+                            SidebarDatesScreenToViewModelEvents.FilterDates(
+                                dateName = it,
+                            ),
+                        )
                     },
                 ),
             modifier =

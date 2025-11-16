@@ -11,12 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sarim.utils.R
+import com.sarim.ui.theme.bodyFontFamily
 
 @Composable
 fun LevelComponent(
@@ -34,12 +32,7 @@ fun LevelComponent(
         Text(
             fontWeight = FontWeight.Black,
             fontSize = 12.sp,
-            fontFamily =
-                FontFamily(
-                    Font(R.font.inter_24_regular, FontWeight.Normal),
-                    Font(R.font.inter_24_medium, FontWeight.Medium),
-                    Font(R.font.inter_24_bold, FontWeight.Bold),
-                ),
+            fontFamily = bodyFontFamily,
             text = data.name,
             color = Color.White,
             modifier =
