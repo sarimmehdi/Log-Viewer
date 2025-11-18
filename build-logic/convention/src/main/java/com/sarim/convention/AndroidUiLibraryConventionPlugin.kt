@@ -39,6 +39,11 @@ internal class AndroidUiLibraryConventionPlugin : Plugin<Project> {
                 "implementation"(libs.androidxCoreKtxLibrary)
                 "debugImplementation"(platform(libs.androidxComposeBomLibrary))
                 "debugImplementation"(libs.bundles.composeDebugImplementationBundle)
+                "testImplementation"(platform(libs.androidxComposeBomLibrary))
+                "testImplementation"(platform(libs.junitBomLibrary))
+                "testImplementation"(libs.bundles.testBundle)
+                "testRuntimeOnly"(libs.junitPlatformibrary)
+                add("testImplementation", testFixtures(project(":utils")))
             }
             configureModuleDependencies(
                 modules =

@@ -50,6 +50,7 @@ internal class AndroidUtilsLibraryConventionPlugin : Plugin<Project> {
                 "testFixturesApi"(libs.bundles.composeImplementationBundle)
                 "testFixturesImplementation"(libs.bundles.composeImplementationBundle)
                 "testImplementation"(libs.bundles.composeImplementationBundle)
+                "testImplementation"(libs.bundles.testBundle)
             }
         }
 }

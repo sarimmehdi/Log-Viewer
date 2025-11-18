@@ -12,11 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.sidebar_dates_presentation.R
+import com.sarim.utils.R as utilsR
 import com.sarim.ui.theme.bodyFontFamily
-import com.sarim.utils.R
 
 @Composable
 internal fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
@@ -27,7 +29,7 @@ internal fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
                 .height(100.dp),
     ) {
         Text(
-            text = "Dates",
+            text = stringResource(R.string.dates),
             modifier =
                 Modifier
                     .padding(start = 33.dp, top = 20.dp),
@@ -42,8 +44,8 @@ internal fun SidebarHeaderComponent(modifier: Modifier = Modifier) {
                     .size(173.dp),
         )
         Image(
-            painter = painterResource(id = R.drawable.side_bar_close_icon),
-            contentDescription = "Icon to close the sidebar",
+            painter = painterResource(id = utilsR.drawable.side_bar_close_icon),
+            contentDescription = stringResource(R.string.side_bar_close_icon_desc),
             modifier =
                 Modifier
                     .padding(top = 36.dp)

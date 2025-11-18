@@ -6,4 +6,6 @@
     </plurals>
     <string name="search_dates">Search dates</string>
     <string name="search_dates_icon_desc">Icon to search dates</string>
+    <string name="dates">Dates</string>
+    <string name="side_bar_close_icon_desc">Icon to close the sidebar</string>
 </resources>

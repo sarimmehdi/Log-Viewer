@@ -1,6 +1,8 @@
 package com.sarim.convention.utils
 
 import com.android.build.api.dsl.LibraryExtension
+import com.sarim.convention.task.CreateRoboelectricTestTask
+import com.sarim.convention.task.CreateRoboelectricTestTask.create as createRoboelectricTestTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.kotlin.dsl.configure
@@ -41,10 +43,19 @@ internal fun Project.configureAndroidLibrary(
         testFixtures {
             enable = true
         }
+        testOptions {
+            unitTests {
+                isIncludeAndroidResources = true
+            }
+        }
     }
 
+    createRoboelectricTestTask()
+
     tasks.withType(Test::class.java).configureEach {
-        useJUnitPlatform()
+        if (name != CreateRoboelectricTestTask.TASK_NAME) {
+            useJUnitPlatform()
+        }
         testLogging {
             events("passed", "skipped", "failed")
         }

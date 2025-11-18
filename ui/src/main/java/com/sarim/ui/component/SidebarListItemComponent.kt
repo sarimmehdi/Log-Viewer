@@ -15,8 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.sarim.ui.component.SidebarListItemComponentTags.NOT_SELECTED_BACKGROUND
+import com.sarim.ui.component.SidebarListItemComponentTags.SELECTED_BACKGROUND
+import com.sarim.ui.component.SidebarListItemComponentTags.SELECTED_BOX
 
 const val SELECTED_BACKGROUND_COLOR = 0xFFD9D9D9
 
@@ -33,9 +37,11 @@ fun SidebarListItemComponent(
                 .height(78.dp)
                 .then(
                     if (data.selected) {
-                        Modifier.background(Color(SELECTED_BACKGROUND_COLOR).copy(alpha = 0.1f))
-                    } else {
                         Modifier
+                            .background(Color(SELECTED_BACKGROUND_COLOR).copy(alpha = 0.1f))
+                            .testTag(SELECTED_BACKGROUND)
+                    } else {
+                        Modifier.testTag(NOT_SELECTED_BACKGROUND)
                     },
                 ).clickable { onClick() },
     ) {
@@ -45,7 +51,8 @@ fun SidebarListItemComponent(
                     Modifier
                         .width(20.dp)
                         .height(78.dp)
-                        .background(Color.White),
+                        .background(Color.White)
+                        .testTag(SELECTED_BOX),
             )
         }
         Column {
@@ -98,3 +105,12 @@ data class SidebarListItemComponentData(
     val subHeading: String,
     val selected: Boolean,
 )
+
+object SidebarListItemComponentTags {
+    private const val P = "SIDEBAR_LIST_ITEM_COMPONENT_"
+    private const val S = "_TEST_TAG"
+
+    const val SELECTED_BACKGROUND = "${P}SELECTED_BACKGROUND$S"
+    const val NOT_SELECTED_BACKGROUND = "${P}NOT_SELECTED_BACKGROUND$S"
+    const val SELECTED_BOX = "${P}SELECTED_BOX$S"
+}

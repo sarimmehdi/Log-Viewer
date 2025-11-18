@@ -57,6 +57,7 @@ androidxComposeUiToolingLibrary = { group = "androidx.compose.ui", name = "ui-to
 androidxComposeUiToolingPreviewLibrary = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidxComposeUiTestManifestLibrary = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidxComposeMaterial3Library = { group = "androidx.compose.material3", name = "material3" }
+androidxComposeJunit4Library = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 koinBomLibrary = { group = "io.insert-koin", name = "koin-bom", version.ref = "koinBomVersion" }
 koinCoreLibrary = { group = "io.insert-koin", name = "koin-core" }
 koinAndroidLibrary = { group = "io.insert-koin", name = "koin-android" }
@@ -137,6 +138,7 @@ testBundle = [
     "truthLibrary",
     "turbineLibrary",
     "roboelectricLibrary",
+    "androidxComposeJunit4Library",
 ]
 
 [plugins]
