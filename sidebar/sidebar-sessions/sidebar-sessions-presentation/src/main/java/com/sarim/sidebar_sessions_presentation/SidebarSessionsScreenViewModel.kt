@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sarim.sidebar_sessions_domain.model.Session
+import com.sarim.utils.test.DispatcherProvider
 import com.sarim.utils.ui.Resource
 import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
@@ -11,6 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
@@ -18,6 +20,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SidebarSessionsScreenViewModel(
+    private val dispatchers: DispatcherProvider,
     private val savedStateHandle: SavedStateHandle,
     private val useCases: SidebarSessionsScreenUseCases,
 ) : ViewModel() {
@@ -32,14 +35,15 @@ class SidebarSessionsScreenViewModel(
                 getSessions()
                 getSelectedSession()
                 getFilteredSessions()
-            }.stateIn(
+            }.flowOn(dispatchers.main)
+            .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(TIMEOUT),
                 SidebarSessionsScreenState(),
             )
 
     private fun getSessions() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             useCases.getSessionsUseCase().collectLatest { sessionsResource ->
                 val sessions =
                     if (sessionsResource is Resource.Success) {
@@ -57,7 +61,7 @@ class SidebarSessionsScreenViewModel(
     }
 
     private fun getSelectedSession() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             useCases.getSelectedSessionUseCase().collectLatest { selectedResource ->
                 val selectedSession =
                     if (selectedResource is Resource.Success) selectedResource.data else null
@@ -73,7 +77,7 @@ class SidebarSessionsScreenViewModel(
     }
 
     private fun getFilteredSessions() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             _state
                 .map { it.searchString }
                 .distinctUntilChanged()
@@ -122,7 +126,7 @@ class SidebarSessionsScreenViewModel(
             }
 
             is SidebarSessionsScreenToViewModelEvents.SelectSession ->
-                viewModelScope.launch {
+                viewModelScope.launch(dispatchers.main) {
                     useCases.selectSessionUseCase(event.session).also {
                         if (it is Resource.Error<Boolean>) {
                             snackbarEvent(it.message)

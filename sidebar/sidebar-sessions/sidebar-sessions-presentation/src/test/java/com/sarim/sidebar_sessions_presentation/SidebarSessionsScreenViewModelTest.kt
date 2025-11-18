@@ -58,8 +58,15 @@ internal class SidebarSessionsScreenViewModelTest {
     @Test
     fun `sessions are loaded on initialization`() =
         runTest(testDispatchers.testDispatcher) {
-            every { useCases.getSessionsUseCase() } returns flow { emit(Resource.Success(fakeSessions)) }
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            every { useCases.getSessionsUseCase() } returns
+                flow {
+                    emit(
+                        Resource.Success(
+                            fakeSessions,
+                        ),
+                    )
+                }
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
 
             viewModel.state.test {
                 val initialState = awaitItem()
@@ -76,7 +83,7 @@ internal class SidebarSessionsScreenViewModelTest {
             val errorMessage = MessageType.StringMessage("")
             every { useCases.getSessionsUseCase() } returns flow { emit(Resource.Error(errorMessage)) }
 
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
 
             viewModel.state.test {
                 val errorState = awaitItem()
@@ -98,7 +105,7 @@ internal class SidebarSessionsScreenViewModelTest {
                         ),
                     )
                 }
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
 
             viewModel.state.test {
                 val initialState = awaitItem()
@@ -122,7 +129,7 @@ internal class SidebarSessionsScreenViewModelTest {
                     )
                 }
 
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
 
             viewModel.state.test {
                 val errorState = awaitItem()
@@ -142,7 +149,7 @@ internal class SidebarSessionsScreenViewModelTest {
                     emit(Resource.Success(listOf(fakeSessions.first())))
                 }
 
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
 
             viewModel.state.test {
                 awaitItem()
@@ -165,7 +172,7 @@ internal class SidebarSessionsScreenViewModelTest {
                     emit(Resource.Error(errorMessage))
                 }
 
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
 
             viewModel.state.test {
                 awaitItem()
@@ -185,7 +192,7 @@ internal class SidebarSessionsScreenViewModelTest {
             val sessionToSelect = fakeSessions.first()
             coEvery { useCases.selectSessionUseCase(sessionToSelect) } returns Resource.Success(true)
 
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
             viewModel.onEvent(SidebarSessionsScreenToViewModelEvents.SelectSession(sessionToSelect))
             testScheduler.advanceUntilIdle()
             coVerify { useCases.selectSessionUseCase(sessionToSelect) }
@@ -201,7 +208,7 @@ internal class SidebarSessionsScreenViewModelTest {
                     errorMessage,
                 )
 
-            viewModel = SidebarSessionsScreenViewModel(savedStateHandle, useCases)
+            viewModel = SidebarSessionsScreenViewModel(testDispatchers, savedStateHandle, useCases)
             viewModel.onEvent(SidebarSessionsScreenToViewModelEvents.SelectSession(sessionToSelect))
             testScheduler.advanceUntilIdle()
             coVerify { snackbarEvent(errorMessage) }

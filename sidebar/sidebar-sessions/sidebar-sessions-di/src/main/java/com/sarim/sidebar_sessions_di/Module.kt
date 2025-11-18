@@ -18,6 +18,7 @@ import com.sarim.sidebar_sessions_domain.usecase.GetSessionsUseCase
 import com.sarim.sidebar_sessions_domain.usecase.SelectSessionUseCase
 import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenUseCases
 import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenViewModel
+import com.sarim.utils.test.DefaultDispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -54,6 +55,7 @@ fun module() =
         }
         viewModel {
             SidebarSessionsScreenViewModel(
+                dispatchers = DefaultDispatchers(),
                 savedStateHandle = get(),
                 useCases =
                     SidebarSessionsScreenUseCases(

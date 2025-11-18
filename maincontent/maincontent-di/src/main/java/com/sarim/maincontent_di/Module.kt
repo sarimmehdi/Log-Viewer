@@ -18,6 +18,7 @@ import com.sarim.maincontent_presentation.MainContentScreenUseCases
 import com.sarim.maincontent_presentation.MainContentScreenViewModel
 import com.sarim.sidebar_sessions_data.model.SessionDtoSerializer.Companion.SESSION_DTO_DATASTORE_QUALIFIER
 import com.sarim.sidebar_sessions_domain.usecase.GetSelectedSessionUseCase
+import com.sarim.utils.test.DefaultDispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -45,6 +46,7 @@ fun module() =
         }
         viewModel {
             MainContentScreenViewModel(
+                dispatchers = DefaultDispatchers(),
                 savedStateHandle = get(),
                 useCases =
                     MainContentScreenUseCases(

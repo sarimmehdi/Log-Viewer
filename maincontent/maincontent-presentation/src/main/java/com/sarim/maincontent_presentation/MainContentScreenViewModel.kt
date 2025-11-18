@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.sarim.footer_presentation.FooterScreenToViewModelEvents
 import com.sarim.header_presentation.HeaderScreenToViewModelEvents
 import com.sarim.maincontent_domain.model.LogMessage
+import com.sarim.utils.test.DispatcherProvider
 import com.sarim.utils.ui.Resource
 import com.sarim.utils.ui.snackbarEvent
 import kotlinx.collections.immutable.toImmutableList
@@ -13,6 +14,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
@@ -20,6 +22,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainContentScreenViewModel(
+    private val dispatchers: DispatcherProvider,
     private val savedStateHandle: SavedStateHandle,
     private val useCases: MainContentScreenUseCases,
 ) : ViewModel() {
@@ -35,16 +38,16 @@ class MainContentScreenViewModel(
                 getTotalLogNumAndPageCount()
                 getFooterInfo()
                 getSelectedSession()
-                resetPageNumOnSessionChange()
                 getFilteredLogs()
-            }.stateIn(
+            }.flowOn(dispatchers.main)
+            .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(TIMEOUT),
                 MainContentScreenState(),
             )
 
     private fun getLogs() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             _state
                 .map { it.footerScreenState.currentPageNum }
                 .distinctUntilChanged()
@@ -65,7 +68,7 @@ class MainContentScreenViewModel(
     }
 
     private fun getTotalLogNumAndPageCount() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             useCases
                 .getTotalLogMessagesNumUseCase()
                 .collectLatest { logCountResource ->
@@ -95,7 +98,7 @@ class MainContentScreenViewModel(
     }
 
     private fun getFooterInfo() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             _state
                 .map { it.footerScreenState.currentPageNum }
                 .distinctUntilChanged()
@@ -153,7 +156,7 @@ class MainContentScreenViewModel(
     }
 
     private fun getSelectedSession() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             useCases.footerScreenUseCases
                 .getSelectedSessionUseCase()
                 .collectLatest { selectedResource ->
@@ -169,23 +172,6 @@ class MainContentScreenViewModel(
                             footerScreenState =
                                 currState.footerScreenState.copy(
                                     selectedSession = selectedSession,
-                                ),
-                        )
-                }
-        }
-    }
-
-    fun resetPageNumOnSessionChange() {
-        viewModelScope.launch {
-            _state
-                .map { it.footerScreenState.selectedSession }
-                .distinctUntilChanged()
-                .collectLatest { _ ->
-                    val currState = state.value
-                    savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
-                        currState.copy(
-                            footerScreenState =
-                                currState.footerScreenState.copy(
                                     currentPageNum = 1,
                                 ),
                             headerScreenState =
@@ -198,7 +184,7 @@ class MainContentScreenViewModel(
     }
 
     private fun getFilteredLogs() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.main) {
             _state
                 .map { it.headerScreenState.searchString }
                 .distinctUntilChanged()
@@ -254,50 +240,46 @@ class MainContentScreenViewModel(
             savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] as MainContentScreenState? ?: return
         when (event) {
             is FooterScreenToViewModelEvents.ChangeCurrentPageNumber -> {
-                viewModelScope.launch {
-                    useCases
-                        .footerScreenUseCases
-                        .changeCurrentPageNumUseCase(
-                            event.pageNumber,
-                            currState.footerScreenState.totalPages,
-                        ).also {
-                            savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
-                                currState.copy(
-                                    footerScreenState =
-                                        currState.footerScreenState.copy(
-                                            currentPageNum = it,
-                                        ),
-                                    headerScreenState =
-                                        currState.headerScreenState.copy(
-                                            searchString = "",
-                                        ),
-                                )
-                        }
-                }
+                useCases
+                    .footerScreenUseCases
+                    .changeCurrentPageNumUseCase(
+                        event.pageNumber,
+                        currState.footerScreenState.totalPages,
+                    ).also {
+                        savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
+                            currState.copy(
+                                footerScreenState =
+                                    currState.footerScreenState.copy(
+                                        currentPageNum = it,
+                                    ),
+                                headerScreenState =
+                                    currState.headerScreenState.copy(
+                                        searchString = "",
+                                    ),
+                            )
+                    }
             }
 
             is FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne -> {
-                viewModelScope.launch {
-                    useCases
-                        .footerScreenUseCases
-                        .changeCurrentPageNumUseCase(
-                            event.changeType,
-                            currState.footerScreenState.currentPageNum,
-                            currState.footerScreenState.totalPages,
-                        ).also {
-                            savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
-                                currState.copy(
-                                    footerScreenState =
-                                        currState.footerScreenState.copy(
-                                            currentPageNum = it,
-                                        ),
-                                    headerScreenState =
-                                        currState.headerScreenState.copy(
-                                            searchString = "",
-                                        ),
-                                )
-                        }
-                }
+                useCases
+                    .footerScreenUseCases
+                    .changeCurrentPageNumUseCase(
+                        event.changeType,
+                        currState.footerScreenState.currentPageNum,
+                        currState.footerScreenState.totalPages,
+                    ).also {
+                        savedStateHandle[MAIN_CONTENT_SCREEN_STATE_KEY] =
+                            currState.copy(
+                                footerScreenState =
+                                    currState.footerScreenState.copy(
+                                        currentPageNum = it,
+                                    ),
+                                headerScreenState =
+                                    currState.headerScreenState.copy(
+                                        searchString = "",
+                                    ),
+                            )
+                    }
             }
         }
     }

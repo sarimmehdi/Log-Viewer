@@ -9,10 +9,10 @@ data class FooterScreenState(
     val currentPageNum: Int = 1,
     val maxResultsPerPage: Int = 10,
     val totalPages: Int = 1,
-    val totalLogs: Int = 1,
+    val totalLogs: Int = 0,
     val numFirstLogOnCurrPage: Int = 1,
     val numLastLogOnCurrPage: Int = 1,
-    val canGoToNextPage: Boolean = true,
-    val canGoToPreviousPage: Boolean = true,
+    val canGoToNextPage: Boolean = false,
+    val canGoToPreviousPage: Boolean = false,
     val selectedSession: Session? = null,
 ) : Parcelable
