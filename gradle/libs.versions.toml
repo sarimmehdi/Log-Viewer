@@ -28,6 +28,7 @@ pagingComposeVersion = "3.4.0-alpha04"
 googleFontsVersion = "1.9.4"
 coroutinesTestVersion = "1.10.2"
 mockkVersion = "1.14.6"
+kotestVersion = "6.0.0.M17"
 conventionPluginAndroidApplicationName = "androidApplicationPlugin"
 conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
 conventionPluginDiLibraryName = "diLibraryPlugin"
@@ -81,6 +82,7 @@ archUnitJUnit4Library = { group = "com.tngtech.archunit", name = "archunit-junit
 coroutinesTestLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTestVersion" }
 mockkAndroidLibrary = { group = "io.mockk", name = "mockk-android", version.ref = "mockkVersion" }
 mockkAgentLibrary = { group = "io.mockk", name = "mockk-agent", version.ref = "mockkVersion" }
+kotestPropertyLibrary = { group = "io.kotest", name = "kotest-property", version.ref = "kotestVersion" }
 truthLibrary = { group = "com.google.truth", name = "truth", version.ref = "truthVersion" }
 turbineLibrary = { group = "app.cash.turbine", name = "turbine", version.ref = "turbineVersion" }
 roboelectricLibrary = { group = "org.robolectric", name = "robolectric", version.ref = "roboelectricVersion" }
@@ -139,6 +141,7 @@ testBundle = [
     "turbineLibrary",
     "roboelectricLibrary",
     "androidxComposeJunit4Library",
+    "kotestPropertyLibrary",
 ]
 
 [plugins]

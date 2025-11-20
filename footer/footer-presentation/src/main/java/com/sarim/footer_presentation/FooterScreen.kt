@@ -11,14 +11,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.sarim.footer_domain.usecase.ChangeType
+import com.sarim.footer_presentation.FooterScreenTags.nextSingleArrowButtonTestTag
+import com.sarim.footer_presentation.FooterScreenTags.nextDoubleArrowButtonTestTag
+import com.sarim.footer_presentation.FooterScreenTags.prevSingleArrowButtonTestTag
+import com.sarim.footer_presentation.FooterScreenTags.prevDoubleArrowButtonTestTag
 import com.sarim.footer_presentation.component.CircleWithImageComponent
 import com.sarim.footer_presentation.component.CircleWithImageComponentData
 import com.sarim.footer_presentation.component.CurrentPageNumberComponent
 import com.sarim.footer_presentation.component.CurrentPageNumberComponentData
+
+const val CLICKABLE_ALPHA = 1.0f
+const val UNCLICKABLE_ALPHA = 0.8f
 
 @Composable
 fun FooterScreen(
@@ -47,25 +55,33 @@ fun FooterScreen(
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            val canGoToPreviousPageAlpha =
+                if (data.canGoToPreviousPage) {
+                    CLICKABLE_ALPHA
+                } else {
+                    UNCLICKABLE_ALPHA
+                }
+            val canGoToNextPageAlpha =
+                if (data.canGoToNextPage) {
+                    CLICKABLE_ALPHA
+                } else {
+                    UNCLICKABLE_ALPHA
+                }
             CircleWithImageComponent(
                 data =
                     CircleWithImageComponentData(
                         imageResource = R.drawable.double_arrows,
                         imageResourceDescription = stringResource(R.string.jump_to_first_page_icon_desc),
                         imageRotation = 180.0f,
-                        alpha =
-                            if (data.canGoToPreviousPage) {
-                                1.0f
-                            } else {
-                                0.8f
-                            },
+                        alpha = canGoToPreviousPageAlpha,
                     ),
                 modifier =
-                    Modifier.clickable {
-                        onEvent(
-                            FooterScreenToViewModelEvents.ChangeCurrentPageNumber(1),
-                        )
-                    },
+                    Modifier
+                        .clickable {
+                            onEvent(
+                                FooterScreenToViewModelEvents.ChangeCurrentPageNumber(1),
+                            )
+                        }.testTag(prevDoubleArrowButtonTestTag(canGoToPreviousPageAlpha)),
             )
             Spacer(
                 modifier =
@@ -78,19 +94,17 @@ fun FooterScreen(
                         imageResource = R.drawable.single_arrow,
                         imageResourceDescription = stringResource(R.string.jump_to_previous_page_icon_desc),
                         imageRotation = 180.0f,
-                        alpha =
-                            if (data.canGoToPreviousPage) {
-                                1.0f
-                            } else {
-                                0.8f
-                            },
+                        alpha = canGoToPreviousPageAlpha,
                     ),
                 modifier =
-                    Modifier.clickable {
-                        onEvent(
-                            FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(ChangeType.DECREASE),
-                        )
-                    },
+                    Modifier
+                        .clickable {
+                            onEvent(
+                                FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(
+                                    ChangeType.DECREASE,
+                                ),
+                            )
+                        }.testTag(prevSingleArrowButtonTestTag(canGoToPreviousPageAlpha)),
             )
             Spacer(
                 modifier =
@@ -119,19 +133,15 @@ fun FooterScreen(
                         imageResource = R.drawable.single_arrow,
                         imageResourceDescription = stringResource(R.string.jump_to_next_page_icon_desc),
                         imageRotation = 0.0f,
-                        alpha =
-                            if (data.canGoToNextPage) {
-                                1.0f
-                            } else {
-                                0.8f
-                            },
+                        alpha = canGoToNextPageAlpha,
                     ),
                 modifier =
-                    Modifier.clickable {
-                        onEvent(
-                            FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(ChangeType.INCREASE),
-                        )
-                    },
+                    Modifier
+                        .clickable {
+                            onEvent(
+                                FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(ChangeType.INCREASE),
+                            )
+                        }.testTag(nextSingleArrowButtonTestTag(canGoToNextPageAlpha)),
             )
             Spacer(
                 modifier =
@@ -144,19 +154,15 @@ fun FooterScreen(
                         imageResource = R.drawable.double_arrows,
                         imageResourceDescription = stringResource(R.string.jump_to_last_page_icon_desc),
                         imageRotation = 0.0f,
-                        alpha =
-                            if (data.canGoToNextPage) {
-                                1.0f
-                            } else {
-                                0.8f
-                            },
+                        alpha = canGoToNextPageAlpha,
                     ),
                 modifier =
-                    Modifier.clickable {
-                        onEvent(
-                            FooterScreenToViewModelEvents.ChangeCurrentPageNumber(data.totalPages),
-                        )
-                    },
+                    Modifier
+                        .clickable {
+                            onEvent(
+                                FooterScreenToViewModelEvents.ChangeCurrentPageNumber(data.totalPages),
+                            )
+                        }.testTag(nextDoubleArrowButtonTestTag(canGoToNextPageAlpha)),
             )
         }
     }
@@ -171,3 +177,16 @@ data class FooterScreenData(
     val canGoToNextPage: Boolean,
     val canGoToPreviousPage: Boolean,
 )
+
+object FooterScreenTags {
+    private const val P = "FOOTER_SCREEN"
+    private const val S = "_TEST_TAG"
+
+    fun nextSingleArrowButtonTestTag(alpha: Float) = "${P}NEXT_SINGLE_ARROW_$alpha$S"
+
+    fun nextDoubleArrowButtonTestTag(alpha: Float) = "${P}NEXT_DOUBLE_ARROWS_$alpha$S"
+
+    fun prevSingleArrowButtonTestTag(alpha: Float) = "${P}PREV_SINGLE_ARROW_$alpha$S"
+
+    fun prevDoubleArrowButtonTestTag(alpha: Float) = "${P}PREV_DOUBLE_ARROW_$alpha$S"
+}
