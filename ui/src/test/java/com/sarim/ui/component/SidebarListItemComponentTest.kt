@@ -1,8 +1,5 @@
 package com.sarim.ui.component
 
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -13,7 +10,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class SidebarListItemComponentTest {
+internal class SidebarListItemComponentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -30,7 +27,6 @@ class SidebarListItemComponentTest {
             SidebarListItemComponent(
                 data = data,
                 onClick = {},
-                modifier = Modifier.semantics { testTagsAsResourceId = true },
             )
         }
 
@@ -60,7 +56,6 @@ class SidebarListItemComponentTest {
             SidebarListItemComponent(
                 data = data,
                 onClick = {},
-                modifier = Modifier.semantics { testTagsAsResourceId = true },
             )
         }
 

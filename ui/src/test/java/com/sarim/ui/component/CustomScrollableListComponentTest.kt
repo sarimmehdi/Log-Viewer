@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.getBoundsInRoot
@@ -27,7 +25,7 @@ import org.robolectric.RobolectricTestRunner
 import kotlin.collections.forEach
 
 @RunWith(RobolectricTestRunner::class)
-class CustomScrollableListComponentTest {
+internal class CustomScrollableListComponentTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -59,7 +57,6 @@ class CustomScrollableListComponentTest {
                             )
                         }
                     },
-                modifier = Modifier.semantics { testTagsAsResourceId = true },
             )
         }
 

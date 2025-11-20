@@ -22,10 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.ui.component.SearchboxComponentTags.TEXT_FIELD
+import com.sarim.ui.component.SearchboxComponentTags.iconTestTag
 import com.sarim.utils.R
 
 @Composable
@@ -45,7 +48,8 @@ fun SearchboxComponent(
             modifier
                 .width(337.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(data.backgroundColor),
+                .background(data.backgroundColor)
+                .testTag(TEXT_FIELD),
         placeholder = {
             Text(
                 text = data.placeholderText,
@@ -74,6 +78,7 @@ fun SearchboxComponent(
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = data.iconDescription,
+                    modifier = Modifier.testTag(iconTestTag(icon)),
                 )
             }
         },
@@ -95,3 +100,11 @@ data class SearchboxComponentData(
     val backgroundColor: Color,
     val onValueChange: (String) -> Unit,
 )
+
+object SearchboxComponentTags {
+    private const val P = "SEARCH_BOX_COMPONENT_"
+    private const val S = "_TEST_TAG"
+    const val TEXT_FIELD = "${P}TEXT_FIELD$S"
+
+    fun iconTestTag(resId: Int) = "${P}ICON$resId$S"
+}
