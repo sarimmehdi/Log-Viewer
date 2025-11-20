@@ -13,7 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.sarim.header_presentation.component.CustomRadioButtonComponentTags.DATA_ON
+import com.sarim.header_presentation.component.CustomRadioButtonComponentTags.DATA_OFF
 
 const val RADIO_BUTTON_ON_COLOR = 0xFF03111B
 const val RADIO_BUTTON_ON_BORDER_COLOR = 0xFF004AD3
@@ -58,7 +61,7 @@ fun CustomRadioButtonComponent(
                         .background(
                             color = Color(RADIO_BUTTON_ON_COLOR),
                             shape = RoundedCornerShape(percent = 50),
-                        ),
+                        ).testTag(DATA_ON),
             )
         } else {
             Box(
@@ -70,7 +73,7 @@ fun CustomRadioButtonComponent(
                         .background(
                             color = Color(RADIO_BUTTON_OFF_COLOR),
                             shape = RoundedCornerShape(percent = 50),
-                        ),
+                        ).testTag(DATA_OFF),
             )
         }
     }
@@ -79,3 +82,10 @@ fun CustomRadioButtonComponent(
 data class CustomRadioButtonComponentData(
     val on: Boolean,
 )
+
+object CustomRadioButtonComponentTags {
+    private const val P = "CUSTOM_RADIO_BUTTON_COMPONENT"
+    private const val S = "_TEST_TAG"
+    const val DATA_ON = "${P}DATA_ON$S"
+    const val DATA_OFF = "${P}DATA_OFF$S"
+}
