@@ -3,12 +3,14 @@ package com.sarim.maincontent_domain.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-enum class LogType {
-    ERROR,
-    DEBUG,
-    INFO,
-    WARN,
-    CRITICAL,
+enum class LogType(
+    val logTypeName: String,
+) {
+    ERROR("Error"),
+    DEBUG("Debug"),
+    INFO("Info"),
+    WARN("Warn"),
+    CRITICAL("Critical"),
 }
 
 @Parcelize

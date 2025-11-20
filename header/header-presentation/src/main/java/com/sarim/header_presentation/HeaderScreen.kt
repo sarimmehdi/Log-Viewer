@@ -14,14 +14,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sarim.header_presentation.HeaderScreenTags.dropDownTestTag
 import com.sarim.header_presentation.component.DropDownBoxListItemComponent
 import com.sarim.header_presentation.component.DropDownBoxListItemComponentData
 import com.sarim.header_presentation.component.DropDownButtonComponent
 import com.sarim.header_presentation.component.DropDownButtonComponentData
-import com.sarim.maincontent_domain.model.LogType
 import com.sarim.ui.component.CustomScrollableListComponent
 import com.sarim.ui.component.CustomScrollableListComponentData
 import com.sarim.ui.component.SearchboxComponent
@@ -191,12 +192,12 @@ fun HeaderScreen(
                             }
 
                             DropDownType.LOG_TYPE_DROP_DOWN -> {
-                                items(LogType.entries.size) { index ->
+                                items(data.logTypeFilters.size) { index ->
                                     val logTypeFilter = data.logTypeFilters[index]
                                     DropDownBoxListItemComponent(
                                         data =
                                             DropDownBoxListItemComponentData(
-                                                itemName = logTypeFilter.logType.name,
+                                                itemName = logTypeFilter.logType.logTypeName,
                                                 itemFilterOn = logTypeFilter.logTypeFilter,
                                             ),
                                     )
@@ -228,7 +229,8 @@ fun HeaderScreen(
                             1.dp,
                             Color(DROP_DOWN_BUTTON_COLOR),
                             RoundedCornerShape(13.5.dp),
-                        ).widthIn(max = 500.dp),
+                        ).widthIn(max = 500.dp)
+                        .testTag(dropDownTestTag(data.dropDownType)),
             )
         }
     }
@@ -240,3 +242,10 @@ data class HeaderScreenData(
     val functionFilters: ImmutableList<FunctionFilter>,
     val logTypeFilters: ImmutableList<LogTypeFilter>,
 )
+
+object HeaderScreenTags {
+    const val P = "HEADER_SCREEN"
+    const val S = "_TEST_TAG"
+
+    fun dropDownTestTag(dropDownType: DropDownType) = "${P}DROP_DOWN_${dropDownType.name}$S"
+}
