@@ -31,9 +31,7 @@ fun MainContentListItemComponent(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier =
-            modifier
-                .height(61.dp),
+        modifier = modifier.height(61.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
@@ -51,9 +49,7 @@ fun MainContentListItemComponent(
             overflow = TextOverflow.Ellipsis,
         )
         VerticalDividerComponent(
-            modifier =
-                Modifier
-                    .height(61.dp),
+            modifier = Modifier.height(61.dp),
         )
         Text(
             modifier =
@@ -70,9 +66,7 @@ fun MainContentListItemComponent(
             overflow = TextOverflow.Ellipsis,
         )
         VerticalDividerComponent(
-            modifier =
-                Modifier
-                    .height(61.dp),
+            modifier = Modifier.height(61.dp),
         )
         Text(
             modifier =
@@ -89,9 +83,7 @@ fun MainContentListItemComponent(
             overflow = TextOverflow.Ellipsis,
         )
         VerticalDividerComponent(
-            modifier =
-                Modifier
-                    .height(61.dp),
+            modifier = Modifier.height(61.dp),
         )
         Text(
             modifier =
@@ -108,9 +100,7 @@ fun MainContentListItemComponent(
             overflow = TextOverflow.Ellipsis,
         )
         VerticalDividerComponent(
-            modifier =
-                Modifier
-                    .height(61.dp),
+            modifier = Modifier.height(61.dp),
         )
         when (data.level) {
             is Level.Text -> {
@@ -128,6 +118,7 @@ fun MainContentListItemComponent(
                     color = Color.White.copy(alpha = 0.7f),
                 )
             }
+
             is Level.Content -> {
                 data.level.composable()
             }
@@ -165,6 +156,7 @@ sealed class Level {
                                 )
                             },
                         )
+
                     LogType.DEBUG ->
                         Content(
                             composable = {
@@ -183,6 +175,7 @@ sealed class Level {
                                 )
                             },
                         )
+
                     LogType.INFO ->
                         Content(
                             composable = {
@@ -201,6 +194,7 @@ sealed class Level {
                                 )
                             },
                         )
+
                     LogType.WARN ->
                         Content(
                             composable = {
@@ -219,6 +213,7 @@ sealed class Level {
                                 )
                             },
                         )
+
                     LogType.CRITICAL ->
                         Content(
                             composable = {
