@@ -6,7 +6,7 @@ import com.sarim.maincontent_data.model.LogMessageDto
 import com.sarim.maincontent_data.model.LogMessageDtoDao
 import com.sarim.maincontent_data.model.createLogMessage
 import com.sarim.maincontent_domain.model.LogMessage
-import com.sarim.maincontent_domain.model.LogType
+import com.sarim.maincontent_domain.model.LogMessage.LogType
 import com.sarim.maincontent_domain.repository.LogMessageRepository
 import com.sarim.sidebar_sessions_data.model.SessionDto
 import com.sarim.sidebar_sessions_data.model.SessionDtoDao

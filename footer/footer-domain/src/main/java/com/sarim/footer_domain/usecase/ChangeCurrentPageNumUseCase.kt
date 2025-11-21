@@ -1,11 +1,11 @@
 package com.sarim.footer_domain.usecase
 
-enum class ChangeType {
-    INCREASE,
-    DECREASE,
-}
-
 class ChangeCurrentPageNumUseCase {
+    enum class ChangeType {
+        INCREASE,
+        DECREASE,
+    }
+
     operator fun invoke(
         changeType: ChangeType,
         currPageNum: Int,

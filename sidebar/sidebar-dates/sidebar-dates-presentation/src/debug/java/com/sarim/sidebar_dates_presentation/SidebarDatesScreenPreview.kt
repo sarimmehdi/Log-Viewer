@@ -12,7 +12,7 @@ import kotlinx.collections.immutable.toImmutableList
 @Preview(
     device = PIXEL_TABLET,
 )
-private fun SidebarDatesScreenPreview(
+internal fun SidebarDatesScreenPreview(
     @PreviewParameter(SidebarDatesScreenDataParameterProvider::class) data: SidebarDatesScreenData,
 ) {
     SidebarDatesScreen(
@@ -23,7 +23,7 @@ private fun SidebarDatesScreenPreview(
 
 private const val LIST_ITEM_COUNT = 10
 
-private class SidebarDatesScreenDataParameterProvider : PreviewParameterProvider<SidebarDatesScreenData> {
+internal class SidebarDatesScreenDataParameterProvider : PreviewParameterProvider<SidebarDatesScreenData> {
     override val values =
         sequenceOf(
             SidebarDatesScreenData(

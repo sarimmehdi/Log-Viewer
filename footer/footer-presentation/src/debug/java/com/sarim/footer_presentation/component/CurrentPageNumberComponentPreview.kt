@@ -19,7 +19,7 @@ internal fun CurrentPageNumberComponentPreview(
     )
 }
 
-class CurrentPageNumberComponentDataParameterProvider : PreviewParameterProvider<CurrentPageNumberComponentData> {
+internal class CurrentPageNumberComponentDataParameterProvider : PreviewParameterProvider<CurrentPageNumberComponentData> {
     override val values =
         sequenceOf(
             CurrentPageNumberComponentData(

@@ -10,12 +10,13 @@ import androidx.compose.ui.test.onNodeWithTag
 import com.sarim.header_presentation.HeaderScreenTags.P
 import com.sarim.header_presentation.HeaderScreenTags.S
 import com.sarim.header_presentation.HeaderScreenTags.dropDownTestTag
-import com.sarim.maincontent_domain.model.LogType
+import com.sarim.maincontent_domain.model.LogMessage.LogType
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import com.sarim.header_presentation.HeaderScreenState.DropDownType
 
 @RunWith(RobolectricTestRunner::class)
 internal class HeaderScreenTest {
@@ -26,8 +27,8 @@ internal class HeaderScreenTest {
     fun `class drop down shows test tag`() {
         val classFilters =
             persistentListOf(
-                ClassFilter("Class A", true),
-                ClassFilter("Class B", false),
+                HeaderScreenState.ClassFilter("Class A", true),
+                HeaderScreenState.ClassFilter("Class B", false),
             )
 
         val data =
@@ -54,8 +55,8 @@ internal class HeaderScreenTest {
     fun `function drop down shows test tag`() {
         val functionFilters =
             persistentListOf(
-                FunctionFilter("Function X", true),
-                FunctionFilter("Function Y", false),
+                HeaderScreenState.FunctionFilter("Function X", true),
+                HeaderScreenState.FunctionFilter("Function Y", false),
             )
 
         val data =
@@ -82,8 +83,8 @@ internal class HeaderScreenTest {
     fun `log type drop down shows test tag`() {
         val logTypeFilters =
             persistentListOf(
-                LogTypeFilter(LogType.ERROR, true),
-                LogTypeFilter(LogType.INFO, false),
+                HeaderScreenState.LogTypeFilter(LogType.ERROR, true),
+                HeaderScreenState.LogTypeFilter(LogType.INFO, false),
             )
 
         val data =

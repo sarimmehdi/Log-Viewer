@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.sarim.maincontent_domain.model.LogType
+import com.sarim.maincontent_domain.model.LogMessage.LogType
 import com.sarim.maincontent_presentation.R
 import com.sarim.ui.component.VerticalDividerComponent
 import com.sarim.ui.theme.bodyFontFamily
@@ -103,7 +103,7 @@ fun MainContentListItemComponent(
             modifier = Modifier.height(61.dp),
         )
         when (data.level) {
-            is Level.Text -> {
+            is MainContentListItemComponentData.Level.Text -> {
                 Text(
                     modifier =
                         Modifier
@@ -119,138 +119,11 @@ fun MainContentListItemComponent(
                 )
             }
 
-            is Level.Content -> {
+            is MainContentListItemComponentData.Level.Content -> {
                 data.level.composable()
             }
         }
     }
-}
-
-sealed class Level {
-    data class Text(
-        val value: String = "",
-    ) : Level()
-
-    data class Content(
-        val composable: @Composable () -> Unit = {},
-    ) : Level() {
-        companion object {
-            @Suppress("LongMethod")
-            fun fromLogType(logType: LogType) =
-                when (logType) {
-                    LogType.ERROR ->
-                        Content(
-                            composable = {
-                                LevelComponent(
-                                    data =
-                                        LevelComponentData(
-                                            name = stringResource(R.string.error),
-                                            color = Color(ERROR_COLOR),
-                                        ),
-                                    modifier =
-                                        Modifier
-                                            .padding(
-                                                start = 57.dp,
-                                                end = 73.dp,
-                                            ),
-                                )
-                            },
-                        )
-
-                    LogType.DEBUG ->
-                        Content(
-                            composable = {
-                                LevelComponent(
-                                    data =
-                                        LevelComponentData(
-                                            name = stringResource(R.string.debug),
-                                            color = Color(DEBUG_COLOR),
-                                        ),
-                                    modifier =
-                                        Modifier
-                                            .padding(
-                                                start = 57.dp,
-                                                end = 73.dp,
-                                            ),
-                                )
-                            },
-                        )
-
-                    LogType.INFO ->
-                        Content(
-                            composable = {
-                                LevelComponent(
-                                    data =
-                                        LevelComponentData(
-                                            name = stringResource(R.string.info),
-                                            color = Color(INFO_COLOR),
-                                        ),
-                                    modifier =
-                                        Modifier
-                                            .padding(
-                                                start = 57.dp,
-                                                end = 73.dp,
-                                            ),
-                                )
-                            },
-                        )
-
-                    LogType.WARN ->
-                        Content(
-                            composable = {
-                                LevelComponent(
-                                    data =
-                                        LevelComponentData(
-                                            name = stringResource(R.string.warn),
-                                            color = Color(WARN_COLOR),
-                                        ),
-                                    modifier =
-                                        Modifier
-                                            .padding(
-                                                start = 57.dp,
-                                                end = 73.dp,
-                                            ),
-                                )
-                            },
-                        )
-
-                    LogType.CRITICAL ->
-                        Content(
-                            composable = {
-                                LevelComponent(
-                                    data =
-                                        LevelComponentData(
-                                            name = stringResource(R.string.critical),
-                                            color = Color(CRITICAL_COLOR),
-                                        ),
-                                    modifier =
-                                        Modifier
-                                            .padding(
-                                                start = 50.dp,
-                                                end = 65.dp,
-                                            ),
-                                )
-                            },
-                        )
-                }
-        }
-    }
-}
-
-sealed class Line {
-    class Text(
-        val value: String = "",
-    ) : Line()
-
-    class Integer(
-        val value: Int = 9999,
-    ) : Line()
-
-    override fun toString(): String =
-        when (this) {
-            is Text -> value
-            is Integer -> value.toString()
-        }
 }
 
 data class MainContentListItemComponentData(
@@ -261,4 +134,131 @@ data class MainContentListItemComponentData(
     val level: Level,
     val textSize: TextUnit,
     val fontWeight: FontWeight,
-)
+) {
+    sealed class Line {
+        class Text(
+            val value: String = "",
+        ) : Line()
+
+        class Integer(
+            val value: Int = 9999,
+        ) : Line()
+
+        override fun toString(): String =
+            when (this) {
+                is Text -> value
+                is Integer -> value.toString()
+            }
+    }
+
+    sealed class Level {
+        data class Text(
+            val value: String = "",
+        ) : Level()
+
+        data class Content(
+            val composable: @Composable () -> Unit = {},
+        ) : Level() {
+            companion object {
+                @Suppress("LongMethod")
+                fun fromLogType(logType: LogType) =
+                    when (logType) {
+                        LogType.ERROR ->
+                            Content(
+                                composable = {
+                                    LevelComponent(
+                                        data =
+                                            LevelComponentData(
+                                                name = stringResource(R.string.error),
+                                                color = Color(ERROR_COLOR),
+                                            ),
+                                        modifier =
+                                            Modifier
+                                                .padding(
+                                                    start = 57.dp,
+                                                    end = 73.dp,
+                                                ),
+                                    )
+                                },
+                            )
+
+                        LogType.DEBUG ->
+                            Content(
+                                composable = {
+                                    LevelComponent(
+                                        data =
+                                            LevelComponentData(
+                                                name = stringResource(R.string.debug),
+                                                color = Color(DEBUG_COLOR),
+                                            ),
+                                        modifier =
+                                            Modifier
+                                                .padding(
+                                                    start = 57.dp,
+                                                    end = 73.dp,
+                                                ),
+                                    )
+                                },
+                            )
+
+                        LogType.INFO ->
+                            Content(
+                                composable = {
+                                    LevelComponent(
+                                        data =
+                                            LevelComponentData(
+                                                name = stringResource(R.string.info),
+                                                color = Color(INFO_COLOR),
+                                            ),
+                                        modifier =
+                                            Modifier
+                                                .padding(
+                                                    start = 57.dp,
+                                                    end = 73.dp,
+                                                ),
+                                    )
+                                },
+                            )
+
+                        LogType.WARN ->
+                            Content(
+                                composable = {
+                                    LevelComponent(
+                                        data =
+                                            LevelComponentData(
+                                                name = stringResource(R.string.warn),
+                                                color = Color(WARN_COLOR),
+                                            ),
+                                        modifier =
+                                            Modifier
+                                                .padding(
+                                                    start = 57.dp,
+                                                    end = 73.dp,
+                                                ),
+                                    )
+                                },
+                            )
+
+                        LogType.CRITICAL ->
+                            Content(
+                                composable = {
+                                    LevelComponent(
+                                        data =
+                                            LevelComponentData(
+                                                name = stringResource(R.string.critical),
+                                                color = Color(CRITICAL_COLOR),
+                                            ),
+                                        modifier =
+                                            Modifier
+                                                .padding(
+                                                    start = 50.dp,
+                                                    end = 65.dp,
+                                                ),
+                                    )
+                                },
+                            )
+                    }
+            }
+        }
+    }
+}

@@ -14,18 +14,12 @@ internal object CreateRoboelectricTestTask {
             group = TASK_GROUP
 
             val androidUnitTestTaskName = "testDebugUnitTest"
+            val testTask = project.tasks.findByName(androidUnitTestTaskName) as? Test
+            val dirs = testTask?.testClassesDirs?.files.orEmpty()
+            if (dirs.isEmpty()) return@register
 
-            testClassesDirs =
-                project.files({
-                    val testTask = project.tasks.findByName(androidUnitTestTaskName) as? Test
-                    testTask?.testClassesDirs ?: project.files()
-                })
-
-            classpath =
-                project.files({
-                    val testTask = project.tasks.findByName(androidUnitTestTaskName) as? Test
-                    testTask?.classpath ?: project.files()
-                })
+            testClassesDirs = project.files(dirs)
+            classpath = project.files(testTask?.classpath ?: project.files())
 
             systemProperty("robolectric.logging", "stdout")
 
@@ -42,3 +36,4 @@ internal object CreateRoboelectricTestTask {
         }
     }
 }
+

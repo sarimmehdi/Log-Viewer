@@ -31,8 +31,8 @@ class MainContentListItemComponentTest {
                 message = "Message",
                 className = "Class",
                 functionName = "Function",
-                lineNumber = Line.Text(value = "Line"),
-                level = Level.Text(value = "Level"),
+                lineNumber = MainContentListItemComponentData.Line.Text(value = "Line"),
+                level = MainContentListItemComponentData.Level.Text(value = "Level"),
                 textSize = 16.sp,
                 fontWeight = FontWeight.Normal,
             )
@@ -58,7 +58,7 @@ class MainContentListItemComponentTest {
         }
 
         val content =
-            Level.Content(
+            MainContentListItemComponentData.Level.Content(
                 composable = { FakeComposable() },
             )
 
@@ -67,7 +67,7 @@ class MainContentListItemComponentTest {
                 message = "msg",
                 className = "cls",
                 functionName = "fn",
-                lineNumber = Line.Integer(10),
+                lineNumber = MainContentListItemComponentData.Line.Integer(10),
                 level = content,
                 textSize = 14.sp,
                 fontWeight = FontWeight.Normal,

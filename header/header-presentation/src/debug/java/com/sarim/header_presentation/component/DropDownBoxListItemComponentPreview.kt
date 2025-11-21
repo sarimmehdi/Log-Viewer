@@ -24,7 +24,7 @@ internal fun DropDownBoxListItemComponentPreview(
     )
 }
 
-class DropDownBoxListItemComponentDataParameterProvider : PreviewParameterProvider<DropDownBoxListItemComponentData> {
+internal class DropDownBoxListItemComponentDataParameterProvider : PreviewParameterProvider<DropDownBoxListItemComponentData> {
     override val values =
         sequenceOf(
             DropDownBoxListItemComponentData(

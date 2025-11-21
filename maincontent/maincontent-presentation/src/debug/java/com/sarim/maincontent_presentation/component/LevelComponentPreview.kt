@@ -19,7 +19,7 @@ internal fun LevelComponentPreview(
     )
 }
 
-class LevelComponentDataParameterProvider : PreviewParameterProvider<LevelComponentData> {
+internal class LevelComponentDataParameterProvider : PreviewParameterProvider<LevelComponentData> {
     override val values =
         sequenceOf(
             LevelComponentData(

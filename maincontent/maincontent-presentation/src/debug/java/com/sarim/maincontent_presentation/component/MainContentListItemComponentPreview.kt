@@ -7,8 +7,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.sp
-import com.sarim.maincontent_domain.model.LogType
-import com.sarim.maincontent_presentation.component.Level.Content.Companion.fromLogType
+import com.sarim.maincontent_domain.model.LogMessage.LogType
+import com.sarim.maincontent_presentation.component.MainContentListItemComponentData.Level.Content.Companion.fromLogType
+import com.sarim.maincontent_presentation.component.MainContentListItemComponentData.Level
 
 @Composable
 @Preview(
@@ -22,14 +23,14 @@ internal fun MainContentListItemComponentPreview(
     )
 }
 
-class MainContentListItemComponentDataParameterProvider : PreviewParameterProvider<MainContentListItemComponentData> {
+internal class MainContentListItemComponentDataParameterProvider : PreviewParameterProvider<MainContentListItemComponentData> {
     override val values =
         sequenceOf(
             MainContentListItemComponentData(
                 message = "Message",
                 className = "Class",
                 functionName = "Function",
-                lineNumber = Line.Text(value = "Line"),
+                lineNumber = MainContentListItemComponentData.Line.Text(value = "Line"),
                 level = Level.Text(value = "Level"),
                 textSize = 16.sp,
                 fontWeight = FontWeight.Normal,
@@ -38,7 +39,7 @@ class MainContentListItemComponentDataParameterProvider : PreviewParameterProvid
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                lineNumber = Line.Integer(value = 9999),
+                lineNumber = MainContentListItemComponentData.Line.Integer(value = 9999),
                 level = fromLogType(LogType.ERROR),
                 textSize = 12.sp,
                 fontWeight = FontWeight.Bold,
@@ -47,7 +48,7 @@ class MainContentListItemComponentDataParameterProvider : PreviewParameterProvid
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                lineNumber = Line.Integer(value = 9999),
+                lineNumber = MainContentListItemComponentData.Line.Integer(value = 9999),
                 level = fromLogType(LogType.DEBUG),
                 textSize = 12.sp,
                 fontWeight = FontWeight.Bold,
@@ -56,7 +57,7 @@ class MainContentListItemComponentDataParameterProvider : PreviewParameterProvid
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                lineNumber = Line.Integer(value = 9999),
+                lineNumber = MainContentListItemComponentData.Line.Integer(value = 9999),
                 level = fromLogType(LogType.INFO),
                 textSize = 12.sp,
                 fontWeight = FontWeight.Bold,
@@ -65,7 +66,7 @@ class MainContentListItemComponentDataParameterProvider : PreviewParameterProvid
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                lineNumber = Line.Integer(value = 9999),
+                lineNumber = MainContentListItemComponentData.Line.Integer(value = 9999),
                 level = fromLogType(LogType.WARN),
                 textSize = 12.sp,
                 fontWeight = FontWeight.Bold,
@@ -74,7 +75,7 @@ class MainContentListItemComponentDataParameterProvider : PreviewParameterProvid
                 message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
                 functionName = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-                lineNumber = Line.Integer(value = 9999),
+                lineNumber = MainContentListItemComponentData.Line.Integer(value = 9999),
                 level = fromLogType(LogType.CRITICAL),
                 textSize = 12.sp,
                 fontWeight = FontWeight.Bold,

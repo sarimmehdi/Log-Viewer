@@ -22,6 +22,8 @@ internal class DomainArchTest : BaseArchTest() {
             .and()
             .resideOutsideOfPackage("..*domain.model..")
             .and(validClasses)
+            .and()
+            .areTopLevelClasses()
             .should()
             .haveSimpleNameEndingWith("Repository")
             .orShould()

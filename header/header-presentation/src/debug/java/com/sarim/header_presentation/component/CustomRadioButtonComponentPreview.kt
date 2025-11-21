@@ -18,7 +18,7 @@ internal fun CustomRadioButtonComponentPreview(
     )
 }
 
-class CustomRadioButtonComponentDataParameterProvider : PreviewParameterProvider<CustomRadioButtonComponentData> {
+internal class CustomRadioButtonComponentDataParameterProvider : PreviewParameterProvider<CustomRadioButtonComponentData> {
     override val values =
         sequenceOf(
             CustomRadioButtonComponentData(

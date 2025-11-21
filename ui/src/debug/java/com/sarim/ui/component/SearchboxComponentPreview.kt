@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 @Preview(
     device = PIXEL_TABLET,
 )
-private fun SearchboxComponentPreview(
+internal fun SearchboxComponentPreview(
     @PreviewParameter(SearchboxComponentDataParameterProvider::class) data: SearchboxComponentData,
 ) {
     SearchboxComponent(
@@ -21,7 +21,7 @@ private fun SearchboxComponentPreview(
 
 private const val BACKGROUND_COLOR = 0xFF01070B
 
-private class SearchboxComponentDataParameterProvider : PreviewParameterProvider<SearchboxComponentData> {
+internal class SearchboxComponentDataParameterProvider : PreviewParameterProvider<SearchboxComponentData> {
     override val values =
         sequenceOf(
             SearchboxComponentData(

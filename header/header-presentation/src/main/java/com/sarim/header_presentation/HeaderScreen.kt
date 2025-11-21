@@ -28,6 +28,7 @@ import com.sarim.ui.component.CustomScrollableListComponentData
 import com.sarim.ui.component.SearchboxComponent
 import com.sarim.ui.component.SearchboxComponentData
 import kotlinx.collections.immutable.ImmutableList
+import com.sarim.header_presentation.HeaderScreenState.DropDownType
 
 const val SEARCH_BOX_BACKGROUND_COLOR = 0xFF03111B
 const val DROP_DOWN_BUTTON_COLOR = 0xFF007AD3
@@ -238,9 +239,9 @@ fun HeaderScreen(
 
 data class HeaderScreenData(
     val dropDownType: DropDownType,
-    val classFilters: ImmutableList<ClassFilter>,
-    val functionFilters: ImmutableList<FunctionFilter>,
-    val logTypeFilters: ImmutableList<LogTypeFilter>,
+    val classFilters: ImmutableList<HeaderScreenState.ClassFilter>,
+    val functionFilters: ImmutableList<HeaderScreenState.FunctionFilter>,
+    val logTypeFilters: ImmutableList<HeaderScreenState.LogTypeFilter>,
 )
 
 object HeaderScreenTags {

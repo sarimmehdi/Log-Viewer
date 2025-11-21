@@ -48,7 +48,7 @@ fun createSession(sessionDto: SessionDto) =
 
 @Entity
 @Fts4(contentEntity = SessionDto::class)
-data class SessionDtoFts(
+internal data class SessionDtoFts(
     @ColumnInfo(name = "rowid")
     @PrimaryKey(autoGenerate = true) val sessionId: Int = 0,
     val sessionHeading: String,

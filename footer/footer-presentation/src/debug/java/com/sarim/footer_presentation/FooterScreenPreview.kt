@@ -19,7 +19,7 @@ internal fun FooterScreenPreview(
     )
 }
 
-class FooterComponentDataParameterProvider : PreviewParameterProvider<FooterScreenData> {
+internal class FooterComponentDataParameterProvider : PreviewParameterProvider<FooterScreenData> {
     override val values =
         sequenceOf(
             FooterScreenData(

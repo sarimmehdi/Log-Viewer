@@ -1,6 +1,6 @@
 package com.sarim.footer_presentation
 
-import com.sarim.footer_domain.usecase.ChangeType
+import com.sarim.footer_domain.usecase.ChangeCurrentPageNumUseCase
 
 sealed interface FooterScreenToViewModelEvents {
     data class ChangeCurrentPageNumber(
@@ -8,6 +8,6 @@ sealed interface FooterScreenToViewModelEvents {
     ) : FooterScreenToViewModelEvents
 
     data class ChangeCurrentPageNumberByOne(
-        val changeType: ChangeType,
+        val changeType: ChangeCurrentPageNumUseCase.ChangeType,
     ) : FooterScreenToViewModelEvents
 }

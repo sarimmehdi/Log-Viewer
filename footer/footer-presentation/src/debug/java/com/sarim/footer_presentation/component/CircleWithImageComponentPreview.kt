@@ -19,7 +19,7 @@ internal fun CircleWithImageComponentPreview(
     )
 }
 
-class CircleWithImageComponentDataParameterProvider : PreviewParameterProvider<CircleWithImageComponentData> {
+internal class CircleWithImageComponentDataParameterProvider : PreviewParameterProvider<CircleWithImageComponentData> {
     override val values =
         sequenceOf(
             CircleWithImageComponentData(

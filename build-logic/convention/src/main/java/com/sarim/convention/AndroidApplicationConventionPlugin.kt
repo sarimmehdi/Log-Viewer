@@ -77,6 +77,9 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                 "implementation"(platform(libs.koinBomLibrary))
                 "implementation"(libs.bundles.koinBundle)
                 "implementation"(libs.bundles.dataStorageBundle)
+                "testImplementation"(platform(libs.junitBomLibrary))
+                "testImplementation"(libs.bundles.testBundle)
+                "testRuntimeOnly"(libs.junitPlatformibrary)
             }
             afterEvaluate {
                 configureModuleDependencies(

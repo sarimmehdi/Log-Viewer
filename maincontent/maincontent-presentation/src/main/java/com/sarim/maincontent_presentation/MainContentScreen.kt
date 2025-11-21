@@ -14,9 +14,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sarim.maincontent_domain.model.LogMessage
-import com.sarim.maincontent_presentation.component.Level
-import com.sarim.maincontent_presentation.component.Level.Content.Companion.fromLogType
-import com.sarim.maincontent_presentation.component.Line
+import com.sarim.maincontent_presentation.component.MainContentListItemComponentData.Level
+import com.sarim.maincontent_presentation.component.MainContentListItemComponentData.Level.Content.Companion.fromLogType
+import com.sarim.maincontent_presentation.component.MainContentListItemComponentData.Line
 import com.sarim.maincontent_presentation.component.MainContentListItemComponent
 import com.sarim.maincontent_presentation.component.MainContentListItemComponentData
 import com.sarim.ui.component.CustomScrollableListComponent

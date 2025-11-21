@@ -94,6 +94,7 @@ pagingKtxLibrary = { group = "androidx.paging", name = "paging-runtime-ktx", ver
 pagingComposeLibrary = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingComposeVersion" }
 roomPagingLibrary = { group = "androidx.room", name = "room-paging", version.ref = "roomVersion" }
 googleFontsLibrary = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "googleFontsVersion" }
+kotlinReflectLibrary = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlinVersion" }
 
 [bundles]
 navBundle = [
@@ -142,6 +143,7 @@ testBundle = [
     "roboelectricLibrary",
     "androidxComposeJunit4Library",
     "kotestPropertyLibrary",
+    "kotlinReflectLibrary",
 ]
 
 [plugins]

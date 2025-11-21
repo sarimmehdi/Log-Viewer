@@ -14,7 +14,7 @@ import kotlinx.collections.immutable.toImmutableList
 @Preview(
     device = PIXEL_TABLET,
 )
-private fun SidebarSessionsScreenPreview(
+internal fun SidebarSessionsScreenPreview(
     @PreviewParameter(SidebarSessionsScreenDataParameterProvider::class) data: SidebarSessionsScreenData,
 ) {
     SidebarSessionsScreen(
@@ -25,7 +25,7 @@ private fun SidebarSessionsScreenPreview(
 
 private const val LIST_ITEM_COUNT = 10
 
-private class SidebarSessionsScreenDataParameterProvider : PreviewParameterProvider<SidebarSessionsScreenData> {
+internal class SidebarSessionsScreenDataParameterProvider : PreviewParameterProvider<SidebarSessionsScreenData> {
     override val values =
         sequenceOf(
             SidebarSessionsScreenData(

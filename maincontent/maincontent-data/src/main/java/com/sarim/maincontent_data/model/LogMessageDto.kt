@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.Fts4
 import androidx.room.PrimaryKey
 import com.sarim.maincontent_domain.model.LogMessage
-import com.sarim.maincontent_domain.model.LogType
+import com.sarim.maincontent_domain.model.LogMessage.LogType
 
 const val LOG_MESSAGE_DTO_ID_COLUMN_NAME = "logMessageId"
 
@@ -35,7 +35,7 @@ fun createLogMessage(logMessageDto: LogMessageDto) =
 
 @Entity
 @Fts4(contentEntity = LogMessageDto::class)
-data class LogMessageDtoFts(
+internal data class LogMessageDtoFts(
     @ColumnInfo(name = "rowid")
     @PrimaryKey(autoGenerate = true) val logMessageId: Int = 0,
     val message: String,

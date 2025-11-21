@@ -124,8 +124,7 @@ internal class DataArchTest : BaseArchTest() {
             .areTopLevelClasses()
             .and()
             .haveSimpleNameEndingWith("DtoFts")
-            .should()
-            .bePackagePrivate()
+            .should(beKotlinInternal)
             .check(importedClasses)
     }
 }

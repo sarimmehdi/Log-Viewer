@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.sarim.footer_domain.usecase.ChangeType
+import com.sarim.footer_domain.usecase.ChangeCurrentPageNumUseCase
 import com.sarim.footer_presentation.FooterScreenTags.nextSingleArrowButtonTestTag
 import com.sarim.footer_presentation.FooterScreenTags.nextDoubleArrowButtonTestTag
 import com.sarim.footer_presentation.FooterScreenTags.prevSingleArrowButtonTestTag
@@ -101,7 +101,7 @@ fun FooterScreen(
                         .clickable {
                             onEvent(
                                 FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(
-                                    ChangeType.DECREASE,
+                                    ChangeCurrentPageNumUseCase.ChangeType.DECREASE,
                                 ),
                             )
                         }.testTag(prevSingleArrowButtonTestTag(canGoToPreviousPageAlpha)),
@@ -139,7 +139,9 @@ fun FooterScreen(
                     Modifier
                         .clickable {
                             onEvent(
-                                FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(ChangeType.INCREASE),
+                                FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(
+                                    ChangeCurrentPageNumUseCase.ChangeType.INCREASE,
+                                ),
                             )
                         }.testTag(nextSingleArrowButtonTestTag(canGoToNextPageAlpha)),
             )

@@ -8,9 +8,10 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_TABLET
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.sarim.maincontent_domain.model.LogType
+import com.sarim.maincontent_domain.model.LogMessage.LogType
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
+import com.sarim.header_presentation.HeaderScreenState.DropDownType
 
 private const val HEADER_SCREEN_BACKGROUND_COLOR = 0xFF01070B
 
@@ -33,7 +34,7 @@ internal fun HeaderScreenPreview(
 private const val TOTAL_CLASSES = 10
 private const val TOTAL_FUNCTIONS = 10
 
-class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenData> {
+internal class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenData> {
     override val values =
         sequenceOf(
             HeaderScreenData(
@@ -46,7 +47,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                 dropDownType = DropDownType.CLASS_DROP_DOWN,
                 classFilters =
                     List(TOTAL_CLASSES) { i ->
-                        ClassFilter(
+                        HeaderScreenState.ClassFilter(
                             className =
                                 "MMMMMMMMMMMMMMMMMMMMMMM".dropLast(i),
                             classFilter = true,
@@ -54,7 +55,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                     }.toImmutableList(),
                 functionFilters =
                     List(TOTAL_FUNCTIONS) { i ->
-                        FunctionFilter(
+                        HeaderScreenState.FunctionFilter(
                             functionName = "MMMMMMMMMMMMMMMMMMMMMMM".dropLast(i),
                             functionFilter = true,
                         )
@@ -62,7 +63,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                 logTypeFilters =
                     LogType.entries
                         .map {
-                            LogTypeFilter(
+                            HeaderScreenState.LogTypeFilter(
                                 logType = it,
                                 logTypeFilter = true,
                             )
@@ -72,7 +73,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                 dropDownType = DropDownType.FUNCTION_DROP_DOWN,
                 classFilters =
                     List(TOTAL_CLASSES) { i ->
-                        ClassFilter(
+                        HeaderScreenState.ClassFilter(
                             className =
                                 "MMMMMMMMMMMMMMMMMMMMMMM".dropLast(i),
                             classFilter = true,
@@ -80,7 +81,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                     }.toImmutableList(),
                 functionFilters =
                     List(TOTAL_FUNCTIONS) { i ->
-                        FunctionFilter(
+                        HeaderScreenState.FunctionFilter(
                             functionName = "MMMMMMMMMMMMMMMMMMMMMMM".dropLast(i),
                             functionFilter = true,
                         )
@@ -88,7 +89,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                 logTypeFilters =
                     LogType.entries
                         .map {
-                            LogTypeFilter(
+                            HeaderScreenState.LogTypeFilter(
                                 logType = it,
                                 logTypeFilter = true,
                             )
@@ -98,7 +99,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                 dropDownType = DropDownType.LOG_TYPE_DROP_DOWN,
                 classFilters =
                     List(TOTAL_CLASSES) { i ->
-                        ClassFilter(
+                        HeaderScreenState.ClassFilter(
                             className =
                                 "MMMMMMMMMMMMMMMMMMMMMMM".dropLast(i),
                             classFilter = true,
@@ -106,7 +107,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                     }.toImmutableList(),
                 functionFilters =
                     List(TOTAL_FUNCTIONS) { i ->
-                        FunctionFilter(
+                        HeaderScreenState.FunctionFilter(
                             functionName = "MMMMMMMMMMMMMMMMMMMMMMM".dropLast(i),
                             functionFilter = true,
                         )
@@ -114,7 +115,7 @@ class HeaderScreenDataParameterProvider : PreviewParameterProvider<HeaderScreenD
                 logTypeFilters =
                     LogType.entries
                         .map {
-                            LogTypeFilter(
+                            HeaderScreenState.LogTypeFilter(
                                 logType = it,
                                 logTypeFilter = true,
                             )

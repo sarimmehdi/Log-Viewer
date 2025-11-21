@@ -18,7 +18,7 @@ private const val DROP_DOWN_BUTTON_COLOR = 0xFF007AD3
 
 @Preview(device = PIXEL_TABLET)
 @Composable
-fun DropDownButtonComponentPreview(
+internal fun DropDownButtonComponentPreview(
     @PreviewParameter(DropDownButtonPreviewParameterProvider::class) previewData: DropDownButtonPreviewData,
 ) {
     DropDownButtonComponent(
@@ -32,7 +32,7 @@ data class DropDownButtonPreviewData(
     val modifier: Modifier = Modifier,
 )
 
-class DropDownButtonPreviewParameterProvider : PreviewParameterProvider<DropDownButtonPreviewData> {
+internal class DropDownButtonPreviewParameterProvider : PreviewParameterProvider<DropDownButtonPreviewData> {
     override val values =
         sequenceOf(
             DropDownButtonPreviewData(

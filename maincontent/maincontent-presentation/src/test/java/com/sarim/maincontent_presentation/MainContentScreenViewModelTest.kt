@@ -4,13 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.sarim.footer_domain.model.Footer
-import com.sarim.footer_domain.usecase.ChangeType
+import com.sarim.footer_domain.usecase.ChangeCurrentPageNumUseCase
 import com.sarim.footer_presentation.FooterScreenToViewModelEvents
 import com.sarim.footer_presentation.FooterScreenUseCases
-import com.sarim.header_presentation.DropDownType
+import com.sarim.header_presentation.HeaderScreenState.DropDownType
 import com.sarim.header_presentation.HeaderScreenToViewModelEvents
 import com.sarim.maincontent_domain.model.LogMessage
-import com.sarim.maincontent_domain.model.LogType
+import com.sarim.maincontent_domain.model.LogMessage.LogType
 import com.sarim.sidebar_sessions_domain.model.Session
 import com.sarim.utils.test.TestDispatchers
 import com.sarim.utils.ui.MessageType
@@ -94,7 +94,7 @@ internal class MainContentScreenViewModelTest {
         coEvery { footerScreenUseCases.changeCurrentPageNumUseCase(any<Int>(), any()) } returns 1
         coEvery {
             footerScreenUseCases.changeCurrentPageNumUseCase(
-                any<ChangeType>(),
+                any<ChangeCurrentPageNumUseCase.ChangeType>(),
                 any(),
                 any(),
             )
@@ -466,7 +466,7 @@ internal class MainContentScreenViewModelTest {
         runTest(testDispatchers.testDispatcher) {
             coEvery {
                 footerScreenUseCases.changeCurrentPageNumUseCase(
-                    ChangeType.INCREASE,
+                    ChangeCurrentPageNumUseCase.ChangeType.INCREASE,
                     any(),
                     any(),
                 )
@@ -477,7 +477,7 @@ internal class MainContentScreenViewModelTest {
             viewModel.onEvent(
                 MainContentScreenToViewModelEvents.FooterEvent(
                     FooterScreenToViewModelEvents.ChangeCurrentPageNumberByOne(
-                        changeType = ChangeType.INCREASE,
+                        changeType = ChangeCurrentPageNumUseCase.ChangeType.INCREASE,
                     ),
                 ),
             )

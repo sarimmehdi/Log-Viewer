@@ -8,7 +8,7 @@ class ChangeCurrentPageNumUseCaseTest {
     private val useCase = ChangeCurrentPageNumUseCase()
 
     data class TestCase(
-        val changeType: ChangeType,
+        val changeType: ChangeCurrentPageNumUseCase.ChangeType,
         val curr: Int,
         val total: Int,
         val expected: Int,
@@ -25,10 +25,10 @@ class ChangeCurrentPageNumUseCaseTest {
         @JvmStatic
         fun changeTypeProvider() =
             listOf(
-                TestCase(ChangeType.INCREASE, 1, 5, 2),
-                TestCase(ChangeType.INCREASE, 5, 5, 5),
-                TestCase(ChangeType.DECREASE, 5, 5, 4),
-                TestCase(ChangeType.DECREASE, 1, 5, 1),
+                TestCase(ChangeCurrentPageNumUseCase.ChangeType.INCREASE, 1, 5, 2),
+                TestCase(ChangeCurrentPageNumUseCase.ChangeType.INCREASE, 5, 5, 5),
+                TestCase(ChangeCurrentPageNumUseCase.ChangeType.DECREASE, 5, 5, 4),
+                TestCase(ChangeCurrentPageNumUseCase.ChangeType.DECREASE, 1, 5, 1),
             )
     }
 }
