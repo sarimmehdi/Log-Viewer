@@ -33,6 +33,8 @@ sonar {
             "sonar.coverage.jacoco.xmlReportPaths",
             "${project.rootDir}/build/reports/jacoco/jacocoAggregatedReport/jacocoAggregatedReport.xml",
         )
+        property("sonar.projectKey", "muhammad-sarim-mehdi_log-viewer")
+        property("sonar.organization", "muhammad-sarim-mehdi")
     }
 }
 
