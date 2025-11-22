@@ -51,22 +51,10 @@ pipeline {
         }
 
         stage('Tests') {
-            parallel {
-                stage('Architecture Tests') {
-                    steps {
-                        sh './gradlew app:testDebugUnitTest --parallel --tests "*ArchTest"'
-                    }
-                }
-                stage('Debug Unit Tests') {
-                    steps {
-                        sh './gradlew testDebugUnitTest --parallel'
-                    }
-                }
-                stage('Robolectric Tests') {
-                    steps {
-                        sh './gradlew robolectricTest --parallel'
-                    }
-                }
+            steps {
+                sh './gradlew app:testDebugUnitTest'
+                sh './gradlew testDebugUnitTest'
+                sh './gradlew robolectricTest'
             }
         }
 
