@@ -17,6 +17,7 @@ internal fun Project.configureAndroidLibrary(
     extensions.configure<LibraryExtension> {
         this.namespace = config.baseNamespace + ".$namespace"
         compileSdk = config.compileSdk
+        buildToolsVersion = config.buildToolsVersion
 
         defaultConfig {
             minSdk = config.minSdk

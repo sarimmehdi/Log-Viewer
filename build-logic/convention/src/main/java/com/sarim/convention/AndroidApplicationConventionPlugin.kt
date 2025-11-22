@@ -36,6 +36,7 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
             extensions.configure<BaseAppModuleExtension> {
                 namespace = config.baseNamespace + ".logviewer"
                 compileSdk = config.compileSdk
+                buildToolsVersion = config.buildToolsVersion
 
                 defaultConfig {
                     applicationId = config.applicationId

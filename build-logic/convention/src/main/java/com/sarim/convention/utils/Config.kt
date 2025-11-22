@@ -7,6 +7,7 @@ internal data class Config(
     val baseNamespace: String = "com.sarim",
     val applicationId: String = "com.sarim.logviewer",
     val compileSdk: Int = 36,
+    val buildToolsVersion: String = "36.0.0",
     val minSdk: Int = 26,
     val targetSdk: Int = 36,
     val versionCode: Int = 1,
