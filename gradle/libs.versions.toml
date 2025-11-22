@@ -2,33 +2,35 @@
 agpVersion = "8.13.1"
 kotlinVersion = "2.2.21"
 coreKtxVersion = "1.17.0"
-lifecycleRuntimeKtxVersion = "2.9.4"
-activityComposeVersion = "1.11.0"
-composeBomVersion = "2025.11.00"
+lifecycleRuntimeKtxVersion = "2.10.0"
+activityComposeVersion = "1.12.0"
+composeBomVersion = "2025.11.01"
 kotlinXImmutableCollectionsVersion = "0.4.0"
 ktlintVersion = "14.0.1"
 koinBomVersion = "4.1.1"
 kotlinxSerializationVersion = "1.9.0"
-nav3CoreVersion = "1.0.0-rc01"
-lifecycleViewmodelNav3Version = "2.10.0-rc01"
+nav3CoreVersion = "1.0.0"
+lifecycleViewmodelNav3Version = "2.10.0"
 kotlinxSerializationCoreVersion = "1.9.0"
-material3AdaptiveNav3Version = "1.3.0-alpha03"
+material3AdaptiveNav3Version = "1.3.0-alpha04"
 detektVersion = "1.23.8"
 junitBomVersion = "6.0.1"
 truthVersion = "1.4.5"
 turbineVersion = "1.2.1"
 archUnitJUnit4Version = "1.4.1"
 roboelectricVersion = "4.16"
-preferencesDataStoreVersion = "1.1.7"
-roomVersion = "2.8.3"
+preferencesDataStoreVersion = "1.2.0"
+roomVersion = "2.8.4"
 kspVersion = "2.2.21-2.0.4"
 moduleGraphVersion = "0.13.0"
 pagingVersion = "3.3.6"
 pagingComposeVersion = "3.4.0-alpha04"
-googleFontsVersion = "1.9.4"
+googleFontsVersion = "1.9.5"
 coroutinesTestVersion = "1.10.2"
 mockkVersion = "1.14.6"
-kotestVersion = "6.0.0.M17"
+kotestVersion = "6.0.5"
+sonarVersion = "7.1.0.6387"
+jacocoVersion = "0.8.13"
 conventionPluginAndroidApplicationName = "androidApplicationPlugin"
 conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
 conventionPluginDiLibraryName = "diLibraryPlugin"
@@ -45,6 +47,8 @@ conventionPluginUtilsLibraryName = "utilsLibraryPlugin"
 conventionPluginUtilsLibraryClass = "com.sarim.convention.AndroidUtilsLibraryConventionPlugin"
 conventionPluginUiLibraryName = "uiLibraryPlugin"
 conventionPluginUiLibraryClass = "com.sarim.convention.AndroidUiLibraryConventionPlugin"
+conventionPluginJacocoName = "jacocoPlugin"
+conventionPluginJacocoClass = "com.sarim.convention.JacocoConventionPlugin"
 
 [libraries]
 kotlinXImmutableCollectionsLibrary = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinXImmutableCollectionsVersion" }
@@ -156,6 +160,7 @@ kotlinSerializationPlugin = { id = "org.jetbrains.kotlin.plugin.serialization", 
 kspPlugin = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 moduleGraphPlugin = { id = "dev.iurysouza.modulegraph", version.ref = "moduleGraphVersion" }
 detektPlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
+sonarPlugin = { id = "org.sonarqube", version.ref = "sonarVersion" }
 conventionPluginAndroidApplicationId = { id = "com.sarim.convention.android.application.plugin" }
 conventionPluginDiLibraryId = { id = "com.sarim.convention.android.di.library.plugin" }
 conventionPluginDataLibraryId = { id = "com.sarim.convention.android.data.library.plugin" }
@@ -164,3 +169,4 @@ conventionPluginPresentationLibraryId = { id = "com.sarim.convention.presentatio
 conventionPluginNavLibraryId = { id = "com.sarim.convention.nav.library.plugin" }
 conventionPluginUiLibraryId = { id = "com.sarim.convention.ui.library.plugin" }
 conventionPluginUtilsLibraryId = { id = "com.sarim.convention.utils.library.plugin" }
+conventionPluginJacocoId = { id = "com.sarim.convention.jacoco.plugin" }

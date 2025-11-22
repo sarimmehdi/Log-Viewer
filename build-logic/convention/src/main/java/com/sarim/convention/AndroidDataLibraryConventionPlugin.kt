@@ -34,6 +34,11 @@ internal class AndroidDataLibraryConventionPlugin : Plugin<Project> {
                     .get()
                     .pluginId,
             )
+            pluginManager.apply(
+                libs.plugins.conventionPluginJacocoId
+                    .get()
+                    .pluginId,
+            )
 
             val inferredNamespace = project.name.replace("-", "_")
             configureAndroidLibrary(

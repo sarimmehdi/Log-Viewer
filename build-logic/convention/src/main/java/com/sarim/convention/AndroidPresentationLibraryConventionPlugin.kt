@@ -34,6 +34,11 @@ internal class AndroidPresentationLibraryConventionPlugin : Plugin<Project> {
                     .get()
                     .pluginId,
             )
+            pluginManager.apply(
+                libs.plugins.conventionPluginJacocoId
+                    .get()
+                    .pluginId,
+            )
             pluginManager.apply("kotlin-parcelize")
 
             val inferredNamespace = project.name.replace("-", "_")

@@ -28,6 +28,11 @@ internal class AndroidUiLibraryConventionPlugin : Plugin<Project> {
                     .get()
                     .pluginId,
             )
+            pluginManager.apply(
+                libs.plugins.conventionPluginJacocoId
+                    .get()
+                    .pluginId,
+            )
             configureAndroidLibrary(
                 namespace = "ui",
                 useCompose = true,

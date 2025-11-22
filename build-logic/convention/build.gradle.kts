@@ -28,47 +28,37 @@ gradlePlugin {
             id = libs.plugins.conventionPluginAndroidApplicationId.get().pluginId
             implementationClass = libs.versions.conventionPluginAndroidApplicationClass.get()
         }
-    }
-    plugins {
         create(libs.versions.conventionPluginDiLibraryName.get()) {
             id = libs.plugins.conventionPluginDiLibraryId.get().pluginId
             implementationClass = libs.versions.conventionPluginDiLibraryClass.get()
         }
-    }
-    plugins {
         create(libs.versions.conventionPluginDataLibraryName.get()) {
             id = libs.plugins.conventionPluginDataLibraryId.get().pluginId
             implementationClass = libs.versions.conventionPluginDataLibraryClass.get()
         }
-    }
-    plugins {
         create(libs.versions.conventionPluginDomainLibraryName.get()) {
             id = libs.plugins.conventionPluginDomainLibraryId.get().pluginId
             implementationClass = libs.versions.conventionPluginDomainLibraryClass.get()
         }
-    }
-    plugins {
         create(libs.versions.conventionPluginPresentationLibraryName.get()) {
             id = libs.plugins.conventionPluginPresentationLibraryId.get().pluginId
             implementationClass = libs.versions.conventionPluginPresentationLibraryClass.get()
         }
-    }
-    plugins {
         create(libs.versions.conventionPluginNavLibraryName.get()) {
             id = libs.plugins.conventionPluginNavLibraryId.get().pluginId
             implementationClass = libs.versions.conventionPluginNavLibraryClass.get()
         }
-    }
-    plugins {
         create(libs.versions.conventionPluginUtilsLibraryName.get()) {
             id = libs.plugins.conventionPluginUtilsLibraryId.get().pluginId
             implementationClass = libs.versions.conventionPluginUtilsLibraryClass.get()
         }
-    }
-    plugins {
         create(libs.versions.conventionPluginUiLibraryName.get()) {
             id = libs.plugins.conventionPluginUiLibraryId.get().pluginId
             implementationClass = libs.versions.conventionPluginUiLibraryClass.get()
+        }
+        create(libs.versions.conventionPluginJacocoName.get()) {
+            id = libs.plugins.conventionPluginJacocoId.get().pluginId
+            implementationClass = libs.versions.conventionPluginJacocoClass.get()
         }
     }
 }

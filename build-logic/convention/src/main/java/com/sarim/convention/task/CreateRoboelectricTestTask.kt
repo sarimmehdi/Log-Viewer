@@ -2,6 +2,7 @@ package com.sarim.convention.task
 
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
+import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
 
 internal object CreateRoboelectricTestTask {
     const val TASK_NAME = "robolectricTest"
@@ -9,6 +10,7 @@ internal object CreateRoboelectricTestTask {
     const val TASK_GROUP = "verification"
 
     fun Project.create() {
+        pluginManager.apply("jacoco")
         tasks.register(TASK_NAME, Test::class.java) {
             description = TASK_DESCRIPTION
             group = TASK_GROUP
@@ -32,6 +34,10 @@ internal object CreateRoboelectricTestTask {
             testLogging {
                 events("started", "passed", "skipped", "failed")
                 showStandardStreams = true
+            }
+            extensions.configure(JacocoTaskExtension::class.java) {
+                isIncludeNoLocationClasses = true
+                excludes = listOf("jdk.internal.*")
             }
         }
     }

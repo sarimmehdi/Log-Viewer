@@ -1,6 +1,7 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
 
 plugins {
     alias(libs.plugins.androidApplicationPlugin) apply false
@@ -11,6 +12,28 @@ plugins {
     alias(libs.plugins.androidLibraryPlugin) apply false
     alias(libs.plugins.kspPlugin) apply false
     alias(libs.plugins.moduleGraphPlugin)
+    alias(libs.plugins.sonarPlugin)
+    alias(libs.plugins.conventionPluginJacocoId)
+}
+
+val excludedForCoverage = setOf("app", "utils", "nav")
+
+val nonCoverageModules =
+    subprojects
+        .filter { it.name in excludedForCoverage }
+        .map { it.name }
+
+val sonarExclusionString =
+    nonCoverageModules.joinToString(",") { moduleName -> "**/$moduleName/**" }
+
+sonar {
+    properties {
+        property("sonar.coverage.exclusions", sonarExclusionString)
+        property(
+            "sonar.coverage.jacoco.xmlReportPaths",
+            "${project.rootDir}/build/reports/jacoco/jacocoAggregatedReport/jacocoAggregatedReport.xml",
+        )
+    }
 }
 
 subprojects {
@@ -25,7 +48,7 @@ subprojects {
             .pluginId,
     )
 
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+    configure<KtlintExtension> {
         android = true
         ignoreFailures = false
         reporters {
