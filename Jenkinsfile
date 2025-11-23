@@ -101,7 +101,7 @@ pipeline {
         }
         failure {
             withCredentials([string(credentialsId: 'EMAIL_ADDRESS', variable: 'EMAIL')]) {
-                mail to: "${EMAIL}",
+                mail to: EMAIL,
                      subject: "❌ Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                      body: "See Jenkins for details: ${env.BUILD_URL}"
             }
