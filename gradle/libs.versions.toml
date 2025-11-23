@@ -31,6 +31,7 @@ mockkVersion = "1.14.6"
 kotestVersion = "6.0.5"
 sonarVersion = "7.1.0.6387"
 jacocoVersion = "0.8.13"
+kotzillaVersion = "1.4.0"
 conventionPluginAndroidApplicationName = "androidApplicationPlugin"
 conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
 conventionPluginDiLibraryName = "diLibraryPlugin"
@@ -99,6 +100,7 @@ pagingComposeLibrary = { group = "androidx.paging", name = "paging-compose", ver
 roomPagingLibrary = { group = "androidx.room", name = "room-paging", version.ref = "roomVersion" }
 googleFontsLibrary = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "googleFontsVersion" }
 kotlinReflectLibrary = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlinVersion" }
+kotzillaSdkComposeVersion = { group = "io.kotzilla", name = "kotzilla-sdk-compose", version.ref = "kotzillaVersion" }
 
 [bundles]
 navBundle = [
@@ -161,6 +163,7 @@ kspPlugin = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
 moduleGraphPlugin = { id = "dev.iurysouza.modulegraph", version.ref = "moduleGraphVersion" }
 detektPlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektVersion" }
 sonarPlugin = { id = "org.sonarqube", version.ref = "sonarVersion" }
+kotzillaPlugin = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzillaVersion" }
 conventionPluginAndroidApplicationId = { id = "com.sarim.convention.android.application.plugin" }
 conventionPluginDiLibraryId = { id = "com.sarim.convention.android.di.library.plugin" }
 conventionPluginDataLibraryId = { id = "com.sarim.convention.android.data.library.plugin" }

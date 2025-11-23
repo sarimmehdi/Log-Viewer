@@ -31,6 +31,11 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                     .get()
                     .pluginId,
             )
+            pluginManager.apply(
+                libs.plugins.kotzillaPlugin
+                    .get()
+                    .pluginId,
+            )
 
             val config = Config()
             extensions.configure<BaseAppModuleExtension> {
@@ -78,6 +83,7 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                 "implementation"(platform(libs.koinBomLibrary))
                 "implementation"(libs.bundles.koinBundle)
                 "implementation"(libs.bundles.dataStorageBundle)
+                "implementation"(libs.kotzillaSdkComposeVersion)
                 "testImplementation"(platform(libs.junitBomLibrary))
                 "testImplementation"(libs.bundles.testBundle)
                 "testRuntimeOnly"(libs.junitPlatformibrary)

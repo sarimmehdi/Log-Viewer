@@ -1,6 +1,7 @@
 package com.sarim.logviewer
 
 import android.app.Application
+import io.kotzilla.sdk.analytics.koin.analytics
 import com.sarim.sidebar_dates_di.module as sideBarDatesModule
 import com.sarim.sidebar_sessions_di.module as sideBarSessionsModule
 import com.sarim.maincontent_di.module as mainContentModule
@@ -24,5 +25,6 @@ internal class MainApplication :
                 mainContentModule(),
                 footerModule(),
             )
+            analytics()
         }
 }

@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.moduleGraphPlugin)
     alias(libs.plugins.sonarPlugin)
     alias(libs.plugins.conventionPluginJacocoId)
+    alias(libs.plugins.kotzillaPlugin) apply false
 }
 
 val excludedForCoverage = setOf("app", "utils", "nav")

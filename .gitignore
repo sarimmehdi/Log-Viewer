@@ -7,3 +7,4 @@
 local.properties
 /scripts/*
 !/scripts/*.sh
+kotzilla.json
