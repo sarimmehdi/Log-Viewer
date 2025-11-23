@@ -64,17 +64,15 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('SonarCloud Analysis') {
             steps {
-                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-                    withSonarQubeEnv('sonarqube') {
-                        sh './gradlew sonar -Dsonar.token=$SONAR_TOKEN'
-                    }
+                withSonarQubeEnv('sonarcloud') {
+                    sh './gradlew sonarqube -Dsonar.login=$SONAR_TOKEN'
                 }
             }
         }
 
-        stage('SonarQube Quality Gate') {
+        stage('SonarCloud Quality Gate') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
