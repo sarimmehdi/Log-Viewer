@@ -35,6 +35,30 @@ sonar {
         )
         property("sonar.projectKey", "muhammad-sarim-mehdi_log-viewer")
         property("sonar.organization", "muhammad-sarim-mehdi")
+        property(
+            "sonar.coverage.exclusions",
+            listOf(
+                "**/Preview**",
+                "**/*Preview*",
+                "**/*Preview",
+                "**/*PreviewKt*",
+                "**/*PreviewData*",
+                "**/*ParameterProvider*",
+                "**/ComposableSingletons*",
+                "**/*SnackbarController*",
+                "**/*SnackbarEvent*",
+                "**/*SnackbarAction*",
+                "**/*DtoSerializer*",
+                "**/*RepositoryImpl*",
+                "**/*Dao*",
+                "**/*DtoFts",
+                "**/*Database",
+                "**/*Database*",
+                "**/*_di/**",
+                "**/ui/theme/**",
+                "**/utils/**",
+            ).joinToString(","),
+        )
     }
 }
 

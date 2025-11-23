@@ -67,7 +67,7 @@ pipeline {
         stage('SonarCloud Analysis') {
             steps {
                 withSonarQubeEnv('sonarcloud') {
-                    sh './gradlew sonarqube -Dsonar.login=$SONAR_TOKEN'
+                    sh './gradlew sonar -Dsonar.token=$SONAR_TOKEN'
                 }
             }
         }
