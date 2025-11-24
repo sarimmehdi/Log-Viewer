@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.androidGradlePluginLibrary)
     implementation(libs.kotlinGradlePluginLibrary)
     implementation(libs.kotlinSerializationPluginLibrary)
+    implementation(libs.kotlinPoetLibrary)
     implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }
 

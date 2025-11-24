@@ -48,14 +48,7 @@ class DateDtoSerializer(
 
     companion object {
         const val DATE_DTO_DATASTORE_QUALIFIER = "DATE_DTO_DATASTORE_QUALIFIER"
-
-        enum class DataStoreType(
-            val dataStoreName: String,
-        ) {
-            ACTUAL("DateDto.json"),
-            TEST("DateDtoTest.json"),
-            TEST_ERROR("DateDtoTestError.json"),
-        }
+        const val DATASTORE_NAME = "DateDto.json"
 
         fun create(dataStoreName: String): DateDtoSerializer = DateDtoSerializer(dataStoreName)
     }

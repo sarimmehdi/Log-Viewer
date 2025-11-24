@@ -48,14 +48,7 @@ class SessionDtoSerializer(
 
     companion object {
         const val SESSION_DTO_DATASTORE_QUALIFIER = "SESSION_DTO_DATASTORE_QUALIFIER"
-
-        enum class DataStoreType(
-            val dataStoreName: String,
-        ) {
-            ACTUAL("SessionDto.json"),
-            TEST("SessionDtoTest.json"),
-            TEST_ERROR("SessionDtoTestError.json"),
-        }
+        const val DATASTORE_NAME = "SessionDto.json"
 
         fun create(dataStoreName: String): SessionDtoSerializer = SessionDtoSerializer(dataStoreName)
     }

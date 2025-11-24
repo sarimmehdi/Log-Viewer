@@ -48,14 +48,7 @@ class FooterDtoSerializer(
 
     companion object {
         const val FOOTER_DTO_DATASTORE_QUALIFIER = "FOOTER_DTO_DATASTORE_QUALIFIER"
-
-        enum class DataStoreType(
-            val dataStoreName: String,
-        ) {
-            ACTUAL("FooterDto.json"),
-            TEST("FooterDtoTest.json"),
-            TEST_ERROR("FooterDtoTestError.json"),
-        }
+        const val DATASTORE_NAME = "FooterDto.json"
 
         fun create(dataStoreName: String): FooterDtoSerializer = FooterDtoSerializer(dataStoreName)
     }

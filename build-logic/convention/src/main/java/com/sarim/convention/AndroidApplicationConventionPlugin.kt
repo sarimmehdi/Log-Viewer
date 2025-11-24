@@ -14,7 +14,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal class AndroidApplicationConventionPlugin : Plugin<Project> {
     @Suppress("LongMethod")
-    override fun apply(target: Project) =
+    override fun apply(target: Project) {
         with(target) {
             pluginManager.apply(
                 libs.plugins.androidApplicationPlugin
@@ -51,7 +51,6 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                     versionName = config.versionName
                     testInstrumentationRunner = config.testInstrumentationRunner
                 }
-
                 buildTypes {
                     getByName(config.releaseBuildTypeName) {
                         isMinifyEnabled = true
@@ -83,7 +82,7 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                 "implementation"(platform(libs.koinBomLibrary))
                 "implementation"(libs.bundles.koinBundle)
                 "implementation"(libs.bundles.dataStorageBundle)
-                "implementation"(libs.kotzillaSdkComposeVersion)
+                "implementation"(libs.kotzillaSdkComposeLibrary)
                 "testImplementation"(platform(libs.junitBomLibrary))
                 "testImplementation"(libs.bundles.testBundle)
                 "testRuntimeOnly"(libs.junitPlatformibrary)
@@ -115,4 +114,5 @@ internal class AndroidApplicationConventionPlugin : Plugin<Project> {
                 )
             }
         }
+    }
 }

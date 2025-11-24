@@ -1,8 +1,5 @@
 package com.sarim.nav
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -14,36 +11,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import com.sarim.footer_presentation.FooterScreen
 import com.sarim.footer_presentation.FooterScreenData
-import com.sarim.footer_presentation.FooterScreenToViewModelEvents
-import com.sarim.maincontent_presentation.MainContentScreen
+import com.sarim.header_presentation.HeaderScreenData
 import com.sarim.maincontent_presentation.MainContentScreenData
 import com.sarim.maincontent_presentation.MainContentScreenToViewModelEvents
 import com.sarim.maincontent_presentation.MainContentScreenViewModel
-import com.sarim.sidebar_dates_presentation.SidebarDatesScreen
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenData
-import com.sarim.sidebar_dates_presentation.SidebarDatesScreenToViewModelEvents
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenViewModel
-import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreen
 import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenData
-import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenToViewModelEvents
 import com.sarim.sidebar_sessions_presentation.SidebarSessionsScreenViewModel
 import com.sarim.utils.ui.ObserveAsEvents
 import com.sarim.utils.ui.SnackBarController
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -99,10 +86,10 @@ fun Navigator(
                             sideBarSessionsScreenViewModel.state.collectAsStateWithLifecycle()
                         val mainContentScreenState by
                             mainContentScreenViewModel.state.collectAsStateWithLifecycle()
-                        AppScreenComponent(
+                        AppScreen(
                             modifier = Modifier.padding(innerPadding),
                             data =
-                                AppScreenComponentData(
+                                AppScreenData(
                                     sidebarDatesScreenData =
                                         SidebarDatesScreenData(
                                             dates = sideBarDatesScreenState.dates.toImmutableList(),
@@ -112,6 +99,21 @@ fun Navigator(
                                         SidebarSessionsScreenData(
                                             sessions = sideBarSessionsScreenState.sessions.toImmutableList(),
                                             selectedSession = sideBarSessionsScreenState.selectedSession,
+                                        ),
+                                    headerScreenData =
+                                        HeaderScreenData(
+                                            dropDownType =
+                                                mainContentScreenState
+                                                    .headerScreenState.dropDownType,
+                                            classFilters =
+                                                mainContentScreenState
+                                                    .headerScreenState.classFilters,
+                                            functionFilters =
+                                                mainContentScreenState
+                                                    .headerScreenState.functionFilters,
+                                            logTypeFilters =
+                                                mainContentScreenState
+                                                    .headerScreenState.logTypeFilters,
                                         ),
                                     mainContentScreenData =
                                         MainContentScreenData(
@@ -143,9 +145,14 @@ fun Navigator(
                                         ),
                                 ),
                             onEvent =
-                                AppScreenComponentOnEvent(
+                                AppScreenOnEvent(
                                     sidebarDatesScreenToViewModelEvents = sideBarDatesScreenViewModel::onEvent,
                                     sidebarSessionsScreenToViewModelEvents = sideBarSessionsScreenViewModel::onEvent,
+                                    headerScreenToViewModelEvents = { event ->
+                                        mainContentScreenViewModel.onEvent(
+                                            MainContentScreenToViewModelEvents.HeaderEvent(event),
+                                        )
+                                    },
                                     footerScreenToViewModelEvents = { event ->
                                         mainContentScreenViewModel.onEvent(
                                             MainContentScreenToViewModelEvents.FooterEvent(event),
@@ -158,249 +165,3 @@ fun Navigator(
             },
     )
 }
-
-private const val APP_SCREEN_BACKGROUND_COLOR = 0xFF01070B
-
-@Composable
-private fun AppScreenComponent(
-    data: AppScreenComponentData,
-    onEvent: AppScreenComponentOnEvent,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier =
-            modifier
-                .background(Color(APP_SCREEN_BACKGROUND_COLOR)),
-    ) {
-        Column {
-            SidebarDatesScreen(
-                data = data.sidebarDatesScreenData,
-                onEvent = onEvent.sidebarDatesScreenToViewModelEvents,
-            )
-            SidebarSessionsScreen(
-                data = data.sidebarSessionsScreenData,
-                onEvent = onEvent.sidebarSessionsScreenToViewModelEvents,
-            )
-        }
-        Column {
-//            HeaderComponent(
-//                modifier =
-//                    Modifier
-//                        .padding(
-//                            top = 24.dp,
-//                            start = 18.dp,
-//                            end = 18.dp,
-//                        ),
-//            )
-            MainContentScreen(
-                data = data.mainContentScreenData,
-                modifier =
-                    Modifier
-                        .padding(
-                            top = (27 + 24).dp,
-                            start = 18.dp,
-                            end = 18.dp,
-                        ),
-            )
-            FooterScreen(
-                data = data.footerScreenData,
-                onEvent = onEvent.footerScreenToViewModelEvents,
-                modifier =
-                    Modifier
-                        .padding(
-                            top = 24.dp,
-                            start = 18.dp,
-                            end = 18.dp,
-                        ),
-            )
-        }
-    }
-}
-
-private data class AppScreenComponentData(
-    val sidebarDatesScreenData: SidebarDatesScreenData,
-    val sidebarSessionsScreenData: SidebarSessionsScreenData,
-    val mainContentScreenData: MainContentScreenData,
-    val footerScreenData: FooterScreenData,
-)
-
-private data class AppScreenComponentOnEvent(
-    val sidebarDatesScreenToViewModelEvents: (SidebarDatesScreenToViewModelEvents) -> Unit,
-    val sidebarSessionsScreenToViewModelEvents: (SidebarSessionsScreenToViewModelEvents) -> Unit,
-    val footerScreenToViewModelEvents: (FooterScreenToViewModelEvents) -> Unit,
-)
-
-// @Preview(
-//    device = PIXEL_TABLET,
-// )
-// @Composable
-// fun AppScreenComponentPreview() {
-//    val baseLogItems =
-//        listOf(
-//            MainContentListItemComponentData(
-//                message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                line = Line.Integer(value = 9999),
-//                level =
-//                    Level.Content(
-//                        composable = {
-//                            LevelComponent(
-//                                data =
-//                                    LevelComponentData(
-//                                        name = "ERROR",
-//                                        color = Color(0xFFD30000),
-//                                    ),
-//                                modifier =
-//                                    Modifier
-//                                        .padding(
-//                                            start = 57.dp,
-//                                            end = 73.dp,
-//                                        ),
-//                            )
-//                        },
-//                    ),
-//                textSize = 12.sp,
-//                fontWeight = FontWeight.Bold,
-//            ),
-//            MainContentListItemComponentData(
-//                message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                line = Line.Integer(value = 9999),
-//                level =
-//                    Level.Content(
-//                        composable = {
-//                            LevelComponent(
-//                                data =
-//                                    LevelComponentData(
-//                                        name = "DEBUG",
-//                                        color = Color(0xFF004AD3),
-//                                    ),
-//                                modifier =
-//                                    Modifier
-//                                        .padding(
-//                                            start = 56.dp,
-//                                            end = 74.dp,
-//                                        ),
-//                            )
-//                        },
-//                    ),
-//                textSize = 12.sp,
-//                fontWeight = FontWeight.Bold,
-//            ),
-//            MainContentListItemComponentData(
-//                message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                line = Line.Integer(value = 9999),
-//                level =
-//                    Level.Content(
-//                        composable = {
-//                            LevelComponent(
-//                                data =
-//                                    LevelComponentData(
-//                                        name = "INFO",
-//                                        color = Color(0xFF3FD300),
-//                                    ),
-//                                modifier =
-//                                    Modifier
-//                                        .padding(
-//                                            start = 57.dp,
-//                                            end = 73.dp,
-//                                        ),
-//                            )
-//                        },
-//                    ),
-//                textSize = 12.sp,
-//                fontWeight = FontWeight.Bold,
-//            ),
-//            MainContentListItemComponentData(
-//                message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                line = Line.Integer(value = 9999),
-//                level =
-//                    Level.Content(
-//                        composable = {
-//                            LevelComponent(
-//                                data =
-//                                    LevelComponentData(
-//                                        name = "WARN",
-//                                        color = Color(0xFFD36600),
-//                                    ),
-//                                modifier =
-//                                    Modifier
-//                                        .padding(
-//                                            start = 55.dp,
-//                                            end = 75.dp,
-//                                        ),
-//                            )
-//                        },
-//                    ),
-//                textSize = 12.sp,
-//                fontWeight = FontWeight.Bold,
-//            ),
-//            MainContentListItemComponentData(
-//                message = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                className = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                function = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                line = Line.Integer(value = 9999),
-//                level =
-//                    Level.Content(
-//                        composable = {
-//                            LevelComponent(
-//                                data =
-//                                    LevelComponentData(
-//                                        name = "CRITICAL",
-//                                        color = Color(0xFFFF0004),
-//                                    ),
-//                                modifier =
-//                                    Modifier
-//                                        .padding(
-//                                            start = 55.dp,
-//                                            end = 66.dp,
-//                                        ),
-//                            )
-//                        },
-//                    ),
-//                textSize = 12.sp,
-//                fontWeight = FontWeight.Bold,
-//            ),
-//        )
-//    AppScreenComponent(
-//        data =
-//            AppScreenComponentData(
-//                sidebarComponentData =
-//                    SidebarScreenData(
-//                        dateObjects =
-//                            List(10) { index ->
-//                                SidebarListItemComponentData(
-//                                    heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                                    subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                                    selected = index % 2 == 0,
-//                                )
-//                            }.toImmutableList(),
-//                        sessionObjects =
-//                            List(10) { index ->
-//                                SidebarListItemComponentData(
-//                                    heading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                                    subHeading = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-//                                    selected = index % 2 == 0,
-//                                )
-//                            }.toImmutableList(),
-//                    ),
-//                mainContentComponentData =
-//                    MainContentComponentData(
-//                        logObjects = List(100) { index -> baseLogItems[index % baseLogItems.size] }.toImmutableList(),
-//                    ),
-//                footerComponentData =
-//                    FooterComponentData(
-//                        currentPageNumber = 9,
-//                    ),
-//            ),
-//    )
-// }
-
-@Serializable
-private data object AppScreen : NavKey

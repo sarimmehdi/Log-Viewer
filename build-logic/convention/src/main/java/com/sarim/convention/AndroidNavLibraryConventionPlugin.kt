@@ -47,6 +47,8 @@ internal class AndroidNavLibraryConventionPlugin : Plugin<Project> {
                 "implementation"(libs.kotlinxSerializationCoreLibrary)
                 "implementation"(platform(libs.koinBomLibrary))
                 "implementation"(libs.bundles.koinBundle)
+                "debugImplementation"(platform(libs.androidxComposeBomLibrary))
+                "debugImplementation"(libs.bundles.composeDebugImplementationBundle)
             }
             configureModuleDependencies(
                 modules =
@@ -60,6 +62,7 @@ internal class AndroidNavLibraryConventionPlugin : Plugin<Project> {
                         ":maincontent:maincontent-presentation",
                         ":footer:footer-domain",
                         ":footer:footer-presentation",
+                        ":header:header-presentation",
                     ).map { ModuleName(moduleType = ModuleType.IMPLEMENTATION, name = it) },
             )
         }

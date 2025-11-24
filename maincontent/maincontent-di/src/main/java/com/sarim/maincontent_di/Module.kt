@@ -7,6 +7,7 @@ import com.sarim.footer_domain.usecase.GetFooterUseCase
 import com.sarim.footer_domain.usecase.GetPageInfoUseCase
 import com.sarim.footer_domain.usecase.GetTotalPagesUseCase
 import com.sarim.footer_presentation.FooterScreenUseCases
+import com.sarim.maincontent_data.model.ErrorLogMessageDtoDao
 import com.sarim.maincontent_data.model.LogMessageDtoDao
 import com.sarim.maincontent_data.model.LogMessageDtoDatabase
 import com.sarim.maincontent_data.repository.LogMessageRepositoryImpl
@@ -19,6 +20,7 @@ import com.sarim.maincontent_presentation.MainContentScreenViewModel
 import com.sarim.sidebar_sessions_data.model.SessionDtoSerializer.Companion.SESSION_DTO_DATASTORE_QUALIFIER
 import com.sarim.sidebar_sessions_domain.usecase.GetSelectedSessionUseCase
 import com.sarim.utils.test.DefaultDispatchers
+import com.sarim.utils.test.Storage
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -27,13 +29,30 @@ import org.koin.dsl.lazyModule
 fun module() =
     lazyModule {
         single<LogMessageDtoDao> {
-            Room
-                .databaseBuilder(
-                    androidContext(),
-                    LogMessageDtoDatabase::class.java,
-                    LogMessageDtoDatabase.DATABASE_NAME,
-                ).build()
-                .dao
+            when (BuildConfig.LOG_MESSAGE_DTO_DATABASE) {
+                Storage.IN_MEMORY.typeName -> {
+                    Room
+                        .inMemoryDatabaseBuilder(
+                            androidContext(),
+                            LogMessageDtoDatabase::class.java,
+                        ).build()
+                        .dao
+                }
+
+                Storage.ERROR.typeName -> {
+                    ErrorLogMessageDtoDao()
+                }
+
+                else -> {
+                    Room
+                        .databaseBuilder(
+                            androidContext(),
+                            LogMessageDtoDatabase::class.java,
+                            LogMessageDtoDatabase.DATABASE_NAME,
+                        ).build()
+                        .dao
+                }
+            }
         }
 
         single<LogMessageRepository> {

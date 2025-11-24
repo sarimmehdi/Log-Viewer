@@ -1,9 +1,11 @@
 package com.sarim.convention
 
+import com.sarim.convention.utils.AndroidDataStorageConventionExtension
 import com.sarim.convention.utils.AndroidExtraModulesConventionExtension
 import com.sarim.convention.utils.ModuleName
 import com.sarim.convention.utils.ModuleType
 import com.sarim.convention.utils.configureAndroidLibrary
+import com.sarim.convention.utils.configureDataStorageBuildConfig
 import com.sarim.convention.utils.configureModuleDependencies
 import com.sarim.convention.utils.libs
 import org.gradle.api.Plugin
@@ -35,6 +37,11 @@ internal class AndroidDiLibraryConventionPlugin : Plugin<Project> {
                     "extraModules",
                     AndroidExtraModulesConventionExtension::class.java,
                 )
+            val dataStorageExtension =
+                extensions.create(
+                    "dataStorage",
+                    AndroidDataStorageConventionExtension::class.java,
+                )
 
             afterEvaluate {
                 configureModuleDependencies(
@@ -46,6 +53,7 @@ internal class AndroidDiLibraryConventionPlugin : Plugin<Project> {
                             )
                         },
                 )
+                configureDataStorageBuildConfig(dataStorageExtension)
             }
 
             dependencies {

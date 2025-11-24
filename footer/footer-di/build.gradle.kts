@@ -1,3 +1,5 @@
+import com.sarim.convention.utils.StorageMode
+
 plugins {
     alias(libs.plugins.conventionPluginDiLibraryId)
 }
@@ -9,4 +11,9 @@ extraModules {
             ":footer:footer-domain",
             ":footer:footer-presentation",
         )
+}
+
+dataStorage {
+    dataStorageName = "FOOTER_DTO_DATASTORE"
+    dataStorageMode = StorageMode.REAL
 }

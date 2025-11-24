@@ -32,6 +32,7 @@ kotestVersion = "6.0.5"
 sonarVersion = "7.1.0.6387"
 jacocoVersion = "0.8.13"
 kotzillaVersion = "1.4.0"
+kotlinPoetVersion = "2.2.0"
 conventionPluginAndroidApplicationName = "androidApplicationPlugin"
 conventionPluginAndroidApplicationClass = "com.sarim.convention.AndroidApplicationConventionPlugin"
 conventionPluginDiLibraryName = "diLibraryPlugin"
@@ -100,7 +101,8 @@ pagingComposeLibrary = { group = "androidx.paging", name = "paging-compose", ver
 roomPagingLibrary = { group = "androidx.room", name = "room-paging", version.ref = "roomVersion" }
 googleFontsLibrary = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "googleFontsVersion" }
 kotlinReflectLibrary = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlinVersion" }
-kotzillaSdkComposeVersion = { group = "io.kotzilla", name = "kotzilla-sdk-compose", version.ref = "kotzillaVersion" }
+kotzillaSdkComposeLibrary = { group = "io.kotzilla", name = "kotzilla-sdk-compose", version.ref = "kotzillaVersion" }
+kotlinPoetLibrary = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinPoetVersion" }
 
 [bundles]
 navBundle = [

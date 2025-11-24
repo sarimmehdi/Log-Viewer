@@ -9,6 +9,9 @@ import com.sarim.sidebar_dates_data.model.DateDtoDao
 import com.sarim.sidebar_dates_data.model.DateDtoDatabase
 import com.sarim.sidebar_dates_data.model.DateDtoSerializer
 import com.sarim.sidebar_dates_data.model.DateDtoSerializer.Companion.DATE_DTO_DATASTORE_QUALIFIER
+import com.sarim.sidebar_dates_data.model.ErrorDateDtoDao
+import com.sarim.sidebar_dates_data.model.ErrorDateDtoSerializer
+import com.sarim.sidebar_dates_data.model.InMemoryDateDtoSerializer
 import com.sarim.sidebar_dates_data.repository.SidebarDatesRepositoryImpl
 import com.sarim.sidebar_dates_domain.repository.SidebarDatesRepository
 import com.sarim.sidebar_dates_domain.usecase.GetDatesUseCase
@@ -18,49 +21,81 @@ import com.sarim.sidebar_dates_domain.usecase.SelectDateUseCase
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenUseCases
 import com.sarim.sidebar_dates_presentation.SidebarDatesScreenViewModel
 import com.sarim.utils.test.DefaultDispatchers
+import com.sarim.utils.test.Storage
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.lazyModule
 
 fun module() =
     lazyModule {
-        val dateDtoDataStoreName = DateDtoSerializer.Companion.DataStoreType.ACTUAL.dataStoreName
-        single<DataStore<DateDto>>(named(DATE_DTO_DATASTORE_QUALIFIER)) {
-            DataStoreFactory.create(
-                serializer = DateDtoSerializer.create(dateDtoDataStoreName),
-                produceFile = { androidContext().dataStoreFile(dateDtoDataStoreName) },
-            )
-        }
+        provideDataStore()
+        provideDatabaseDao()
+        provideRepository()
+        provideViewModel()
+    }
 
-        single<DateDtoDao> {
-            Room
-                .databaseBuilder(
-                    androidContext(),
-                    DateDtoDatabase::class.java,
-                    DateDtoDatabase.DATABASE_NAME,
-                ).build()
-                .dao
-        }
+private fun Module.provideDataStore() {
+    val dateDtoDataStoreName = DateDtoSerializer.DATASTORE_NAME
+    single<DataStore<DateDto>>(named(DATE_DTO_DATASTORE_QUALIFIER)) {
+        DataStoreFactory.create(
+            serializer =
+                when (BuildConfig.DATE_DTO_DATASTORE) {
+                    Storage.IN_MEMORY.typeName -> InMemoryDateDtoSerializer.create()
+                    Storage.ERROR.typeName -> ErrorDateDtoSerializer.create()
+                    else -> DateDtoSerializer.create(dateDtoDataStoreName)
+                },
+            produceFile = { androidContext().dataStoreFile(dateDtoDataStoreName) },
+        )
+    }
+}
 
-        single<SidebarDatesRepository> {
-            SidebarDatesRepositoryImpl(
-                dataStore = get(named(DATE_DTO_DATASTORE_QUALIFIER)),
-                dataStoreName = dateDtoDataStoreName,
-                dao = get(),
-            )
-        }
-        viewModel {
-            SidebarDatesScreenViewModel(
-                dispatchers = DefaultDispatchers(),
-                savedStateHandle = get(),
-                useCases =
-                    SidebarDatesScreenUseCases(
-                        getDatesUseCase = GetDatesUseCase(get()),
-                        getSelectedDateUseCase = GetSelectedDateUseCase(get()),
-                        selectDateUseCase = SelectDateUseCase(get()),
-                        getFilteredDatesUseCase = GetFilteredDatesUseCase(get()),
-                    ),
-            )
+private fun Module.provideDatabaseDao() {
+    single<DateDtoDao> {
+        when (BuildConfig.DATE_DTO_DATABASE) {
+            Storage.IN_MEMORY.typeName ->
+                Room
+                    .inMemoryDatabaseBuilder(androidContext(), DateDtoDatabase::class.java)
+                    .build()
+                    .dao
+
+            Storage.ERROR.typeName -> ErrorDateDtoDao()
+            else ->
+                Room
+                    .databaseBuilder(
+                        androidContext(),
+                        DateDtoDatabase::class.java,
+                        DateDtoDatabase.DATABASE_NAME,
+                    ).build()
+                    .dao
         }
     }
+}
+
+private fun Module.provideRepository() {
+    val dateDtoDataStoreName = DateDtoSerializer.DATASTORE_NAME
+    single<SidebarDatesRepository> {
+        SidebarDatesRepositoryImpl(
+            dataStore = get(named(DATE_DTO_DATASTORE_QUALIFIER)),
+            dataStoreName = dateDtoDataStoreName,
+            dao = get(),
+        )
+    }
+}
+
+private fun Module.provideViewModel() {
+    viewModel {
+        SidebarDatesScreenViewModel(
+            dispatchers = DefaultDispatchers(),
+            savedStateHandle = get(),
+            useCases =
+                SidebarDatesScreenUseCases(
+                    getDatesUseCase = GetDatesUseCase(get()),
+                    getSelectedDateUseCase = GetSelectedDateUseCase(get()),
+                    selectDateUseCase = SelectDateUseCase(get()),
+                    getFilteredDatesUseCase = GetFilteredDatesUseCase(get()),
+                ),
+        )
+    }
+}
